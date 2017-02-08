@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fosu.jobapp.activity.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_nav_layout"
+        android:orientation="vertical"></LinearLayout>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bottom_nav_layout"
+        android:layout_width="match_parent"
+        android:background="#eae4e4"
+        android:layout_height="50dp">
+
+        <LinearLayout
+            android:id="@+id/home"
+            style="@style/bottom_menu_item_layout">
+
+            <ImageView
+                style="@style/bottom_menu_item_icon"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                style="@style/bottom_menu_item_text"
+                android:text="首页" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/message"
+            style="@style/bottom_menu_item_layout">
+
+            <ImageView
+                style="@style/bottom_menu_item_icon"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                style="@style/bottom_menu_item_text"
+                android:text="首页" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zoom"
+            style="@style/bottom_menu_item_layout">
+
+            <ImageView
+                style="@style/bottom_menu_item_icon"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                style="@style/bottom_menu_item_text"
+                android:text="首页" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/account"
+            style="@style/bottom_menu_item_layout">
+
+            <ImageView
+                style="@style/bottom_menu_item_icon"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                style="@style/bottom_menu_item_text"
+                android:text="首页" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
