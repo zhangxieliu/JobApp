@@ -100,9 +100,13 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.bigkoo/convenientbanner/2.0.5/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.daimajia.slider/library/1.1.5/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.manuelpeinado.fadingactionbar/fadingactionbar/3.1.2/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.jakewharton/butterknife/8.5.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.jcodecraeer/xrecyclerview/1.3.2/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.wang.avi/library/2.1.3/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/de.hdodenhof/circleimageview/2.1.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/me.gujun.android.taggroup/library/1.4/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-runtime-classes" />
@@ -124,26 +128,33 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="design-23.4.0" level="project" />
-    <orderEntry type="library" exported="" name="library-2.1.3" level="project" />
     <orderEntry type="library" exported="" name="xrecyclerview-1.3.2" level="project" />
+    <orderEntry type="library" exported="" name="picasso-2.3.2" level="project" />
+    <orderEntry type="library" exported="" name="convenientbanner-2.0.5" level="project" />
+    <orderEntry type="library" exported="" name="cardview-v7-25.1.1" level="project" />
+    <orderEntry type="library" exported="" name="library-1.1.5" level="project" />
+    <orderEntry type="library" exported="" name="support-core-ui-25.1.1" level="project" />
+    <orderEntry type="library" exported="" name="systembartint-1.0.3" level="project" />
+    <orderEntry type="library" exported="" name="fadingactionbar-3.1.2" level="project" />
+    <orderEntry type="library" exported="" name="support-core-utils-25.1.1" level="project" />
+    <orderEntry type="library" exported="" name="support-fragment-25.1.1" level="project" />
+    <orderEntry type="library" exported="" name="design-23.4.0" level="project" />
+    <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
+    <orderEntry type="library" exported="" name="library-2.1.3" level="project" />
     <orderEntry type="library" exported="" name="butterknife-annotations-8.5.1" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.5" level="project" />
-    <orderEntry type="library" exported="" name="convenientbanner-2.0.5" level="project" />
+    <orderEntry type="library" exported="" name="circleimageview-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-25.1.1" level="project" />
-    <orderEntry type="library" exported="" name="cardview-v7-25.1.1" level="project" />
     <orderEntry type="library" exported="" name="support-compat-25.1.1" level="project" />
+    <orderEntry type="library" exported="" name="library-1.4" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="hamcrest-core-1.3" level="project" />
     <orderEntry type="library" exported="" name="support-media-compat-25.1.1" level="project" />
-    <orderEntry type="library" exported="" name="support-core-ui-25.1.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="junit-4.12" level="project" />
     <orderEntry type="library" exported="" name="butterknife-8.5.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-25.1.1" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-25.1.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-25.1.1" level="project" />
     <orderEntry type="library" exported="" name="support-vector-drawable-25.1.1" level="project" />
-    <orderEntry type="library" exported="" name="support-core-utils-25.1.1" level="project" />
-    <orderEntry type="library" exported="" name="support-fragment-25.1.1" level="project" />
     <orderEntry type="library" exported="" name="animated-vector-drawable-25.1.1" level="project" />
   </component>
 </module>

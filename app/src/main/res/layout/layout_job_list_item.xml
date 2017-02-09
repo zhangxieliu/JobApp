@@ -18,6 +18,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:textColor="@color/colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="招聘职位" />
@@ -25,6 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
             android:text="新明珠陶瓷集团" />
 
         <LinearLayout
@@ -35,17 +37,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
+                android:textColor="@color/colorPrimary"
                 android:text="佛山" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
                 android:layout_marginRight="8dp"
                 android:text="南庄" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
                 android:layout_marginRight="8dp"
                 android:text="经验不限" />
 
@@ -53,12 +58,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
+                android:textColor="@color/colorPrimary"
                 android:text="本科" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
+                android:textColor="@color/colorPrimary"
                 android:gravity="right"
                 android:text="02月08日" />
         </LinearLayout>
@@ -70,6 +77,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
                 android:layout_marginRight="8dp"
                 android:text="未融资" />
 
@@ -77,12 +85,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
+                android:textColor="@color/colorPrimary"
                 android:text="2000人以上" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
+                android:textColor="@color/colorPrimary"
                 android:text="移动互联网，电子商务" />
         </LinearLayout>
     </LinearLayout>

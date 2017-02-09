@@ -1,52 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/glay"
     android:orientation="vertical">
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/xRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="40dp"></com.jcodecraeer.xrecyclerview.XRecyclerView>
-
-    <RelativeLayout
-        android:id="@+id/top_nav"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center_vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="5dp"
-            android:layout_toLeftOf="@+id/zxing"
-            android:background="@drawable/shape_edit_search"
-            android:clickable="true"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@android:drawable/ic_menu_search" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="搜索公司"
-                android:textColor="@color/glay" />
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/zxing"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:src="@android:drawable/zoom_plate" />
-    </RelativeLayout>
+        android:layout_height="match_parent"></com.jcodecraeer.xrecyclerview.XRecyclerView>
 
 </FrameLayout>

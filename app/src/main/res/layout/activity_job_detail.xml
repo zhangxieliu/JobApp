@@ -1,38 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <RelativeLayout
-        android:id="@+id/top_actionbar"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@android:drawable/ic_media_previous" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="职位详情" />
-
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_toLeftOf="@+id/btn_collection"
-            android:background="@android:drawable/ic_media_previous" />
-
-        <ImageButton
-            android:id="@+id/btn_collection"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:background="@android:drawable/ic_media_previous" />
-    </RelativeLayout>
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -43,7 +14,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="ScrollViewSize">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,12 +26,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="安卓开发工程师"
+                    android:textColor="@color/text_normal_color"
                     android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
+                    android:textColor="@color/text_normal_color"
                     android:text="【10K-20K】" />
             </LinearLayout>
 
@@ -71,24 +45,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:textColor="@color/text_normal_color"
                     android:text="佛山" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:textColor="@color/text_normal_color"
                     android:text="3-5年" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:textColor="@color/text_normal_color"
                     android:text="本科" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:textColor="@color/text_normal_color"
                     android:text="全职" />
             </LinearLayout>
 
@@ -103,27 +81,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
+                android:textColor="@color/text_normal_color"
                 android:text="职位详情" />
 
-            <LinearLayout
+            <me.gujun.android.taggroup.TagGroup
+                android:id="@+id/tag_group"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"></me.gujun.android.taggroup.TagGroup>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="Android" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="移动端" />
-            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_normal_color"
+                android:textSize="12sp"
                 android:text="SwipeRefreshLayout里面需要注意的Api：
     1、setOnRefreshListener(OnRefreshListener listener)  设置下拉监听，当用户下拉的时候会去执行回调
     2、setColorSchemeColors(int... colors) 设置 进度条的颜色变化，最多可以设置4种颜色
@@ -132,7 +102,7 @@
 SwipeRefreshLayout 是谷歌公司推出的用于下拉刷新的控件，SwipeRefreshLayout已经被放到了sdk中，在Version 19.1之后SwipeRefreshLayout 被放到support v4中。
 源码在SDK\sdk\extras\android\support\v4\src\java\android\support\v4\widget\SwipeRefreshLayout.java
 
-谷歌公司只提供了下拉刷新的功能，RecyclerView的出现基本就是为了替代ListView，GridView的。"/>
+谷歌公司只提供了下拉刷新的功能，RecyclerView的出现基本就是为了替代ListView，GridView的。" />
         </LinearLayout>
     </ScrollView>
 
@@ -154,4 +124,46 @@ SwipeRefreshLayout 是谷歌公司推出的用于下拉刷新的控件，SwipeRe
             android:layout_weight="6"
             android:text="和TA聊聊" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/top_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/actionbar_bg_color"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_back_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_normal_color"
+            android:layout_centerInParent="true"
+            android:text="职位详情" />
+
+        <ImageButton
+            android:id="@+id/btn_love"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/btn_collection"
+            android:background="@drawable/btn_like_selector" />
+
+        <ImageButton
+            android:id="@+id/btn_collection"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_collection_selector" />
+    </RelativeLayout>
 </RelativeLayout>
