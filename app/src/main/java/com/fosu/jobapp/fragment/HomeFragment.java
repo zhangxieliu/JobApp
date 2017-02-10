@@ -1,31 +1,26 @@
 package com.fosu.jobapp.fragment;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.bigkoo.convenientbanner.ConvenientBanner;
-import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.bigkoo.convenientbanner.holder.Holder;
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.adapter.JobListAdapter;
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.fosu.jobapp.utils.DensityUtils;
+import com.yalantis.phoenix.PullToRefreshView;
 
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,9 +32,12 @@ import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment {
 
-    ConvenientBanner convenientBanner;
-    @BindView(R.id.xRecyclerView)
-    XRecyclerView xRecyclerView;
+    @BindView(R.id.recycleView)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.pull_to_refresh)
+    PullToRefreshView mPullToRefreshView;
+    private SliderLayout slide;
+    private View view;
 
     @Nullable
     @Override
@@ -61,117 +59,99 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        initImageLoader();
-        init();
         initBanner();
+        init();
     }
 
     private void initBanner() {
-        View bannerView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banner, null);
-        convenientBanner = (ConvenientBanner) bannerView.findViewById(R.id.convenientBanner);
-        xRecyclerView.addHeaderView(bannerView);
-        networkImages = Arrays.asList(images);
-        convenientBanner
-                .setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
-                    @Override
-                    public NetworkImageHolderView createHolder() {
-                        return new NetworkImageHolderView();
-                    }
-                }, networkImages)
-                //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
-//                .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused})
-                //设置指示器的方向
-                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
-        //设置翻页的效果，不需要翻页效果可用不设
-        //.setPageTransformer(Transformer.DefaultTransformer);    集成特效之后会有白屏现象，新版已经分离，如果要集成特效的例子可以看Demo的点击响应。
-//                convenientBanner.setManualPageable(false);//设置不能手动影响
+        view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_banner_view, null, false);
+        slide = (SliderLayout) view.findViewById(R.id.slider);
+
+        HashMap<String, String> url_maps = new HashMap<String, String>();
+        url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
+        url_maps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
+        url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
+        url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
+
+        for (String name : url_maps.keySet()) {
+            TextSliderView textSliderView = new TextSliderView(getActivity());
+            // initialize a SliderLayout
+            textSliderView
+                    .description(name)
+                    .image(url_maps.get(name))
+                    .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                    .setOnSliderClickListener(null);
+
+            //add your extra information
+            textSliderView.bundle(new Bundle());
+            textSliderView.getBundle()
+                    .putString("extra", name);
+
+            slide.addSlider(textSliderView);
+        }
+        slide.setPresetTransformer(SliderLayout.Transformer.Fade);
+        slide.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        slide.setCustomAnimation(new DescriptionAnimation());
+        slide.setDuration(4000);
     }
 
     private void init() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        xRecyclerView.setLayoutManager(layoutManager);
-        xRecyclerView.setAdapter(new JobListAdapter(getActivity(), null));
-        xRecyclerView.setRefreshProgressStyle(ProgressStyle.BallPulseSync);
-        xRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
-        xRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        JobListAdapter adapter = new JobListAdapter(getActivity(), null);
+        mRecyclerView.setAdapter(adapter);
+        adapter.setHeaderView(view);
+        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // 刷新数据
-                new AsyncTask<Void, Void, Void>() {
+                mPullToRefreshView.postDelayed(new Runnable() {
                     @Override
-                    protected Void doInBackground(Void... params) {
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        return null;
+                    public void run() {
+                        mPullToRefreshView.setRefreshing(false);
                     }
+                }, 2000);
+            }
+        });
 
-                    @Override
-                    protected void onPostExecute(Void aVoid) {
-                        xRecyclerView.refreshComplete();
-                    }
-                };
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                Log.i("===", getDistance() + "");
+                if (getDistance() > 160) {
+                    Log.i("===", "开始渐变");
+                }
             }
 
             @Override
-            public void onLoadMore() {
-                // 加载更多数据
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
             }
         });
     }
 
-    //初始化网络图片缓存库
-    private void initImageLoader() {
-        //网络图片例子,结合常用的图片缓存库UIL,你可以根据自己需求自己换其他网络图片库
-        DisplayImageOptions defaultOptions = new DisplayImageOptions
-                .Builder()
-//                .showImageForEmptyUri(R.drawable.ic_default_adimage)
-                .cacheInMemory(true).cacheOnDisk(true).build();
-
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration
-                .Builder(getActivity())
-                .defaultDisplayImageOptions(defaultOptions)
-                .threadPriority(Thread.NORM_PRIORITY - 2)
-                .denyCacheImageMultipleSizesInMemory()
-                .diskCacheFileNameGenerator(new Md5FileNameGenerator())
-                .tasksProcessingOrder(QueueProcessingType.LIFO)
-                .build();
-        ImageLoader.getInstance().init(config);
-    }
-
-    public class NetworkImageHolderView implements Holder<String> {
-        private ImageView imageView;
-
-        @Override
-        public View createView(Context context) {
-            imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            return imageView;
-        }
-
-        @Override
-        public void UpdateUI(Context context, final int position, String data) {
-//            imageView.setImageResource(R.drawable.ic_default_adimage);
-            ImageLoader.getInstance().displayImage(data, imageView);
-        }
+    private int getDistance() {
+        LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+        View firstVisibItem = mRecyclerView.getChildAt(0);
+        int firstItemPosition = layoutManager.findFirstVisibleItemPosition();
+        int itemCount = layoutManager.getItemCount();
+        int recycleViewHeight = mRecyclerView.getHeight();
+        int itemHeight = firstVisibItem.getHeight();
+        int firstItemBottom = layoutManager.getDecoratedBottom(firstVisibItem);
+        return (firstItemPosition + 1) * itemHeight - firstItemBottom;
     }
 
     // 开始自动翻页
     @Override
     public void onResume() {
         super.onResume();
-        //开始自动翻页
-        convenientBanner.startTurning(5000);
+        slide.startAutoCycle();
     }
 
     // 停止自动翻页
     @Override
     public void onPause() {
         super.onPause();
-        //停止翻页
-        convenientBanner.stopTurning();
+        slide.stopAutoCycle();
     }
 }

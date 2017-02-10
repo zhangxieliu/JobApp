@@ -26,7 +26,7 @@
 
             <ImageView
                 style="@style/bottom_menu_item_icon"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@drawable/icon_home_pre" />
 
             <TextView
                 style="@style/bottom_menu_item_text"
@@ -39,7 +39,7 @@
 
             <ImageView
                 style="@style/bottom_menu_item_icon"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@drawable/icon_tab_user_red_selected" />
 
             <TextView
                 style="@style/bottom_menu_item_text"
@@ -52,7 +52,7 @@
 
             <ImageView
                 style="@style/bottom_menu_item_icon"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@drawable/icon_message_pre" />
 
             <TextView
                 style="@style/bottom_menu_item_text"
@@ -65,11 +65,11 @@
 
             <ImageView
                 style="@style/bottom_menu_item_icon"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@drawable/icon_email_nor" />
 
             <TextView
                 style="@style/bottom_menu_item_text"
-                android:text="首页" />
+                android:text="我的" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
