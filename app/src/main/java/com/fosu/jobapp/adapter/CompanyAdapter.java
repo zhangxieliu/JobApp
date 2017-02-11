@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fosu.jobapp.R;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  * Created by Administrator on 2017/2/8.
  */
 
-public class JobListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CompanyAdapter extends SwipeMenuAdapter<CompanyAdapter.Holder> {
     private Context context;
     private List<Object> mDatas = new ArrayList<>(10);
 
@@ -24,7 +25,7 @@ public class JobListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private View mHeaderView;
     private OnItemClickListener mListener;
 
-    public JobListAdapter(Context context, List<Object> datas) {
+    public CompanyAdapter(Context context, List<Object> datas) {
         this.context = context;
 //        mDatas = datas;
         for (int i= 0; i< 10; i++) {
@@ -58,15 +59,20 @@ public class JobListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (mHeaderView != null && viewType == TYPE_HEADER)
-            return new Holder(mHeaderView);
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_job_list_item, parent, false);
-        return new Holder(view);
+    public View onCreateContentView(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_company_detail, null);
+        return view;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public Holder onCompatCreateViewHolder(View realContentView, int viewType) {
+        if (mHeaderView != null && viewType == TYPE_HEADER)
+            return new Holder(mHeaderView);
+        return new Holder(realContentView);
+    }
+
+    @Override
+    public void onBindViewHolder(CompanyAdapter.Holder holder, int position) {
         if (getItemViewType(position) == TYPE_HEADER)
             return;
         final int pos = getRealPosition(holder);
@@ -101,7 +107,7 @@ public class JobListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    interface OnItemClickListener {
+    public interface OnItemClickListener {
         void onItemClick(int postion, Object object);
     }
 }

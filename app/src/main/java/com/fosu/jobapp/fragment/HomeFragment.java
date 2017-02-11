@@ -1,12 +1,15 @@
 package com.fosu.jobapp.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +19,16 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.fosu.jobapp.R;
-import com.fosu.jobapp.adapter.JobListAdapter;
+import com.fosu.jobapp.activity.JobDetailActivity;
+import com.fosu.jobapp.adapter.JobAdapter;
 import com.fosu.jobapp.utils.DensityUtils;
 import com.yalantis.phoenix.PullToRefreshView;
+import com.yanzhenjie.recyclerview.swipe.Closeable;
+import com.yanzhenjie.recyclerview.swipe.OnSwipeMenuItemClickListener;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,11 +43,14 @@ import butterknife.ButterKnife;
 public class HomeFragment extends Fragment {
 
     @BindView(R.id.recycleView)
-    RecyclerView mRecyclerView;
+    SwipeMenuRecyclerView mRecyclerView;
     @BindView(R.id.pull_to_refresh)
     PullToRefreshView mPullToRefreshView;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     private SliderLayout slide;
     private View view;
+    private int mDistanceY = 0;
 
     @Nullable
     @Override
@@ -60,9 +73,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         initBanner();
-        init();
+        initRecyclerView();
     }
 
+    /**
+     * 初始化广告轮播图
+     */
     private void initBanner() {
         view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_banner_view, null, false);
         slide = (SliderLayout) view.findViewById(R.id.slider);
@@ -89,16 +105,20 @@ public class HomeFragment extends Fragment {
 
             slide.addSlider(textSliderView);
         }
-        slide.setPresetTransformer(SliderLayout.Transformer.Fade);
-        slide.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        slide.setCustomAnimation(new DescriptionAnimation());
+        slide.setPresetTransformer(SliderLayout.Transformer.Default);
+        slide.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
+//        slide.setCustomAnimation(new DescriptionAnimation());
         slide.setDuration(4000);
     }
 
-    private void init() {
+    /**
+     * 初始化SwipeRecyclerView的布局，设置adapter，添加滚动监听实现状态栏颜色渐变
+     */
+    private void initRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        JobListAdapter adapter = new JobListAdapter(getActivity(), null);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        JobAdapter adapter = new JobAdapter(getActivity(), null);
         mRecyclerView.setAdapter(adapter);
         adapter.setHeaderView(view);
         mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
@@ -116,42 +136,66 @@ public class HomeFragment extends Fragment {
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                Log.i("===", getDistance() + "");
-                if (getDistance() > 160) {
-                    Log.i("===", "开始渐变");
+                mDistanceY += dy;
+                int toolbarHeight = mToolbar.getBottom();
+                if (mDistanceY <= toolbarHeight) {
+                    float scale = (float) mDistanceY / toolbarHeight;
+                    float alpha = scale * 255;
+                    mToolbar.setBackgroundColor(Color.argb((int) alpha, 3, 169, 244));
+                } else {
+                    mToolbar.setBackgroundResource(R.color.actionbar_bg_color);
                 }
             }
-
+        });
+        adapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
+            public void onItemClick(int postion, Object object) {
+                startActivity(new Intent(getActivity(), JobDetailActivity.class));
+                getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
+            }
+        });
+        initSwipeMenu();
+    }
+
+    /**
+     * 初始化SwipeRecyclerView侧滑项菜单
+     */
+    private void initSwipeMenu() {
+        SwipeMenuCreator swipeMenuCreator = new SwipeMenuCreator() {
+            @Override
+            public void onCreateMenu(SwipeMenu swipeLeftMenu, SwipeMenu swipeRightMenu, int viewType) {
+                SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity())
+                        .setBackgroundDrawable(R.color.actionbar_bg_color)
+                        .setImage(R.drawable.icon_not_interested) // 图标。
+                        .setText("不感兴趣") // 文字。
+                        .setTextColor(getResources().getColor(R.color.text_gray_color)) // 文字颜色。
+                        .setTextSize(12) // 文字大小。
+                        .setWidth(DensityUtils.dp2px(getActivity(), 100))
+                        .setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+                if (viewType == JobAdapter.TYPE_NORMAL)
+                    swipeRightMenu.addMenuItem(deleteItem);// 添加一个按钮到右侧侧菜单。.
+            }
+        };
+        mRecyclerView.setSwipeMenuCreator(swipeMenuCreator);
+        mRecyclerView.setSwipeMenuItemClickListener(new OnSwipeMenuItemClickListener() {
+            @Override
+            public void onItemClick(Closeable closeable, int adapterPosition, int menuPosition, int direction) {
+
             }
         });
     }
 
-    private int getDistance() {
-        LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
-        View firstVisibItem = mRecyclerView.getChildAt(0);
-        int firstItemPosition = layoutManager.findFirstVisibleItemPosition();
-        int itemCount = layoutManager.getItemCount();
-        int recycleViewHeight = mRecyclerView.getHeight();
-        int itemHeight = firstVisibItem.getHeight();
-        int firstItemBottom = layoutManager.getDecoratedBottom(firstVisibItem);
-        return (firstItemPosition + 1) * itemHeight - firstItemBottom;
-    }
-
-    // 开始自动翻页
     @Override
     public void onResume() {
         super.onResume();
+        // 开始自动翻页
         slide.startAutoCycle();
     }
 
-    // 停止自动翻页
     @Override
     public void onPause() {
         super.onPause();
+        // 停止自动翻页
         slide.stopAutoCycle();
     }
 }

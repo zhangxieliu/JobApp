@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:textColor="@color/text_normal_color"
-                android:textSize="12sp" />
+                android:textSize="@dimen/sm_text_size" />
         </LinearLayout>
     </ScrollView>
 
@@ -213,7 +213,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="职位详情"
-            android:textColor="@color/text_normal_color" />
+            android:textColor="@color/white" />
 
         <ImageButton
             android:id="@+id/btn_love"

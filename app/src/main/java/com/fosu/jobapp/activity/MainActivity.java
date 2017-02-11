@@ -1,15 +1,10 @@
 package com.fosu.jobapp.activity;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -24,8 +19,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class MainActivity extends Activity {
+public class MainActivity extends SwipeBackActivity {
     @BindView(R.id.home)
     LinearLayout home;
     @BindView(R.id.message)
@@ -35,19 +32,17 @@ public class MainActivity extends Activity {
     @BindView(R.id.account)
     LinearLayout account;
     private FragmentManager fragmentManager;
+    private SwipeBackLayout mSwipeBackLayout;
     private List<LinearLayout> nav;
     private List<Fragment> fragments = new ArrayList<>();
-    private HomeFragment homeFragment;
     private long exitTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        getActionBar().setCustomView(R.layout.layout_actionbar);//ActionBar的自定义布局文件
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         ButterKnife.bind(this);
+        mSwipeBackLayout = getSwipeBackLayout();
         init();
     }
 
@@ -104,11 +99,6 @@ public class MainActivity extends Activity {
     }
 
     private void initFragment(int index) {
-        if (index == 2) {
-            getActionBar().show();
-        } else {
-            getActionBar().hide();
-        }
         for (int i = 0; i < fragments.size(); i++) {
             if (i == index && fragments.get(i).isHidden()) {
                 fragmentManager.beginTransaction().show(fragments.get(i)).commit();

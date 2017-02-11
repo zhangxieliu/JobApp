@@ -14,11 +14,12 @@
         android:orientation="vertical"></LinearLayout>
 
     <LinearLayout
-        android:layout_alignParentBottom="true"
         android:id="@+id/bottom_nav_layout"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="#eae4e4"
-        android:layout_height="50dp">
+        android:padding="5dp">
 
         <LinearLayout
             android:id="@+id/home"

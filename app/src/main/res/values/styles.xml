@@ -1,14 +1,8 @@
 <resources>
 
-    <style name="AppTheme" parent="Base.Widget.AppCompat.ActionBar">
-        <item name="android:windowActionBarOverlay">true</item>
-        <!-- 让actionbar漂浮 -->
-        <item name="android:actionBarStyle">@style/my_actionbar_style</item>
-    </style>
-
-    <style name="my_actionbar_style" parent="Base.Widget.AppCompat.ActionBar">
-        <!-- 设置actionbar 背景色 透明 -->
-        <item name="android:background">#33000000</item>
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:listDivider">@drawable/divider</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="bottom_menu_item_layout">

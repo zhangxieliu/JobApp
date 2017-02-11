@@ -6,9 +6,9 @@
 
     <color name="black_overlay">#66000000</color>
     <color name="white">#fff</color>
-    <color name="gray">#dfdbdb</color>
+    <color name="gray">#eceff1</color>
     <color name="text_normal_color">#212121</color>
     <color name="text_gray_color">#5c5b5b</color>
-    <color name="actionbar_bg_color">#e4e0e0</color>
+    <color name="actionbar_bg_color">#03a9f4</color>
     <color name="divide_line_color">#ccc</color>
 </resources>

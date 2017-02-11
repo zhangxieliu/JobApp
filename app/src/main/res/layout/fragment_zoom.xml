@@ -1,16 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     android:orientation="vertical">
 
-        <com.daimajia.slider.library.SliderLayout
-            android:id="@+id/slider"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:contentInsetStart="0dp"
+        android:background="@color/actionbar_bg_color">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            custom:auto_cycle="true"
-            custom:indicator_visibility="visible"
-            custom:pager_animation="Fade"
-            custom:pager_animation_span="1500" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="公司"
+                android:textColor="@color/white"
+                android:textSize="@dimen/lg_text_size" />
+
+            <ImageButton
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/btn_search_selector" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <com.yalantis.taurus.PullToRefreshView
+        android:id="@+id/pull_to_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:type="sun">
+
+        <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
+    </com.yalantis.taurus.PullToRefreshView>
+
 </LinearLayout>
