@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <!--
+        inActiveColor:非活动标签的颜色，在标签图标和标题中使用。
+        activeColor:活动标签的颜色，在标签图标和标题中使用。
+        barColorWhenSelected:整个bottombar应当选择此选项卡的颜色。
+        badgeBackgroundColor:此标签中任何徽章的背景颜色。
+    -->
+    <tab
+        activeColor="@color/actionbar_bg_color"
+        icon="@drawable/icon_home"
+        id="@+id/tab_home"
+        inActiveColor="@color/text_gray_color"
+        title="主页" />
+    <tab
+        activeColor="@color/actionbar_bg_color"
+        icon="@drawable/icon_company"
+        id="@+id/tab_company"
+        inActiveColor="@color/text_gray_color"
+        title="公司" />
+    <tab
+        activeColor="@color/actionbar_bg_color"
+        icon="@drawable/icon_message"
+        id="@+id/tab_zoom"
+        inActiveColor="@color/text_gray_color"
+        title="消息" />
+    <tab
+        activeColor="@color/actionbar_bg_color"
+        icon="@drawable/icon_account"
+        id="@+id/tab_account"
+        inActiveColor="@color/text_gray_color"
+        title="我" />
+</tabs>

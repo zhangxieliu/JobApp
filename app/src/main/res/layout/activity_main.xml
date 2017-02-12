@@ -1,76 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     tools:context="com.fosu.jobapp.activity.MainActivity">
 
-    <LinearLayout
+    <!--
+    bb_tabXmlResource
+        the XML Resource id for your tabs, that reside in values/xml/
+    bb_tabletMode
+        if you want the BottomBar to behave differently for tablets. There's an example of this in the sample project!
+    bb_behavior
+        shifting: the selected tab is wider than the rest. shy: put the BottomBar inside a CoordinatorLayout and it'll automatically hide on scroll! underNavbar: draw the BottomBar under the navBar!
+    bb_inActiveTabAlpha
+        the alpha value for inactive tabs, that's used in the tab icons and titles.
+    bb_activeTabAlpha
+        the alpha value for active tabs, that's used in the tab icons and titles.
+    bb_inActiveTabColor
+        the color for inactive tabs, that's used in the tab icons and titles.
+    bb_activeTabColor
+        the color for active tabs, that's used in the tab icons and titles.
+    bb_badgeBackgroundColor
+        the background color for any Badges in this BottomBar.
+    bb_titleTextAppearance
+        custom textAppearance for the titles
+    bb_titleTypeFace
+        path for your custom font file, such as fonts/MySuperDuperFont.ttf. In that case your font path would look like src/main/assets/fonts/MySuperDuperFont.ttf, but you only need to provide fonts/MySuperDuperFont.ttf, as the asset folder will be auto-filled for you.
+    bb_showShadow
+        controls whether the shadow is shown or hidden, defaults to true.
+    -->
+    <!-- This could be your fragment container, or something -->
+    <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_nav_layout"
-        android:orientation="vertical"></LinearLayout>
+        android:layout_above="@+id/bottomBar" />
 
-    <LinearLayout
-        android:id="@+id/bottom_nav_layout"
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:background="#eae4e4"
-        android:padding="5dp">
-
-        <LinearLayout
-            android:id="@+id/home"
-            style="@style/bottom_menu_item_layout">
-
-            <ImageView
-                style="@style/bottom_menu_item_icon"
-                android:background="@drawable/icon_home_pre" />
-
-            <TextView
-                style="@style/bottom_menu_item_text"
-                android:text="首页" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/message"
-            style="@style/bottom_menu_item_layout">
-
-            <ImageView
-                style="@style/bottom_menu_item_icon"
-                android:background="@drawable/icon_tab_user_red_selected" />
-
-            <TextView
-                style="@style/bottom_menu_item_text"
-                android:text="首页" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/zoom"
-            style="@style/bottom_menu_item_layout">
-
-            <ImageView
-                style="@style/bottom_menu_item_icon"
-                android:background="@drawable/icon_message_pre" />
-
-            <TextView
-                style="@style/bottom_menu_item_text"
-                android:text="首页" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/account"
-            style="@style/bottom_menu_item_layout">
-
-            <ImageView
-                style="@style/bottom_menu_item_icon"
-                android:background="@drawable/icon_email_nor" />
-
-            <TextView
-                style="@style/bottom_menu_item_text"
-                android:text="我的" />
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_marginTop="-5dp"
+        android:background="@color/gray"
+        app:bb_behavior="shifting"
+        app:bb_tabXmlResource="@xml/bottombar_tabs"
+        app:bb_titleTextAppearance="@style/CustomTitleTextAppearance" />
 </RelativeLayout>

@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
@@ -137,9 +136,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 mDistanceY += dy;
-                int toolbarHeight = mToolbar.getBottom();
-                if (mDistanceY <= toolbarHeight) {
-                    float scale = (float) mDistanceY / toolbarHeight;
+                int bannerHeight = DensityUtils.dp2px(getActivity(), 160) / 2;
+                if (mDistanceY <= bannerHeight) {
+                    float scale = (float) mDistanceY / bannerHeight;
                     float alpha = scale * 255;
                     mToolbar.setBackgroundColor(Color.argb((int) alpha, 3, 169, 244));
                 } else {
