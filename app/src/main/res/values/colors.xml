@@ -11,4 +11,5 @@
     <color name="text_gray_color">#5c5b5b</color>
     <color name="actionbar_bg_color">#03a9f4</color>
     <color name="divide_line_color">#ccc</color>
+    <color name="bottombar_color">#e9eaea</color>
 </resources>

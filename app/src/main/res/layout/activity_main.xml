@@ -45,9 +45,9 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="-5dp"
-        android:background="@color/gray"
+        android:background="@color/bottombar_color"
         app:bb_behavior="shifting"
+        app:bb_showShadow="false"
         app:bb_tabXmlResource="@xml/bottombar_tabs"
         app:bb_titleTextAppearance="@style/CustomTitleTextAppearance" />
 </RelativeLayout>
