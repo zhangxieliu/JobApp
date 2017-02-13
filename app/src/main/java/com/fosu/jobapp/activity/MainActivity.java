@@ -39,6 +39,9 @@ public class MainActivity extends SwipeBackActivity {
     private FragmentManager fragmentManager;
     private SwipeBackLayout mSwipeBackLayout;
     private long exitTime = 0;
+    private HomeFragment homeFragment;
+    private ZoomFragment zoomFragment;
+    private AccountFragment accountFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,17 +61,6 @@ public class MainActivity extends SwipeBackActivity {
         ButterKnife.bind(this);
         mSwipeBackLayout = getSwipeBackLayout();
         init();
-//
-//        int statusBarHeight = -1;
-//        //获取status_bar_height资源的ID
-//        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-//        if (resourceId > 0) {
-//            //根据资源ID获取响应的尺寸值
-//            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-//        }
-//        if (statusBarHeight != -1) {
-//            mainLayout.setPadding(0, statusBarHeight, 0, 0);
-//        }
     }
 
     @TargetApi(19)
@@ -93,16 +85,24 @@ public class MainActivity extends SwipeBackActivity {
                 mainLayout.setFitsSystemWindows(true);
                 switch (tabId) {
                     case R.id.tab_home:
-                        fragment = new HomeFragment();
+                        if (homeFragment == null)
+                            homeFragment = new HomeFragment();
+                        fragment = homeFragment;
                         break;
                     case R.id.tab_company:
-                        fragment = new ZoomFragment();
+                        if (zoomFragment == null)
+                            zoomFragment = new ZoomFragment();
+                        fragment = zoomFragment;
                         break;
                     case R.id.tab_zoom:
-                        fragment = new HomeFragment();
+                        if (homeFragment == null)
+                            homeFragment = new HomeFragment();
+                        fragment = homeFragment;
                         break;
                     case R.id.tab_account:
-                        fragment = new AccountFragment();
+                        if (accountFragment == null)
+                            accountFragment = new AccountFragment();
+                        fragment = accountFragment;
                         mainLayout.setFitsSystemWindows(false);
                         break;
                 }
