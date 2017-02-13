@@ -56,6 +56,7 @@ public class MainActivity extends SwipeBackActivity {
         // enable status bar tint
         tintManager.setStatusBarTintEnabled(true);
         // enable navigation bar tint
+
         tintManager.setNavigationBarTintEnabled(true);
         tintManager.setTintColor(Color.parseColor("#03a9f4"));
         ButterKnife.bind(this);
