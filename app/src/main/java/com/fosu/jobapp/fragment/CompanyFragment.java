@@ -38,6 +38,7 @@ import butterknife.ButterKnife;
  */
 
 public class CompanyFragment extends Fragment {
+    private static final String TAG = "CompanyFragment";
     @BindView(R.id.dropDownMenu)
     DropDownMenu mDropDownMenu;
     private View contentView;
@@ -94,9 +95,6 @@ public class CompanyFragment extends Fragment {
     }
 
     private String headers[] = {"城市", "经验", "学历", "公司"};
-    private List<View> popupViews = new ArrayList<>();
-
-
     private GirdDropDownAdapter cityAdapter;
     private ListDropDownAdapter ageAdapter;
     private ListDropDownAdapter sexAdapter;
@@ -115,12 +113,12 @@ public class CompanyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_company, container, false);
         ButterKnife.bind(this, view);
+        initView();
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        initView();
         initRecyclerView();
     }
 
@@ -161,6 +159,7 @@ public class CompanyFragment extends Fragment {
             }
         });
 
+        List<View> popupViews = new ArrayList<>();
         //init popupViews
         popupViews.add(cityView);
         popupViews.add(ageView);
@@ -212,17 +211,18 @@ public class CompanyFragment extends Fragment {
 
         //init context view
         contentView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_zoom, null);
-
         //init dropdownview
         mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
+
+        Log.i(TAG, "initView: " + popupViews.size() + ":" + Arrays.asList(headers).size());
     }
 
-    @Override
-    public void onPause() {
-        if (mDropDownMenu.isShowing()) {
-            mDropDownMenu.closeMenu();
-        } else {
-            super.onPause();
-        }
-    }
+//    @Override
+//    public void onDestroy() {
+//        if (mDropDownMenu.isShowing()) {
+//            mDropDownMenu.closeMenu();
+//        } else {
+//            super.onDestroy();
+//        }
+//    }
 }

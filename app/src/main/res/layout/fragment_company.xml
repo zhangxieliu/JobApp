@@ -40,9 +40,9 @@
         app:dddividerColor="@color/gray"
         app:ddmaskColor="@color/mask_color"
         app:ddmenuBackgroundColor="@color/white"
-        app:ddmenuSelectedIcon="@mipmap/drop_down_selected_icon"
+        app:ddmenuSelectedIcon="@drawable/ic_drop_down_selected"
         app:ddmenuTextSize="13sp"
-        app:ddmenuUnselectedIcon="@mipmap/drop_down_unselected_icon"
+        app:ddmenuUnselectedIcon="@drawable/ic_drop_down_unselected"
         app:ddtextSelectedColor="@color/drop_down_selected"
         app:ddtextUnselectedColor="@color/drop_down_unselected"
         app:ddunderlineColor="@color/gray" />
