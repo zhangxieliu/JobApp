@@ -96,6 +96,7 @@ public class CompanyFragment extends Fragment {
     private String headers[] = {"城市", "经验", "学历", "公司"};
     private List<View> popupViews = new ArrayList<>();
 
+
     private GirdDropDownAdapter cityAdapter;
     private ListDropDownAdapter ageAdapter;
     private ListDropDownAdapter sexAdapter;
