@@ -1,7 +1,10 @@
 package com.fosu.jobapp.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,9 +16,8 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.fragment.CompanyInfoFragment;
-import com.ogaclejapan.smarttablayout.SmartTabLayout;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+import com.fosu.jobapp.utils.DensityUtils;
+import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
 import java.util.HashMap;
 
@@ -36,7 +38,7 @@ public class CompanyDetailActivity extends SwipeBackActivity {
     @BindView(R.id.custom_indicator)
     PagerIndicator customIndicator;
     @BindView(R.id.viewPagerTab)
-    SmartTabLayout viewPagerTab;
+    NavigationTabStrip viewPagerTab;
     @BindView(R.id.viewPager)
     ViewPager viewPager;
 
@@ -55,10 +57,10 @@ public class CompanyDetailActivity extends SwipeBackActivity {
      */
     private void initBanner() {
         HashMap<String, String> url_maps = new HashMap<String, String>();
-        url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
-        url_maps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
-        url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
-        url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
+        url_maps.put("Android", "https://raw.githubusercontent.com/hugeterry/CoordinatorTabLayout/master/sample/src/main/res/mipmap-hdpi/bg_android.jpg");
+        url_maps.put("IOS", "https://raw.githubusercontent.com/hugeterry/CoordinatorTabLayout/master/sample/src/main/res/mipmap-hdpi/bg_ios.jpg");
+        url_maps.put("前端", "https://raw.githubusercontent.com/hugeterry/CoordinatorTabLayout/master/sample/src/main/res/mipmap-hdpi/bg_other.jpg");
+        url_maps.put("大数据", "https://raw.githubusercontent.com/hugeterry/CoordinatorTabLayout/master/sample/src/main/res/mipmap-hdpi/bg_js.jpg");
         for (String name : url_maps.keySet()) {
             TextSliderView imageSliderView = new TextSliderView(this);
             imageSliderView
@@ -85,15 +87,31 @@ public class CompanyDetailActivity extends SwipeBackActivity {
     }
 
     private void initViewPager() {
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
-                getSupportFragmentManager(),
-                FragmentPagerItems.with(this)
-                        .add("公司概述", CompanyInfoFragment.class)
-                        .add("热招职位", CompanyInfoFragment.class)
-                        .create()
-        );
-        viewPager.setAdapter(adapter);
-        viewPagerTab.setViewPager(viewPager);
+        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return new CompanyInfoFragment();
+            }
+
+            @Override
+            public int getCount() {
+                return 3;
+            }
+        });
+        viewPagerTab.setTitles("公司概述", "热招职位", "公司问答");
+        viewPagerTab.setTitleSize(DensityUtils.sp2px(this, 15));
+        viewPagerTab.setStripColor(getResources().getColor(R.color.actionbar_bg_color, null));
+        viewPagerTab.setStripWeight(DensityUtils.dp2px(this, 3));
+        viewPagerTab.setStripFactor(2);
+        viewPagerTab.setStripType(NavigationTabStrip.StripType.LINE);
+        viewPagerTab.setStripGravity(NavigationTabStrip.StripGravity.BOTTOM);
+//        viewPagerTab.setTypeface("font/drugs.otf");
+        viewPagerTab.setCornersRadius(3);
+        viewPagerTab.setAnimationDuration(300);
+        viewPagerTab.setInactiveColor(Color.GRAY);
+        viewPagerTab.setActiveColor(Color.BLACK);
+        viewPagerTab.setViewPager(viewPager, 0);
+        viewPagerTab.setTabIndex(0, false);
     }
 
     @OnClick(R.id.btn_back)

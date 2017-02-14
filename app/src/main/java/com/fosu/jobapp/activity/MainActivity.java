@@ -9,27 +9,21 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.fragment.AccountFragment;
+import com.fosu.jobapp.fragment.CompanyFragment;
 import com.fosu.jobapp.fragment.HomeFragment;
-import com.fosu.jobapp.fragment.ZoomFragment;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
-
-import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
 
 public class MainActivity extends SwipeBackActivity {
     @BindView(R.id.bottomBar)
@@ -40,7 +34,7 @@ public class MainActivity extends SwipeBackActivity {
     private SwipeBackLayout mSwipeBackLayout;
     private long exitTime = 0;
     private HomeFragment homeFragment;
-    private ZoomFragment zoomFragment;
+    private CompanyFragment zoomFragment;
     private AccountFragment accountFragment;
 
     @Override
@@ -92,7 +86,7 @@ public class MainActivity extends SwipeBackActivity {
                         break;
                     case R.id.tab_company:
                         if (zoomFragment == null)
-                            zoomFragment = new ZoomFragment();
+                            zoomFragment = new CompanyFragment();
                         fragment = zoomFragment;
                         break;
                     case R.id.tab_zoom:

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -195,7 +196,7 @@
     <RelativeLayout
         android:id="@+id/top_actionbar"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:layout_alignParentTop="true"
         android:background="@color/actionbar_bg_color"
         android:gravity="center_vertical">
@@ -215,22 +216,28 @@
             android:text="职位详情"
             android:textColor="@color/white" />
 
-        <ImageButton
-            android:id="@+id/btn_love"
+        <com.ldoublem.thumbUplib.ThumbUpView
+            android:id="@+id/thumbUpView"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/btn_collection"
-            android:background="@drawable/btn_like_selector" />
+            app:cracksColor="@color/white"
+            app:edgeColor="#e63d31"
+            app:fillColor="#e63d31" />
 
-        <ImageButton
+        <com.sackcentury.shinebuttonlib.ShineButton
             android:id="@+id/btn_collection"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:background="@drawable/btn_collection_selector" />
+            app:btn_color="@color/bottombar_color"
+            app:btn_fill_color="#efd80c"
+            app:enable_flashing="true"
+            app:shine_size="10dp"
+            app:siShape="@raw/star" />
     </RelativeLayout>
 </RelativeLayout>
