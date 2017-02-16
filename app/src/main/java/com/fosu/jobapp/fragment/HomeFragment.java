@@ -19,6 +19,7 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.activity.JobDetailActivity;
+import com.fosu.jobapp.activity.MainActivity;
 import com.fosu.jobapp.adapter.JobAdapter;
 import com.fosu.jobapp.listener.OnActivityListener;
 import com.fosu.jobapp.utils.DensityUtils;
@@ -29,6 +30,7 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
+import com.zaaach.citypicker.CityPickerActivity;
 
 import java.util.HashMap;
 
@@ -189,12 +191,31 @@ public class HomeFragment extends Fragment {
     }
 
     private OnActivityListener listener;
+
     public void setOnActivityListener(OnActivityListener listener) {
         this.listener = listener;
     }
 
-    @OnClick(R.id.toolbar)
-    public void onClick() {
-        listener.onActivity();
+    private static final int REQUEST_CODE_PICK_CITY = 0;
+
+    /**
+     * 进入选择城市activity
+     */
+    private void enterSelectCity() {
+        //启动
+        startActivityForResult(new Intent(getActivity(), CityPickerActivity.class),REQUEST_CODE_PICK_CITY);
+    }
+
+    @OnClick({R.id.search, R.id.zxing})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.search:
+                listener.onActivity();
+                break;
+            case R.id.zxing:
+                enterSelectCity();
+                getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
+                break;
+        }
     }
 }

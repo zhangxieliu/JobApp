@@ -91,6 +91,7 @@ public class MainActivity extends SwipeBackActivity {
                                 public void onActivity() {
 //                                    enterSelectCity();
                                     startActivityForResult(new Intent(MainActivity.this, SearchActivity.class), 0x002);
+                                    overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
                                 }
                             });
                         }
@@ -121,14 +122,6 @@ public class MainActivity extends SwipeBackActivity {
     }
 
     private static final int REQUEST_CODE_PICK_CITY = 0;
-
-    /**
-     * 进入选择城市activity
-     */
-    private void enterSelectCity() {
-        //启动
-        startActivityForResult(new Intent(MainActivity.this, CityPickerActivity.class),REQUEST_CODE_PICK_CITY);
-    }
 
     //重写onActivityResult方法
     @Override
