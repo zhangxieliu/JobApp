@@ -3,6 +3,7 @@ package com.fosu.jobapp.activity;
 import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,9 +17,12 @@ import com.fosu.jobapp.R;
 import com.fosu.jobapp.fragment.AccountFragment;
 import com.fosu.jobapp.fragment.CompanyFragment;
 import com.fosu.jobapp.fragment.HomeFragment;
+import com.fosu.jobapp.listener.OnActivityListener;
+import com.fosu.jobapp.utils.LogUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
+import com.zaaach.citypicker.CityPickerActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,8 +84,16 @@ public class MainActivity extends SwipeBackActivity {
                 mainLayout.setFitsSystemWindows(true);
                 switch (tabId) {
                     case R.id.tab_home:
-                        if (homeFragment == null)
+                        if (homeFragment == null){
                             homeFragment = new HomeFragment();
+                            homeFragment.setOnActivityListener(new OnActivityListener() {
+                                @Override
+                                public void onActivity() {
+//                                    enterSelectCity();
+                                    startActivityForResult(new Intent(MainActivity.this, SearchActivity.class), 0x002);
+                                }
+                            });
+                        }
                         fragment = homeFragment;
                         break;
                     case R.id.tab_company:
@@ -106,6 +118,27 @@ public class MainActivity extends SwipeBackActivity {
                         .commit();
             }
         });
+    }
+
+    private static final int REQUEST_CODE_PICK_CITY = 0;
+
+    /**
+     * 进入选择城市activity
+     */
+    private void enterSelectCity() {
+        //启动
+        startActivityForResult(new Intent(MainActivity.this, CityPickerActivity.class),REQUEST_CODE_PICK_CITY);
+    }
+
+    //重写onActivityResult方法
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK){
+            if (data != null){
+                String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
+                LogUtils.i("当前选择：" + city);
+            }
+        }
     }
 
     @Override

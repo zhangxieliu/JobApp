@@ -14,13 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.activity.JobDetailActivity;
 import com.fosu.jobapp.adapter.JobAdapter;
+import com.fosu.jobapp.listener.OnActivityListener;
 import com.fosu.jobapp.utils.DensityUtils;
 import com.yalantis.phoenix.PullToRefreshView;
 import com.yanzhenjie.recyclerview.swipe.Closeable;
@@ -31,10 +31,10 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/2/8.
@@ -186,5 +186,15 @@ public class HomeFragment extends Fragment {
         super.onPause();
         // 停止自动翻页
         slide.stopAutoCycle();
+    }
+
+    private OnActivityListener listener;
+    public void setOnActivityListener(OnActivityListener listener) {
+        this.listener = listener;
+    }
+
+    @OnClick(R.id.toolbar)
+    public void onClick() {
+        listener.onActivity();
     }
 }

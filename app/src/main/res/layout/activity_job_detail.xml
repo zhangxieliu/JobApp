@@ -224,7 +224,8 @@
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/btn_collection"
             app:cracksColor="@color/white"
-            app:edgeColor="#e63d31"
+            app:edgeColor="@color/white"
+            bgColor="@color/gray"
             app:fillColor="#e63d31" />
 
         <com.sackcentury.shinebuttonlib.ShineButton

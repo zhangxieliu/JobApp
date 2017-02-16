@@ -80,11 +80,15 @@ dependencies {
     // 底部导航栏
     compile 'com.roughike:bottom-bar:2.1.1'
     // 点赞的图标
-    compile 'com.ldoublem.thumbUplib:ThumbUplib:0.2'
+    compile 'com.ldoublem.thumbUplib:ThumbUplib:0.5'
     compile 'com.sackcentury:shinebutton:0.1.6'
     compile 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.0.6'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:support-v4:19.1.0'
     // 多条件筛选菜单
     compile 'com.github.dongjunkun:DropDownMenu:1.0.3'
+    // 类似美团等APP的城市选择界面
+    compile 'com.zaaach:citypicker:1.1'
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
+    compile 'com.github.arimorty:floatingsearchview:2.0.3'
 }
