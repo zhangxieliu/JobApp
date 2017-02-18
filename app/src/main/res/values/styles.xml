@@ -3,6 +3,9 @@
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:listDivider">@drawable/divider</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="CustomTitleTextAppearance">

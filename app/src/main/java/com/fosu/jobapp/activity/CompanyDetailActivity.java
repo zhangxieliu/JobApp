@@ -7,8 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.blankj.utilcode.utils.BarUtils;
+import com.blankj.utilcode.utils.SizeUtils;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
@@ -16,7 +21,6 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.fragment.CompanyInfoFragment;
-import com.fosu.jobapp.utils.DensityUtils;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
 import java.util.HashMap;
@@ -24,13 +28,12 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 /**
  * Created by Administrator on 2017/2/11.
  */
 
-public class CompanyDetailActivity extends SwipeBackActivity {
+public class CompanyDetailActivity extends BaseActivity {
     @BindView(R.id.btn_back)
     ImageView btnBack;
     @BindView(R.id.slider)
@@ -41,14 +44,30 @@ public class CompanyDetailActivity extends SwipeBackActivity {
     NavigationTabStrip viewPagerTab;
     @BindView(R.id.viewPager)
     ViewPager viewPager;
+    @BindView(R.id.back_layout)
+    FrameLayout mBackLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_detail);
         ButterKnife.bind(this);
+        initStatusBar();
         initBanner();
         initViewPager();
+    }
+
+    /**
+     * 初始化状态栏，如果存在状态栏，则设置状态栏颜色的沉浸式，并处理actionbar的高度
+     */
+    private void initStatusBar() {
+        if (BarUtils.isStatusBarExists(this)) {
+            int statusBarHeight = BarUtils.getStatusBarHeight(this);
+            ViewGroup.LayoutParams layoutParams = mBackLayout.getLayoutParams();
+            layoutParams.height = SizeUtils.dp2px(layoutParams.height + statusBarHeight);
+            mBackLayout.setLayoutParams(layoutParams);
+            mBackLayout.setPadding(0, statusBarHeight, 0, 0);
+        }
     }
 
 
@@ -81,7 +100,8 @@ public class CompanyDetailActivity extends SwipeBackActivity {
 //        slider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         slider.setCustomAnimation(new DescriptionAnimation() {
             @Override
-            public void onNextItemAppear(View view) {}
+            public void onNextItemAppear(View view) {
+            }
         });
         slider.setDuration(4000);
     }
@@ -99,9 +119,9 @@ public class CompanyDetailActivity extends SwipeBackActivity {
             }
         });
         viewPagerTab.setTitles("公司概述", "热招职位", "公司问答");
-        viewPagerTab.setTitleSize(DensityUtils.sp2px(this, 15));
+        viewPagerTab.setTitleSize(SizeUtils.sp2px(15));
         viewPagerTab.setStripColor(getResources().getColor(R.color.actionbar_bg_color, null));
-        viewPagerTab.setStripWeight(DensityUtils.dp2px(this, 3));
+        viewPagerTab.setStripWeight(SizeUtils.dp2px(3));
         viewPagerTab.setStripFactor(2);
         viewPagerTab.setStripType(NavigationTabStrip.StripType.LINE);
         viewPagerTab.setStripGravity(NavigationTabStrip.StripGravity.BOTTOM);

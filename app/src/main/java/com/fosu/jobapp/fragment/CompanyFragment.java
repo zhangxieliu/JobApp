@@ -14,15 +14,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.BarUtils;
+import com.blankj.utilcode.utils.SizeUtils;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.activity.CompanyDetailActivity;
 import com.fosu.jobapp.adapter.CompanyAdapter;
 import com.fosu.jobapp.adapter.ConstellationAdapter;
 import com.fosu.jobapp.adapter.GirdDropDownAdapter;
 import com.fosu.jobapp.adapter.ListDropDownAdapter;
-import com.yalantis.taurus.PullToRefreshView;
+import com.yalantis.phoenix.PullToRefreshView;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 import com.yyydjk.library.DropDownMenu;
 
@@ -41,27 +44,10 @@ public class CompanyFragment extends Fragment {
     private static final String TAG = "CompanyFragment";
     @BindView(R.id.dropDownMenu)
     DropDownMenu mDropDownMenu;
+    @BindView(R.id.top_bar)
+    RelativeLayout mTopBar;
     private View contentView;
-    //    @BindView(R.id.recycleView)
-//    SwipeMenuRecyclerView mRecyclerView;
-//    @BindView(R.id.pull_to_refresh)
-//    PullToRefreshView mPullToRefreshView;
-//    @BindView(R.id.toolbar)
-//    Toolbar toolbar;
-//
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.fragment_zoom, container, false);
-//        ButterKnife.bind(this, view);
-//        return view;
-//    }
-//
-//    @Override
-//    public void onViewCreated(View view, Bundle savedInstanceState) {
-//        initRecyclerView();
-//    }
-//
+
     /**
      * 初始化SwipeRecyclerView的布局，设置adapter，添加滚动监听实现状态栏颜色渐变
      */
@@ -119,7 +105,21 @@ public class CompanyFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        initStatusBar();
         initRecyclerView();
+    }
+
+    /**
+     * 初始化状态栏，如果存在状态栏，则设置状态栏颜色的沉浸式，并处理actionbar的高度
+     */
+    private void initStatusBar() {
+        if (BarUtils.isStatusBarExists(getActivity())) {
+            int statusBarHeight = BarUtils.getStatusBarHeight(getActivity());
+            ViewGroup.LayoutParams layoutParams = mTopBar.getLayoutParams();
+            layoutParams.height = SizeUtils.dp2px(65);
+            mTopBar.setLayoutParams(layoutParams);
+            mTopBar.setPadding(0, statusBarHeight, 0, 0);
+        }
     }
 
     private void initView() {
@@ -210,19 +210,17 @@ public class CompanyFragment extends Fragment {
         });
 
         //init context view
-        contentView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_zoom, null);
+        contentView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_pull_refresh, null);
         //init dropdownview
         mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
-
-        Log.i(TAG, "initView: " + popupViews.size() + ":" + Arrays.asList(headers).size());
     }
 
-//    @Override
-//    public void onDestroy() {
-//        if (mDropDownMenu.isShowing()) {
-//            mDropDownMenu.closeMenu();
-//        } else {
-//            super.onDestroy();
-//        }
-//    }
+    @Override
+    public void onDestroy() {
+        if (mDropDownMenu.isShowing()) {
+            mDropDownMenu.closeMenu();
+        } else {
+            super.onDestroy();
+        }
+    }
 }

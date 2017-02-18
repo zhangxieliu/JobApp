@@ -9,20 +9,20 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
+import com.blankj.utilcode.utils.BarUtils;
+import com.blankj.utilcode.utils.SizeUtils;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.activity.JobDetailActivity;
-import com.fosu.jobapp.activity.MainActivity;
 import com.fosu.jobapp.adapter.JobAdapter;
 import com.fosu.jobapp.listener.OnActivityListener;
-import com.fosu.jobapp.utils.DensityUtils;
 import com.yalantis.phoenix.PullToRefreshView;
 import com.yanzhenjie.recyclerview.swipe.Closeable;
 import com.yanzhenjie.recyclerview.swipe.OnSwipeMenuItemClickListener;
@@ -43,13 +43,14 @@ import butterknife.OnClick;
  */
 
 public class HomeFragment extends Fragment {
+    private static final String TAG = "HomeFragment";
 
     @BindView(R.id.recycleView)
     SwipeMenuRecyclerView mRecyclerView;
     @BindView(R.id.pull_to_refresh)
     PullToRefreshView mPullToRefreshView;
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+    @BindView(R.id.top_bar)
+    RelativeLayout mTopBar;
     private SliderLayout slide;
     private View view;
     private int mDistanceY = 0;
@@ -64,8 +65,22 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        initStatusBar();
         initBanner();
         initRecyclerView();
+    }
+
+    /**
+     * 初始化状态栏，如果存在状态栏，则设置状态栏颜色的沉浸式，并处理actionbar的高度
+     */
+    private void initStatusBar() {
+        if (BarUtils.isStatusBarExists(getActivity())) {
+            int statusBarHeight = BarUtils.getStatusBarHeight(getActivity());
+            ViewGroup.LayoutParams layoutParams = mTopBar.getLayoutParams();
+            layoutParams.height = SizeUtils.dp2px(65);
+            mTopBar.setLayoutParams(layoutParams);
+            mTopBar.setPadding(0, statusBarHeight, 0, 0);
+        }
     }
 
     /**
@@ -128,13 +143,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 mDistanceY += dy;
-                int toolbarHeight = mToolbar.getBottom();
+                int toolbarHeight = mTopBar.getBottom();
                 if (mDistanceY <= toolbarHeight) {
                     float scale = (float) mDistanceY / toolbarHeight;
                     float alpha = scale * 255;
-                    mToolbar.setBackgroundColor(Color.argb((int) alpha, 3, 169, 244));
+                    mTopBar.setBackgroundColor(Color.argb((int) alpha, 3, 169, 244));
                 } else {
-                    mToolbar.setBackgroundResource(R.color.actionbar_bg_color);
+                    mTopBar.setBackgroundResource(R.color.actionbar_bg_color);
                 }
             }
         });
@@ -161,7 +176,7 @@ public class HomeFragment extends Fragment {
                         .setText("不感兴趣") // 文字。
                         .setTextColor(getResources().getColor(R.color.text_gray_color)) // 文字颜色。
                         .setTextSize(12) // 文字大小。
-                        .setWidth(DensityUtils.dp2px(getActivity(), 100))
+                        .setWidth(SizeUtils.dp2px(100))
                         .setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
                 if (viewType == JobAdapter.TYPE_NORMAL)
                     swipeRightMenu.addMenuItem(deleteItem);// 添加一个按钮到右侧侧菜单。.
@@ -203,7 +218,7 @@ public class HomeFragment extends Fragment {
      */
     private void enterSelectCity() {
         //启动
-        startActivityForResult(new Intent(getActivity(), CityPickerActivity.class),REQUEST_CODE_PICK_CITY);
+        startActivityForResult(new Intent(getActivity(), CityPickerActivity.class), REQUEST_CODE_PICK_CITY);
     }
 
     @OnClick({R.id.search, R.id.zxing})

@@ -47,7 +47,7 @@ dependencies {
     // Actionbar的滑动颜色渐变
     //    compile 'com.github.manuelpeinado.fadingactionbar:fadingactionbar:3.1.2'
     // 实现沉浸式状态栏
-    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+//    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     // tag标签组
     compile 'me.gujun.android.taggroup:library:1.4@aar'
     // 富文本解析
@@ -72,11 +72,6 @@ dependencies {
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
     // ViewPager指示器
     compile 'com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4'
-//    compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
-//    //Optional: see how to use the utility.
-//    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
-//    //Optional: see how to use the utility.
-//    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.6.1@aar'
     // 底部导航栏
     compile 'com.roughike:bottom-bar:2.1.1'
     // 点赞的图标
@@ -91,4 +86,10 @@ dependencies {
     compile 'com.zaaach:citypicker:1.1'
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
     compile 'com.github.arimorty:floatingsearchview:2.0.3'
+    // 内存泄漏检查
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    // 工具类
+    compile 'com.blankj:utilcode:1.3.6'
 }

@@ -105,18 +105,26 @@
         -->
     </ScrollView>
 
-    <View
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:alpha="0.5"
-        android:background="@drawable/circular_bg"></View>
+    <FrameLayout
+        android:id="@+id/back_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/custom_padding"
+        android:background="@android:color/transparent">
 
-    <ImageView
-        android:id="@+id/btn_back"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:padding="10dp"
-        android:src="@drawable/btn_back_selector" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.5"
+            android:background="@drawable/circular_bg">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:src="@drawable/btn_back_selector" />
+
+        </FrameLayout>
+    </FrameLayout>
 </FrameLayout>

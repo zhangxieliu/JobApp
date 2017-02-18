@@ -8,11 +8,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        tools:replace="android:icon"
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,11 +26,13 @@
         <activity android:name=".activity.SearchActivity" />
         <activity
             android:name="com.zaaach.citypicker.CityPickerActivity"
-            android:theme="@style/CityPicker.NoActionBar"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
-        <meta-data android:name="com.amap.api.v2.apikey"
-            android:value="be65c97ad391ae39f7315c46931bb95b"/>
+            android:theme="@style/CityPicker.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="be65c97ad391ae39f7315c46931bb95b" />
     </application>
 
 </manifest>
