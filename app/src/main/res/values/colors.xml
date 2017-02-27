@@ -11,7 +11,7 @@
     <color name="text_gray_color">#5c5b5b</color>
     <color name="actionbar_bg_color">#03a9f4</color>
     <color name="divide_line_color">#ccc</color>
-    <color name="bottombar_color">#e9eaea</color>
+    <color name="bottombar_color">#fff</color>
 
     <color name="drop_down_selected">#03a9f4</color>
     <color name="drop_down_unselected">#111111</color>

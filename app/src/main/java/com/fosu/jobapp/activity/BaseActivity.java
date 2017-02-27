@@ -12,9 +12,8 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivityBase;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
 
 /**
- * Created by Administrator on 2017/2/18.
+ * Activity的基类，继承自AppCompatActivity，实现了屏幕左滑返回上一个Activity的接口
  */
-
 public class BaseActivity extends AppCompatActivity implements SwipeBackActivityBase {
     private SwipeBackActivityHelper mHelper;
 

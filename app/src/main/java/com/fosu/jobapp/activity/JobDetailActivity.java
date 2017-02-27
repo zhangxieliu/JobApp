@@ -24,7 +24,7 @@ import butterknife.OnClick;
 import me.gujun.android.taggroup.TagGroup;
 
 /**
- * Created by Administrator on 2017/2/9.
+ * 用于显示职位详细信息的Activity
  */
 
 public class JobDetailActivity extends BaseActivity {
@@ -40,7 +40,8 @@ public class JobDetailActivity extends BaseActivity {
     @BindView(R.id.btn_collection)
     ShineButton btnCollection;
     @BindView(R.id.top_bar)
-    RelativeLayout mTopBar;
+    RelativeLayout mTopLayout;
+    // html文本假数据
     private String text = "<h3>职位描述</h3>\n" +
             "<p>1.本科及以上学历，四年以上Android开发经验，具备完整的Android应用开发经验<br />\n" +
             "2.熟悉Android开发平台及框架原理，以及Android控件的使用，熟练掌握Android界面和交互开发<br />\n" +
@@ -57,9 +58,9 @@ public class JobDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_detail);
         ButterKnife.bind(this);
-        tagGroup.setTags(new String[]{"Android", "Java", "SQLite", "Html"});
+        tagGroup.setTags(new String[]{"Android", "Java", "SQLite", "HTML"});
         RichText.from(text)
-                .type(RichType.HTML)
+                .type(RichType.HTML) // 文本类型
                 .autoFix(true)  //是否自动修复，默认为true
                 .bind(this) // 绑定richText对象到某个object上，方便后面的清理
                 .into(tvRequirement);
@@ -67,14 +68,19 @@ public class JobDetailActivity extends BaseActivity {
         initStatusBar();
     }
 
+    /**
+     * 初始化感兴趣和收藏小按钮
+     */
     private void initThumbUpView() {
         mThumbUpView.setUnLikeType(ThumbUpView.LikeType.broken);
         mThumbUpView.setOnThumbUp(new ThumbUpView.OnThumbUp() {
             @Override
             public void like(boolean like) {
                 if (like) {
+                    //TODO 这里做感兴趣的职位保存操作
                     Toast.makeText(JobDetailActivity.this, "感兴趣", Toast.LENGTH_SHORT).show();
                 } else {
+                    //TODO 这里做不感兴趣的职位删除保存操作
                     Toast.makeText(JobDetailActivity.this, "不感兴趣", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -85,8 +91,10 @@ public class JobDetailActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(View view, boolean checked) {
                 if (checked) {
+                    //TODO 这里做收藏职位操作
                     Toast.makeText(JobDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
                 } else {
+                    //TODO 这里做取消收藏职位操作
                     Toast.makeText(JobDetailActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -97,12 +105,15 @@ public class JobDetailActivity extends BaseActivity {
      * 初始化状态栏，如果存在状态栏，则设置状态栏颜色的沉浸式，并处理actionbar的高度
      */
     private void initStatusBar() {
+        // 首先判断手机是否存在状态栏
         if (BarUtils.isStatusBarExists(this)) {
+            // 获取状态栏的高度
             int statusBarHeight = BarUtils.getStatusBarHeight(this);
-            ViewGroup.LayoutParams layoutParams = mTopBar.getLayoutParams();
+            // 获取底部标题栏的的高度，并根据状态栏高度设置顶部栏的padding值
+            ViewGroup.LayoutParams layoutParams = mTopLayout.getLayoutParams();
             layoutParams.height = SizeUtils.dp2px(65);
-            mTopBar.setLayoutParams(layoutParams);
-            mTopBar.setPadding(0, statusBarHeight, 0, 0);
+            mTopLayout.setLayoutParams(layoutParams);
+            mTopLayout.setPadding(0, statusBarHeight, 0, 0);
         }
     }
 
@@ -110,8 +121,8 @@ public class JobDetailActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_back:
-                finish();
-                overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
+                finish();// 点击返回按钮退出当前activity
+                overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);//设置activity跳转动画
                 break;
             case R.id.btn_collection:
                 break;
@@ -127,6 +138,6 @@ public class JobDetailActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RichText.clear(this);
+        RichText.clear(this);// 清除富文本缓存
     }
 }

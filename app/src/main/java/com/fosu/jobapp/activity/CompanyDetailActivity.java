@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Administrator on 2017/2/11.
+ * 显示公司详细信息的Activity
  */
 
 public class CompanyDetailActivity extends BaseActivity {
@@ -88,7 +88,7 @@ public class CompanyDetailActivity extends BaseActivity {
                     .setScaleType(BaseSliderView.ScaleType.CenterCrop)
                     .setOnSliderClickListener(null);
 
-            //add your extra information
+            // 添加额外的信息
             imageSliderView.bundle(new Bundle());
             imageSliderView.getBundle()
                     .putString("extra", name);
@@ -103,9 +103,12 @@ public class CompanyDetailActivity extends BaseActivity {
             public void onNextItemAppear(View view) {
             }
         });
-        slider.setDuration(4000);
+        slider.setDuration(4000);//设置图片轮播时间
     }
 
+    /**
+     * 初始化ViewPager
+     */
     private void initViewPager() {
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -126,8 +129,8 @@ public class CompanyDetailActivity extends BaseActivity {
         viewPagerTab.setStripType(NavigationTabStrip.StripType.LINE);
         viewPagerTab.setStripGravity(NavigationTabStrip.StripGravity.BOTTOM);
 //        viewPagerTab.setTypeface("font/drugs.otf");
-        viewPagerTab.setCornersRadius(3);
-        viewPagerTab.setAnimationDuration(300);
+        viewPagerTab.setCornersRadius(3);//设置tab的圆角度
+        viewPagerTab.setAnimationDuration(300);// 设置tab移动的动画持续时间
         viewPagerTab.setInactiveColor(Color.GRAY);
         viewPagerTab.setActiveColor(Color.BLACK);
         viewPagerTab.setViewPager(viewPager, 0);
@@ -137,6 +140,6 @@ public class CompanyDetailActivity extends BaseActivity {
     @OnClick(R.id.btn_back)
     public void onClick() {
         finish();
-        overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
+        overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);// 设置Activity跳转动画
     }
 }

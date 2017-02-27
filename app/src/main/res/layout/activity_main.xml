@@ -38,6 +38,12 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomBar" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_above="@+id/bottomBar"
+        android:background="@color/semi_transparent" />
+
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"

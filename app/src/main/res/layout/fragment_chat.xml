@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ebebeb"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/actionbar_bg_color"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="聊天"
+            android:textColor="@color/white"
+            android:textSize="@dimen/lg_text_size" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/msg_listView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/layout_bottom"
+        android:layout_weight="1"
+        android:divider="@android:color/transparent"></ListView>
+
+    <LinearLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/button_selector"
+            android:text="常用语"
+            android:textColor="@android:color/white" />
+
+        <EditText
+            android:id="@+id/edit_content"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_shape"
+            android:inputType="text"
+            android:maxLines="5"
+            android:paddingLeft="10dp"
+            android:textColor="@color/text_normal_color" />
+
+        <Button
+            android:id="@+id/button_send"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/button_selector"
+            android:text="发送"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+</LinearLayout>

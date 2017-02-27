@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.blankj.utilcode.utils.LogUtils;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.fragment.AccountFragment;
+import com.fosu.jobapp.fragment.ChatFragment;
 import com.fosu.jobapp.fragment.CompanyFragment;
 import com.fosu.jobapp.fragment.HomeFragment;
 import com.fosu.jobapp.listener.OnActivityListener;
@@ -19,20 +20,21 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 import com.zaaach.citypicker.CityPickerActivity;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements OnTabSelectListener {
     @BindView(R.id.bottomBar)
     BottomBar bottomBar;
     @BindView(R.id.main_layout)
     RelativeLayout mainLayout;
     private FragmentManager fragmentManager;
-    private long exitTime = 0;
-    private Map<Integer, Fragment> fragments;
-    private int currentTab;
+    private long exitTime = 0;//上次点击返回键的时间
+    private Map<Integer, Fragment> fragments;// 底部导航菜单栏的所有Fragment
+    private int currentTab = 0;// 当前选中的底部导航菜单项
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,49 +46,38 @@ public class MainActivity extends BaseActivity {
 
     private void init() {
         fragmentManager = getFragmentManager();
+        fragments = new HashMap<>();
         HomeFragment homeFragment = new HomeFragment();
         CompanyFragment zoomFragment = new CompanyFragment();
+        ChatFragment chatFragment = new ChatFragment();
         AccountFragment accountFragment = new AccountFragment();
         fragments.put(0, homeFragment);
         fragments.put(1, zoomFragment);
-        fragments.put(2, accountFragment);
+        fragments.put(2, chatFragment);
+        fragments.put(3, accountFragment);
         fragmentManager.beginTransaction().add(R.id.container, fragments.get(0)).commit();
-        currentTab = 0;
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+        bottomBar.setOnTabSelectListener(this);
+        // 设置HomeFragment回调监听
+        ((HomeFragment) fragments.get(0)).setOnActivityListener(new OnActivityListener() {
             @Override
-            public void onTabSelected(@IdRes int tabId) {
-                switch (tabId) {
-                    case R.id.tab_home:
-                        ((HomeFragment) fragments.get(0)).setOnActivityListener(new OnActivityListener() {
-                            @Override
-                            public void onActivity() {
+            public void onActivity() {
 //                                    enterSelectCity();
-                                startActivityForResult(new Intent(MainActivity.this, SearchActivity.class), 0x002);
-                                overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
-                            }
-                        });
-                        changeTab(0);
-                        break;
-                    case R.id.tab_company:
-                        changeTab(1);
-                        break;
-                    case R.id.tab_zoom:
-                        changeTab(0);
-                        break;
-                    case R.id.tab_account:
-                        changeTab(2);
-                        break;
-                }
+                startActivityForResult(new Intent(MainActivity.this, SearchActivity.class), 0x002);
+                overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
             }
         });
     }
 
+    /**
+     * 改变选中的底部导航菜单栏
+     * @param page 当前选中项
+     */
     private void changeTab(int page) {
         if (currentTab == page) {
             return;
         }
         Fragment fragment = fragments.get(page);
-        FragmentTransaction ft = MainActivity.this.getFragmentManager().beginTransaction();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
         if (!fragment.isAdded()) {
             ft.add(R.id.container, fragment);
         }
@@ -107,6 +98,24 @@ public class MainActivity extends BaseActivity {
                 String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
                 LogUtils.i("当前选择：" + city);
             }
+        }
+    }
+
+    @Override
+    public void onTabSelected(@IdRes int tabId) {
+        switch (tabId) {
+            case R.id.tab_home:
+                changeTab(0);
+                break;
+            case R.id.tab_company:
+                changeTab(1);
+                break;
+            case R.id.tab_zoom:
+                changeTab(2);
+                break;
+            case R.id.tab_account:
+                changeTab(3);
+                break;
         }
     }
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ebebeb"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:background="@drawable/weixin_70_left"
+        android:gravity="center_vertical"
+        android:text="你好"
+        android:textColor="@color/text_normal_color"
+        android:textSize="@dimen/lg_text_size" />
+
+    <TextView
+        android:id="@+id/right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@drawable/weixin_70_right"
+        android:gravity="center_vertical"
+        android:text="你好吗？"
+        android:textColor="@color/text_normal_color"
+        android:textSize="@dimen/lg_text_size" />
+
+</LinearLayout>

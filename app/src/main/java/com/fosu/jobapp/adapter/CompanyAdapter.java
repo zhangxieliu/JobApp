@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2017/2/8.
+ * 公司列表的adapter
  */
 
 public class CompanyAdapter extends SwipeMenuAdapter<CompanyAdapter.Holder> {
