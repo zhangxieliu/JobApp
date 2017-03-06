@@ -3,16 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.fosu.jobapp">
 
+    <!--网络权限-->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Include following permission if you want to cache images on SD card -->
+    <!--读写SD卡权限-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--相机使用权限-->
     <uses-permission android:name="android.permission.CAMERA" />
+    <!--相机闪光灯权限-->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!--通知震动-->
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 设备休眠 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 监听网络的变化 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!--录音-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:name=".MainApplication"
@@ -35,12 +45,34 @@
         <activity
             android:name="com.zaaach.citypicker.CityPickerActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/CityPicker.NoActionBar"
+
             android:windowSoftInputMode="stateHidden|adjustPan" />
+        <!--android:theme="@style/CityPicker.NoActionBar"-->
+
+        <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver" >
+            <intent-filter>
+                <action android:name="cn.bmob.action.RECONNECT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="cn.bmob.newim.core.service.BmobIMService"
+            android:process=":bmobcore" />
+        <service
+            android:name="cn.bmob.newim.core.service.NotifyService"
+            android:process=":bmobcore" />
+        <service android:name="cn.bmob.newim.core.service.ReConnectService" />
+        <service android:name="cn.bmob.newim.core.service.HeartBeatService" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="be65c97ad391ae39f7315c46931bb95b" />
+
+        <meta-data
+            android:name="Bmob_APP_KEY"
+            android:value="53cd5abd1c22bcf54c7f7042ecd26731" />
     </application>
 
 </manifest>

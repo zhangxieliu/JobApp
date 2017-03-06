@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+    useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "com.fosu.jobapp"
@@ -93,5 +94,10 @@ dependencies {
     // 工具类
     compile 'com.blankj:utilcode:1.3.6'
     compile 'cn.yipianfengye.android:zxing-library:2.1'
+    // gongle对于安卓6.0的权限控制解决库
     compile 'pub.devrel:easypermissions:0.3.0'
+
+    //bmob-im：Bmob的即时通讯包，注意每个版本的im依赖特定版本的bmob-sdk，具体的依赖关系可查看下面注释[2]
+    compile 'cn.bmob.android:bmob-im:2.0.5@aar'
+    compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
 }
