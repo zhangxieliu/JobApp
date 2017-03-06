@@ -214,6 +214,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="职位详情"
+            android:textSize="@dimen/lg_text_size"
             android:textColor="@color/white" />
 
         <com.ldoublem.thumbUplib.ThumbUpView

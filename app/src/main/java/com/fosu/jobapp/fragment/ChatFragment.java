@@ -1,6 +1,5 @@
 package com.fosu.jobapp.fragment;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -28,7 +27,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/2/27.
  */
 
-public class ChatFragment extends Fragment {
+public class ChatFragment extends BaseFragment {
     @BindView(R.id.msg_listView)
     ListView msgListView;
     @BindView(R.id.edit_content)

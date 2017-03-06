@@ -1,8 +1,9 @@
 package com.fosu.jobapp.fragment;
 
-import android.app.Fragment;
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,14 +16,19 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.utils.BarUtils;
+import com.blankj.utilcode.utils.LogUtils;
 import com.blankj.utilcode.utils.SizeUtils;
+import com.blankj.utilcode.utils.ToastUtils;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.activity.JobDetailActivity;
+import com.fosu.jobapp.activity.ZxingActivity;
 import com.fosu.jobapp.adapter.JobAdapter;
 import com.fosu.jobapp.listener.OnActivityListener;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.yalantis.phoenix.PullToRefreshView;
 import com.yanzhenjie.recyclerview.swipe.Closeable;
 import com.yanzhenjie.recyclerview.swipe.OnSwipeMenuItemClickListener;
@@ -33,16 +39,22 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 import com.zaaach.citypicker.CityPickerActivity;
 
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Administrator on 2017/2/8.
  */
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
     private static final String TAG = "HomeFragment";
 
     @BindView(R.id.recycleView)
@@ -205,13 +217,7 @@ public class HomeFragment extends Fragment {
         slide.stopAutoCycle();
     }
 
-    private OnActivityListener listener;
-
-    public void setOnActivityListener(OnActivityListener listener) {
-        this.listener = listener;
-    }
-
-    private static final int REQUEST_CODE_PICK_CITY = 0;
+    private static final int REQUEST_CODE_PICK_CITY = 0x001;
 
     /**
      * 进入选择城市activity
@@ -221,16 +227,100 @@ public class HomeFragment extends Fragment {
         startActivityForResult(new Intent(getActivity(), CityPickerActivity.class), REQUEST_CODE_PICK_CITY);
     }
 
+    private static final int REQUEST_CODE = 0x002;   // 请求二维码扫描的请求码
     @OnClick({R.id.search, R.id.zxing})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.search:
-                listener.onActivity();
+                enterSelectCity();
                 break;
             case R.id.zxing:
-                enterSelectCity();
-                getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
+                cameraTask();
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK) {
+            if (data != null) {
+                String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
+                LogUtils.i("当前选择：" + city);
+            }
+        } else if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+                    ToastUtils.showShortToast("解析结果:" + result);
+                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    ToastUtils.showShortToast("解析二维码失败");
+                }
+            }
+        }
+        if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
+            // Do something after user returned from app settings screen, like showing a Toast.
+            LogUtils.i(TAG, "从设置页面返回...");
+        }
+    }
+
+    /**
+     * EsayPermissions接管权限处理逻辑
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    /**
+     * 请求CAMERA权限码
+     */
+    public static final int REQUEST_CAMERA_PERM = 0x101;
+
+    @AfterPermissionGranted(REQUEST_CAMERA_PERM)
+    public void cameraTask() {
+        if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.CAMERA)) {
+            // Have permission, do the thing!
+            Intent intent = new Intent(getActivity(), ZxingActivity.class);
+            // 启动扫描二维码的Activity
+            startActivityForResult(intent, REQUEST_CODE);
+            getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
+        } else {
+            // Ask for one permission
+            EasyPermissions.requestPermissions(this, "需要请求相机权限",
+                    REQUEST_CAMERA_PERM, Manifest.permission.CAMERA);
+        }
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        LogUtils.i(TAG, "执行onPermissionsGranted()---申请使用相机权限成功...");
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        LogUtils.i(TAG, "执行onPermissionsDenied()---申请请求权限...");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+                new AppSettingsDialog.Builder(this)
+                        .setRationale("二维码功能需要相机权限,请打开设置页面设置。")
+                        .setTitle("应用请求使用相机功能")
+                        .setPositiveButton("确认")
+                        .setNegativeButton("取消")
+                        .setRequestCode(REQUEST_CAMERA_PERM)
+                        .build()
+                        .show();
+            }
         }
     }
 }

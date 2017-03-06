@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SurfaceView
+        android:id="@+id/preview_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <!--<declare-styleable name="innerrect">
+        <attr name="inner_width" format="dimension"/>&lt;!&ndash; 控制扫描框的宽度 &ndash;&gt;
+        <attr name="inner_height" format="dimension"/>&lt;!&ndash; 控制扫描框的高度 &ndash;&gt;
+        <attr name="inner_margintop" format="dimension" />&lt;!&ndash; 控制扫描框距离顶部的距离 &ndash;&gt;
+        <attr name="inner_corner_color" format="color" />&lt;!&ndash; 控制扫描框四角的颜色 &ndash;&gt;
+        <attr name="inner_corner_length" format="dimension" />&lt;!&ndash; 控制扫描框四角的长度 &ndash;&gt;
+        <attr name="inner_corner_width" format="dimension" />&lt;!&ndash; 控制扫描框四角的宽度 &ndash;&gt;
+        <attr name="inner_scan_bitmap" format="reference" />&lt;!&ndash; 控制扫描图 &ndash;&gt;
+        <attr name="inner_scan_speed" format="integer" />&lt;!&ndash; 控制扫描速度 &ndash;&gt;
+        <attr name="inner_scan_iscircle" format="boolean" />&lt;!&ndash; 控制小圆点是否展示 &ndash;&gt;
+    </declare-styleable>-->
+    <com.uuzuche.lib_zxing.view.ViewfinderView
+        android:id="@+id/viewfinder_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:inner_corner_color="@color/scan_corner_color"
+        app:inner_corner_length="30dp"
+        app:inner_corner_width="5dp"
+        app:inner_height="250dp"
+        app:inner_margintop="150dp"
+        app:inner_scan_bitmap="@drawable/scan_image"
+        app:inner_scan_iscircle="false"
+        app:inner_scan_speed="10"
+        app:inner_width="250dp" />
+
+</FrameLayout>

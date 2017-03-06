@@ -1,6 +1,5 @@
 package com.fosu.jobapp.fragment;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -40,7 +39,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/2/9.
  */
 
-public class CompanyFragment extends Fragment {
+public class CompanyFragment extends BaseFragment {
     private static final String TAG = "CompanyFragment";
     @BindView(R.id.dropDownMenu)
     DropDownMenu mDropDownMenu;

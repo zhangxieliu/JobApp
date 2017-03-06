@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fl_my_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/black_overlay"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/custom_padding"
+            android:background="@drawable/btn_back_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/zxing_hint"
+            android:textColor="@color/white"
+            android:textSize="@dimen/lg_text_size" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/btn_light_enable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_padding"
+            android:layout_marginRight="@dimen/custom_padding"
+            android:background="@drawable/button_selector"
+            android:text="开启闪光灯"
+            android:textColor="@color/white"
+            android:textSize="@dimen/xs_text_size" />
+
+        <Button
+            android:id="@+id/btn_select_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_padding"
+            android:layout_marginLeft="@dimen/custom_padding"
+            android:background="@drawable/button_selector"
+            android:text="本地选取"
+            android:textColor="@color/white"
+            android:textSize="@dimen/xs_text_size" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,15 +1,16 @@
 package com.fosu.jobapp.activity;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.blankj.utilcode.utils.LogUtils;
+import com.blankj.utilcode.utils.ToastUtils;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.fragment.AccountFragment;
 import com.fosu.jobapp.fragment.ChatFragment;
@@ -18,6 +19,7 @@ import com.fosu.jobapp.fragment.HomeFragment;
 import com.fosu.jobapp.listener.OnActivityListener;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zaaach.citypicker.CityPickerActivity;
 
 import java.util.HashMap;
@@ -45,27 +47,19 @@ public class MainActivity extends BaseActivity implements OnTabSelectListener {
     }
 
     private void init() {
-        fragmentManager = getFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         fragments = new HashMap<>();
         HomeFragment homeFragment = new HomeFragment();
         CompanyFragment zoomFragment = new CompanyFragment();
         ChatFragment chatFragment = new ChatFragment();
         AccountFragment accountFragment = new AccountFragment();
+        fragments = new HashMap<>();
         fragments.put(0, homeFragment);
         fragments.put(1, zoomFragment);
         fragments.put(2, chatFragment);
         fragments.put(3, accountFragment);
         fragmentManager.beginTransaction().add(R.id.container, fragments.get(0)).commit();
         bottomBar.setOnTabSelectListener(this);
-        // 设置HomeFragment回调监听
-        ((HomeFragment) fragments.get(0)).setOnActivityListener(new OnActivityListener() {
-            @Override
-            public void onActivity() {
-//                                    enterSelectCity();
-                startActivityForResult(new Intent(MainActivity.this, SearchActivity.class), 0x002);
-                overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
-            }
-        });
     }
 
     /**
@@ -86,18 +80,6 @@ public class MainActivity extends BaseActivity implements OnTabSelectListener {
         currentTab = page;
         if (!this.isFinishing()) {
             ft.commitAllowingStateLoss();
-        }
-    }
-
-    private static final int REQUEST_CODE_PICK_CITY = 0;
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK) {
-            if (data != null) {
-                String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
-                LogUtils.i("当前选择：" + city);
-            }
         }
     }
 

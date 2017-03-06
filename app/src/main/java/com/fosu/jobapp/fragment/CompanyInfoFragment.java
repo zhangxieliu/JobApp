@@ -2,7 +2,6 @@ package com.fosu.jobapp.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/2/11.
  */
 
-public class CompanyInfoFragment extends Fragment {
+public class CompanyInfoFragment extends BaseFragment {
     private static final String TAG = "CompanyInfoFragment";
 
     @BindView(R.id.expand_text_view)

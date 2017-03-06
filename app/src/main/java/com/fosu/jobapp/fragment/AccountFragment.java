@@ -1,6 +1,5 @@
 package com.fosu.jobapp.fragment;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,7 +14,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/2/9.
  */
 
-public class AccountFragment extends Fragment {
+public class AccountFragment extends BaseFragment {
 
     @Nullable
     @Override

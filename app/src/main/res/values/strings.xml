@@ -6,6 +6,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="zxing_hint">扫描二维码</string>
 
     <string-array name="query_suggestions">
         <item>Android</item>
