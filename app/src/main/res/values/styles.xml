@@ -24,4 +24,11 @@
         <item name="floatingSearch_suggestionRightIconColor">@color/text_gray_color</item>
         <item name="floatingSearch_actionMenuOverflowColor">@color/text_gray_color</item>
     </style>
+    <style name="TextGrey">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:textColor">@color/text_gray_color</item>
+        <item name="android:textSize">@dimen/xs_text_size</item>
+    </style>
 </resources>

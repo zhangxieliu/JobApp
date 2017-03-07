@@ -26,8 +26,7 @@ import com.fosu.jobapp.R;
 import com.fosu.jobapp.activity.JobDetailActivity;
 import com.fosu.jobapp.activity.ZxingActivity;
 import com.fosu.jobapp.adapter.JobAdapter;
-import com.fosu.jobapp.listener.OnActivityListener;
-import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.fosu.jobapp.bean.Job;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.yalantis.phoenix.PullToRefreshView;
 import com.yanzhenjie.recyclerview.swipe.Closeable;
@@ -44,6 +43,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -66,6 +68,8 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
     private SliderLayout slide;
     private View view;
     private int mDistanceY = 0;
+    private BmobQuery<Job> query;
+    private JobAdapter adapter;
 
     @Nullable
     @Override
@@ -80,6 +84,31 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
         initStatusBar();
         initBanner();
         initRecyclerView();
+        initBmob();
+        loadJobData();
+    }
+
+    private void initBmob() {
+        //提供以下两种方式进行初始化操作：
+
+        //第一：默认初始化
+        Bmob.initialize(getActivity(), "53cd5abd1c22bcf54c7f7042ecd26731");
+
+        //第二：自v3.4.7版本开始,设置BmobConfig,允许设置请求超时时间、文件分片上传时每片的大小、文件的过期时间(单位为秒)，
+        //BmobConfig config =new BmobConfig.Builder(this)
+        ////设置appkey
+        //.setApplicationId("53cd5abd1c22bcf54c7f7042ecd26731")
+        ////请求超时时间（单位为秒）：默认15s
+        //.setConnectTimeout(30)
+        ////文件分片上传时每片的大小（单位字节），默认512*1024
+        //.setUploadBlockSize(1024*1024)
+        ////文件的过期时间(单位为秒)：默认1800s
+        //.setFileExpiration(2500)
+        //.build();
+        //Bmob.initialize(config);
+        query = new BmobQuery<>();
+        query.include("company,company.companyType,company.companyScale,company.companyAudit," +
+                "jobExperience,jobEducation,jobType");
     }
 
     /**
@@ -129,6 +158,8 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
         slide.setDuration(4000);
     }
 
+    private List<Job> mJobs;
+
     /**
      * 初始化SwipeRecyclerView的布局，设置adapter，添加滚动监听实现状态栏颜色渐变
      */
@@ -136,20 +167,6 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        JobAdapter adapter = new JobAdapter(getActivity(), null);
-        mRecyclerView.setAdapter(adapter);
-        adapter.setHeaderView(view);
-        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mPullToRefreshView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPullToRefreshView.setRefreshing(false);
-                    }
-                }, 2000);
-            }
-        });
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -165,6 +182,16 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
                 }
             }
         });
+        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadJobData();
+            }
+        });
+        initSwipeMenu();
+        adapter = new JobAdapter(getActivity());
+        adapter.setHeaderView(view);
+        mRecyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int postion, Object object) {
@@ -172,7 +199,23 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
                 getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
             }
         });
-        initSwipeMenu();
+    }
+
+    private void loadJobData() {
+        query.findObjects(getActivity(), new FindListener<Job>() {
+            @Override
+            public void onSuccess(List<Job> jobs) {
+                mJobs = jobs;
+                adapter.addDatas(jobs);
+                mPullToRefreshView.setRefreshing(false);
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                LogUtils.i(TAG, "Error:" + s);
+                ToastUtils.showShortToast("数据获取异常");
+            }
+        });
     }
 
     /**

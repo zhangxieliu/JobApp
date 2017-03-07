@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -14,7 +15,6 @@ import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.utils.BarUtils;
 import com.blankj.utilcode.utils.LogUtils;
-import com.blankj.utilcode.utils.SizeUtils;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.utils.ImageUtils;
 import com.uuzuche.lib_zxing.activity.CaptureFragment;
@@ -110,7 +110,9 @@ public class ZxingActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.back:
                 finish();// 点击返回按钮退出当前activity
-                overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);//设置activity跳转动画
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR) {
+                    overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);//设置activity跳转动画
+                }
                 break;
             case R.id.btn_light_enable:
                 if (mBtnLightEnable.getText().equals("开启闪光灯")) {

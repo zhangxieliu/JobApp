@@ -20,4 +20,5 @@
     <color name="check_bg">#f2f2f2</color>
     <color name="un_press_color">#03a9f4</color>
     <color name="scan_corner_color">#0effc2</color>
+    <color name="salary_red">#f55353</color>
 </resources>

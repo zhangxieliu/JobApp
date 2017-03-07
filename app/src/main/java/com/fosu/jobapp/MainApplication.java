@@ -39,12 +39,12 @@ public class MainApplication extends Application {
             BmobIM.registerDefaultMessageHandler(new ChatMessageHandler());
         }
         // 内存泄露检查工具
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            // This process is dedicated to LeakCanary for heap analysis.
+//            // You should not init your app in this process.
+//            return;
+//        }
+//        LeakCanary.install(this);
         appContext = this;
         Utils.init(appContext);
         CrashUtils.getInstance().init();

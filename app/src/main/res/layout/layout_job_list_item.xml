@@ -2,14 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical">
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:padding="@dimen/custom_padding">
 
     <ImageView
         android:id="@+id/company_logo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_centerVertical="true"
-        android:background="@mipmap/ic_launcher" />
+        android:layout_marginRight="@dimen/custom_padding"
+        android:background="@drawable/souhu" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,82 +20,83 @@
         android:layout_toRightOf="@+id/company_logo"
         android:orientation="vertical">
 
-        <TextView
-            android:textColor="@color/colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="招聘职位" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:text="新明珠陶瓷集团" />
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_job_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:textColor="@color/colorPrimary"
-                android:text="佛山" />
+                android:textColor="@color/text_normal_color"
+                android:textSize="@dimen/lg_text_size"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_job_salary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginRight="8dp"
-                android:text="南庄" />
+                android:layout_alignParentRight="true"
+                android:textColor="@color/salary_red"
+                android:textSize="@dimen/lg_text_size" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/text_normal_color"
+            android:textSize="@dimen/sm_text_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/custom_padding">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginRight="8dp"
-                android:text="经验不限" />
+                android:id="@+id/tv_job_city"
+                style="@style/TextGrey" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:textColor="@color/colorPrimary"
-                android:text="本科" />
+                android:id="@+id/tv_job_city_location"
+                style="@style/TextGrey" />
 
             <TextView
+                android:id="@+id/tv_experience"
+                style="@style/TextGrey" />
+
+            <TextView
+                android:id="@+id/tv_education"
+                style="@style/TextGrey" />
+
+            <TextView
+                android:id="@+id/tv_public_date"
+                style="@style/TextGrey"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:textColor="@color/colorPrimary"
-                android:gravity="right"
-                android:text="02月08日" />
+                android:gravity="right" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginRight="8dp"
+                android:id="@+id/tv_company_type"
+                style="@style/TextGrey"
                 android:text="未融资" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:textColor="@color/colorPrimary"
+                android:id="@+id/tv_company_scale"
+                style="@style/TextGrey"
                 android:text="2000人以上" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:textColor="@color/colorPrimary"
+                android:id="@+id/tv_company_tag"
+                style="@style/TextGrey"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text="移动互联网，电子商务" />
         </LinearLayout>
     </LinearLayout>
