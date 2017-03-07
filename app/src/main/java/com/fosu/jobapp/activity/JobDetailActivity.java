@@ -1,18 +1,23 @@
 package com.fosu.jobapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.utils.BarUtils;
-import com.blankj.utilcode.utils.LogUtils;
 import com.blankj.utilcode.utils.SizeUtils;
+import com.bumptech.glide.Glide;
 import com.fosu.jobapp.R;
+import com.fosu.jobapp.bean.Company;
+import com.fosu.jobapp.bean.Job;
 import com.ldoublem.thumbUplib.ThumbUpView;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.zzhoujay.richtext.RichText;
@@ -41,31 +46,41 @@ public class JobDetailActivity extends BaseActivity {
     ShineButton btnCollection;
     @BindView(R.id.top_bar)
     RelativeLayout mTopLayout;
-    // html文本假数据
-    private String text = "<h3>职位描述</h3>\n" +
-            "<p>1.本科及以上学历，四年以上Android开发经验，具备完整的Android应用开发经验<br />\n" +
-            "2.熟悉Android开发平台及框架原理，以及Android控件的使用，熟练掌握Android界面和交互开发<br />\n" +
-            "3.熟悉Java语言以及常用的算法和数据结构，对设计模式有一定理解，良好的面向对象编程基础<br />\n" +
-            "4.熟练掌握svn/git之一的SCM工具<br />\n" +
-            "5.聪明严谨，有良好的编码风格和工作习惯<br />\n" +
-            "<h4>加分项：</h4>\n" +
-            "<p>1.擅长音视频、图形图像处理<br />\n" +
-            "2.有发布的Android应用<br />\n" +
-            "3.Github开源项目<br />\n";
+    @BindView(R.id.tv_job_name)
+    TextView tvJobName;
+    @BindView(R.id.tv_job_salary)
+    TextView tvJobSalary;
+    @BindView(R.id.tv_city)
+    TextView tvCity;
+    @BindView(R.id.tv_experience)
+    TextView tvExperience;
+    @BindView(R.id.tv_education)
+    TextView tvEducation;
+    @BindView(R.id.tv_job_type)
+    TextView tvJobType;
+    @BindView(R.id.tv_job_benefits)
+    TextView tvJobBenefits;
+    @BindView(R.id.company_logo)
+    ImageView companyLogo;
+    @BindView(R.id.tv_company_name)
+    TextView tvCompanyName;
+    @BindView(R.id.tv_company_info)
+    TextView tvCompanyInfo;
+    @BindView(R.id.tv_company_comment)
+    TextView tvCompanyComment;
+    @BindView(R.id.company_detail)
+    LinearLayout companyDetail;
+    @BindView(R.id.bottom_btn_layout)
+    LinearLayout bottomBtnLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_detail);
         ButterKnife.bind(this);
-        tagGroup.setTags(new String[]{"Android", "Java", "SQLite", "HTML"});
-        RichText.from(text)
-                .type(RichType.HTML) // 文本类型
-                .autoFix(true)  //是否自动修复，默认为true
-                .bind(this) // 绑定richText对象到某个object上，方便后面的清理
-                .into(tvRequirement);
         initThumbUpView();
         initStatusBar();
+        loadData();
     }
 
     /**
@@ -115,6 +130,29 @@ public class JobDetailActivity extends BaseActivity {
             mTopLayout.setLayoutParams(layoutParams);
             mTopLayout.setPadding(0, statusBarHeight, 0, 0);
         }
+    }
+
+    private void loadData() {
+        Intent intent = getIntent();
+        Job job = (Job) intent.getSerializableExtra("jobInfo");
+        Company company = job.getCompany();
+        tvCompanyName.setText(company.getCompanyName());
+        Glide.with(this).load(company.getCompanyLogo().getUrl()).asBitmap().into(companyLogo);
+        tvCompanyInfo.setText(company.getCompanyTag().get(0) + "|" +
+                company.getCompanyType().getType() + "|"+ company.getCompanyScale().getScale());
+        tvJobBenefits.setText(job.getJobBenefits());
+        tvJobType.setText(job.getJobType().getType());
+        tvEducation.setText(job.getJobEducation().getEducation());
+        tvExperience.setText(job.getJobExperience().getExperience());
+        tvCity.setText(job.getJobCity());
+        tvJobSalary.setText(job.getJobSalary().get(0) + "K-" + job.getJobSalary().get(1) + "K");
+        tvJobName.setText(job.getJobName());
+        tagGroup.setTags(job.getJobTag());
+        RichText.from(job.getJobRequirement())
+                .type(RichType.HTML) // 文本类型
+                .autoFix(true)  //是否自动修复，默认为true
+                .bind(this) // 绑定richText对象到某个object上，方便后面的清理
+                .into(tvRequirement);
     }
 
     @OnClick({R.id.btn_back, R.id.btn_collection})

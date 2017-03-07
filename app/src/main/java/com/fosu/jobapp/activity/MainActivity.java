@@ -1,26 +1,21 @@
 package com.fosu.jobapp.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.blankj.utilcode.utils.LogUtils;
-import com.blankj.utilcode.utils.ToastUtils;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.fragment.AccountFragment;
 import com.fosu.jobapp.fragment.ChatFragment;
 import com.fosu.jobapp.fragment.CompanyFragment;
 import com.fosu.jobapp.fragment.HomeFragment;
-import com.fosu.jobapp.listener.OnActivityListener;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
-import com.uuzuche.lib_zxing.activity.CodeUtils;
-import com.zaaach.citypicker.CityPickerActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +23,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements OnTabSelectListener {
+public class MainActivity extends AppCompatActivity implements OnTabSelectListener {
     @BindView(R.id.bottomBar)
     BottomBar bottomBar;
     @BindView(R.id.main_layout)

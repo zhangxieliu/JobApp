@@ -90,10 +90,8 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
 
     private void initBmob() {
         //提供以下两种方式进行初始化操作：
-
         //第一：默认初始化
         Bmob.initialize(getActivity(), "53cd5abd1c22bcf54c7f7042ecd26731");
-
         //第二：自v3.4.7版本开始,设置BmobConfig,允许设置请求超时时间、文件分片上传时每片的大小、文件的过期时间(单位为秒)，
         //BmobConfig config =new BmobConfig.Builder(this)
         ////设置appkey
@@ -195,7 +193,9 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
         adapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int postion, Object object) {
-                startActivity(new Intent(getActivity(), JobDetailActivity.class));
+                Intent intent = new Intent(getActivity(), JobDetailActivity.class);
+                intent.putExtra("jobInfo", mJobs.get(postion));
+                startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
             }
         });
