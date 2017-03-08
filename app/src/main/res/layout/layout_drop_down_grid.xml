@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <GridView
+        android:id="@+id/grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/custom_padding"
+        android:layout_marginTop="@dimen/custom_padding"
+        android:horizontalSpacing="@dimen/grid_spacing"
+        android:numColumns="4"
+        android:padding="@dimen/custom_padding"
+        android:verticalSpacing="@dimen/grid_spacing" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_reset_selector"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="重置"
+            android:textColor="@color/text_gray_color"
+            android:textSize="@dimen/lg_text_size" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_ok_selector"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="@dimen/lg_text_size" />
+    </LinearLayout>
+</LinearLayout>

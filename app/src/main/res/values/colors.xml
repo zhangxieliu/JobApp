@@ -7,16 +7,18 @@
     <color name="black_overlay">#66000000</color>
     <color name="white">#fff</color>
     <color name="gray">#eceff1</color>
+    <color name="reset_gray_nor">#e0e1e2</color>
+    <color name="reset_gray_pre">#cececf</color>
     <color name="text_normal_color">#212121</color>
     <color name="text_gray_color">#5c5b5b</color>
     <color name="actionbar_bg_color">#03a9f4</color>
     <color name="divide_line_color">#ccc</color>
     <color name="bottombar_color">#fff</color>
 
-    <color name="drop_down_selected">#03a9f4</color>
+    <color name="drop_down_selected">#0297da</color>
     <color name="drop_down_unselected">#111111</color>
 
-    <color name="mask_color">#88888888</color>
+    <color name="mask_color">#9f0b0b0b</color>
     <color name="check_bg">#f2f2f2</color>
     <color name="un_press_color">#03a9f4</color>
     <color name="scan_corner_color">#0effc2</color>

@@ -6,7 +6,7 @@ import cn.bmob.v3.BmobObject;
  * Created by Administrator on 2017/3/7.
  */
 
-public class CompanyScale extends BmobObject {
+public class CompanyScale extends BmobObject implements SimpleInfo{
     private String scale;
 
     public String getScale() {
@@ -22,5 +22,10 @@ public class CompanyScale extends BmobObject {
         return "CompanyScale{" +
                 "scale='" + scale + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getInfo() {
+        return scale;
     }
 }

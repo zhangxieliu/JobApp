@@ -7,9 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.LogUtils;
 import com.fosu.jobapp.R;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,27 +22,38 @@ import butterknife.ButterKnife;
 public class ConstellationAdapter extends BaseAdapter {
 
     private Context context;
-    private List<String> list;
-    private int checkItemPosition = 0;
+    private List<String> data = new ArrayList<>();
+    private Set<Integer> set = new HashSet<>(); //选中项的集合
 
-    public void setCheckItem(int position) {
-        checkItemPosition = position;
+    public void setCheckItem(Set<Integer> set) {
+        this.set = set;
         notifyDataSetChanged();
     }
 
-    public ConstellationAdapter(Context context, List<String> list) {
+    public ConstellationAdapter(Context context) {
         this.context = context;
-        this.list = list;
+        set.add(0); // 默认选中第一项
+    }
+
+    public ConstellationAdapter(Context context, List<String> data) {
+        this.context = context;
+        this.data = data;
+        set.add(0); // 默认选中第一项
+    }
+
+    public void setData(List<String> data) {
+        this.data = data;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return data.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return data.get(position);
     }
 
     @Override
@@ -60,16 +75,14 @@ public class ConstellationAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void fillValue(int position, ViewHolder viewHolder) {
-        viewHolder.mText.setText(list.get(position));
-        if (checkItemPosition != -1) {
-            if (checkItemPosition == position) {
-                viewHolder.mText.setTextColor(context.getResources().getColor(R.color.drop_down_selected));
-                viewHolder.mText.setBackgroundResource(R.drawable.check_bg);
-            } else {
-                viewHolder.mText.setTextColor(context.getResources().getColor(R.color.drop_down_unselected));
-                viewHolder.mText.setBackgroundResource(R.drawable.uncheck_bg);
-            }
+    private void fillValue(int position, ViewHolder holder) {
+        holder.mText.setText(data.get(position));
+        if (set.contains(position)) {
+            holder.mText.setTextColor(context.getResources().getColor(R.color.white));
+            holder.mText.setBackgroundResource(R.drawable.check_bg);
+        } else {
+            holder.mText.setTextColor(context.getResources().getColor(R.color.text_gray_color));
+            holder.mText.setBackgroundResource(R.drawable.uncheck_bg);
         }
     }
 

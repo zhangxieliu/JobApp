@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.blankj.utilcode.utils.BarUtils;
 import com.blankj.utilcode.utils.SizeUtils;
@@ -20,6 +19,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.fosu.jobapp.R;
+import com.fosu.jobapp.base.BaseActivity;
 import com.fosu.jobapp.fragment.CompanyInfoFragment;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 

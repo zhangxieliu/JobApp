@@ -1,4 +1,4 @@
-package com.fosu.jobapp.activity;
+package com.fosu.jobapp.base;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

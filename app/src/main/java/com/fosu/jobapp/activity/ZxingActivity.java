@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import com.blankj.utilcode.utils.BarUtils;
 import com.blankj.utilcode.utils.LogUtils;
 import com.fosu.jobapp.R;
+import com.fosu.jobapp.base.BaseActivity;
 import com.fosu.jobapp.utils.ImageUtils;
 import com.uuzuche.lib_zxing.activity.CaptureFragment;
 import com.uuzuche.lib_zxing.activity.CodeUtils;

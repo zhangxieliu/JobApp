@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/white"
     android:gravity="center_vertical"
-    android:layout_margin="20dp"
-    android:padding="10dp">
+    android:padding="@dimen/custom_padding">
 
     <ImageView
         android:id="@+id/company_logo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="@dimen/custom_padding"
         android:layout_centerVertical="true"
         android:src="@mipmap/tencent" />
 
@@ -22,25 +22,31 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_company_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:padding="@dimen/custom_padding"
             android:text="腾讯计算机系统有限公司"
-            android:textColor="@color/text_normal_color" />
+            android:textColor="@color/text_normal_color"
+            android:textSize="@dimen/lg_text_size" />
 
         <TextView
+            android:id="@+id/tv_company_city_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:layout_marginLeft="@dimen/custom_padding"
             android:text="深圳市高新科技园南区"
-            android:textColor="@color/text_gray_color" />
+            android:textColor="@color/text_gray_color"
+            android:textSize="@dimen/sm_text_size" />
 
         <TextView
+            android:id="@+id/tv_company_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:padding="@dimen/custom_padding"
             android:text="IT软件 | 已上市 | 2000人以上"
-            android:textColor="@color/text_gray_color" />
+            android:textColor="@color/text_gray_color"
+            android:textSize="@dimen/xs_text_size" />
     </LinearLayout>
 
     <ImageView

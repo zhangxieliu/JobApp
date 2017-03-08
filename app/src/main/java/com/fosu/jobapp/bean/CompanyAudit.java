@@ -6,7 +6,7 @@ import cn.bmob.v3.BmobObject;
  * Created by Administrator on 2017/3/7.
  */
 
-public class CompanyAudit extends BmobObject {
+public class CompanyAudit extends BmobObject implements SimpleInfo {
     private String audit;
 
     public CompanyAudit(String audit) {
@@ -31,5 +31,10 @@ public class CompanyAudit extends BmobObject {
         return "CompanyAudit{" +
                 "audit='" + audit + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getInfo() {
+        return audit;
     }
 }

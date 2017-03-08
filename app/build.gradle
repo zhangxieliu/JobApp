@@ -100,4 +100,6 @@ dependencies {
     //bmob-im：Bmob的即时通讯包，注意每个版本的im依赖特定版本的bmob-sdk，具体的依赖关系可查看下面注释[2]
     compile 'cn.bmob.android:bmob-im:2.0.5@aar'
     compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
+
+    compile 'cn.pedant.sweetalert:library:1.3'
 }

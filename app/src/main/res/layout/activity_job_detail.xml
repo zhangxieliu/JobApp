@@ -157,8 +157,7 @@
 
                 <me.gujun.android.taggroup.TagGroup
                     android:id="@+id/tag_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    style="@style/TagGroup.Beauty_primary" />
 
                 <TextView
                     android:id="@+id/tv_requirement"
@@ -222,7 +221,6 @@
                         android:background="@drawable/btn_more_detail_selector" />
                 </RelativeLayout>
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 

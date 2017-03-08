@@ -15,7 +15,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ListDropDownAdapter extends BaseAdapter {
-
     private Context context;
     private List<String> list;
     private int checkItemPosition = 0;

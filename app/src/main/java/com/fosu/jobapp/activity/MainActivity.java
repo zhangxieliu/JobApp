@@ -5,11 +5,11 @@ import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.fosu.jobapp.R;
+import com.fosu.jobapp.base.BaseActivity;
 import com.fosu.jobapp.fragment.AccountFragment;
 import com.fosu.jobapp.fragment.ChatFragment;
 import com.fosu.jobapp.fragment.CompanyFragment;
@@ -23,7 +23,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements OnTabSelectListener {
+public class MainActivity extends BaseActivity implements OnTabSelectListener {
     @BindView(R.id.bottomBar)
     BottomBar bottomBar;
     @BindView(R.id.main_layout)
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setSwipeBackEnable(false);  // 设置禁用屏幕左滑退出当前Activity功能
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         init();

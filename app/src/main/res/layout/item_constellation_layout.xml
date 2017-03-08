@@ -8,9 +8,12 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:ellipsize="end"
         android:gravity="center"
+        android:lines="1"
+        android:paddingBottom="@dimen/custom_padding"
+        android:paddingTop="@dimen/custom_padding"
         android:textColor="@color/text_gray_color"
-        android:textSize="@dimen/xs_text_size"
-        android:padding="5dp" />
+        android:textSize="@dimen/xs_text_size" />
 
 </LinearLayout>

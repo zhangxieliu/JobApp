@@ -6,7 +6,7 @@ import cn.bmob.v3.BmobObject;
  * Created by Administrator on 2017/3/7.
  */
 
-public class CompanyType extends BmobObject {
+public class CompanyType extends BmobObject implements SimpleInfo {
     private String type;
 
     public CompanyType(String type) {
@@ -31,5 +31,10 @@ public class CompanyType extends BmobObject {
         return "CompanyType{" +
                 "type='" + type + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getInfo() {
+        return type;
     }
 }

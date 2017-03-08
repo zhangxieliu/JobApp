@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.bean.Company;
 import com.fosu.jobapp.bean.Job;
+import com.fosu.jobapp.listener.OnItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuAdapter;
 
 import java.text.ParseException;
@@ -25,19 +26,12 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2017/2/8.
+ * 职位列表的Adapter
  */
 
 public class JobAdapter extends SwipeMenuAdapter<JobAdapter.Holder> {
-    private Context mContext;
-    private List<Job> mJobs = new ArrayList<>();
-
-    public List<Job> getmJobs() {
-        return mJobs;
-    }
-
-    public void setmJobs(List<Job> mJobs) {
-        this.mJobs = mJobs;
-    }
+    private Context context;
+    private List<Job> jobs = new ArrayList<>();
 
     public static final int TYPE_HEADER = 0;
     public static final int TYPE_NORMAL = 1;
@@ -45,29 +39,54 @@ public class JobAdapter extends SwipeMenuAdapter<JobAdapter.Holder> {
     private OnItemClickListener mListener;
 
     public JobAdapter(Context context) {
-        this.mContext = context;
+        this.context = context;
     }
 
     public JobAdapter(Context context, List<Job> datas) {
-        this.mContext = context;
-        mJobs = datas;
+        this.context = context;
+        jobs = datas;
     }
 
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 设置RecyclerView的头部View
+     * @param headerView 添加的头部View
+     */
     public void setHeaderView(View headerView) {
         mHeaderView = headerView;
         notifyItemInserted(0);
     }
 
+    /**
+     * 得到RecyclerView的头部View
+     * @return RecyclerView的头部View
+     */
     public View getHeaderView() {
         return mHeaderView;
     }
 
-    public void addDatas(List<Job> datas) {
-        mJobs.clear();
-        mJobs.addAll(datas);
+    /**
+     * 添加职位信息在原有集合中，并通知Adapter更新数据
+     * @param jobs 添加的职位信息
+     */
+    public void addDatas(List<Job> jobs) {
+        this.jobs.clear();
+        this.jobs.addAll(jobs);
         notifyDataSetChanged();
     }
 
+    /**
+     * 设置列表项点击监听
+     * @param li 需要实现的接口回调
+     */
     public void setOnItemClickListener(OnItemClickListener li) {
         mListener = li;
     }
@@ -81,7 +100,7 @@ public class JobAdapter extends SwipeMenuAdapter<JobAdapter.Holder> {
 
     @Override
     public View onCreateContentView(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_job_list_item, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_job_list_item, null);
         return view;
     }
 
@@ -97,10 +116,10 @@ public class JobAdapter extends SwipeMenuAdapter<JobAdapter.Holder> {
         if (getItemViewType(position) == TYPE_HEADER)
             return;
         final int pos = getRealPosition(holder);
-        final Job job = mJobs.get(pos);
+        final Job job = jobs.get(pos);
         if (holder instanceof Holder) {
             Company company = job.getCompany();
-            Glide.with(mContext).load(company.getCompanyLogo().getUrl())
+            Glide.with(context).load(company.getCompanyLogo().getUrl())
                     .asBitmap().into(holder.companyLogo);
             holder.tvCompany.setText(company.getCompanyName());
             holder.tvJobSalary.setText(job.getJobSalary().get(0) + "K-" + job.getJobSalary().get(1) + "K");
@@ -130,6 +149,11 @@ public class JobAdapter extends SwipeMenuAdapter<JobAdapter.Holder> {
         }
     }
 
+    /**
+     * 得到列表项真实准确的位置信息
+     * @param holder 持有者类，用于返回每项原来位置，需要减去头部加入的View
+     * @return 处理过得每项位置
+     */
     public int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
         return mHeaderView == null ? position : position - 1;
@@ -137,7 +161,7 @@ public class JobAdapter extends SwipeMenuAdapter<JobAdapter.Holder> {
 
     @Override
     public int getItemCount() {
-        return mHeaderView == null ? mJobs.size() : mJobs.size() + 1;
+        return mHeaderView == null ? jobs.size() : jobs.size() + 1;
     }
 
     class Holder extends RecyclerView.ViewHolder {
@@ -171,9 +195,5 @@ public class JobAdapter extends SwipeMenuAdapter<JobAdapter.Holder> {
             if (itemView == mHeaderView) return;
             ButterKnife.bind(this, itemView);
         }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int postion, Object object);
     }
 }

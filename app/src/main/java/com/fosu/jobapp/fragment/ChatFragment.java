@@ -14,6 +14,7 @@ import com.blankj.utilcode.utils.BarUtils;
 import com.blankj.utilcode.utils.SizeUtils;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.adapter.MessageAdapter;
+import com.fosu.jobapp.base.BaseFragment;
 import com.fosu.jobapp.bean.Message;
 
 import java.util.ArrayList;

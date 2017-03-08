@@ -16,6 +16,7 @@ import com.blankj.utilcode.utils.BarUtils;
 import com.blankj.utilcode.utils.SizeUtils;
 import com.bumptech.glide.Glide;
 import com.fosu.jobapp.R;
+import com.fosu.jobapp.base.BaseActivity;
 import com.fosu.jobapp.bean.Company;
 import com.fosu.jobapp.bean.Job;
 import com.ldoublem.thumbUplib.ThumbUpView;

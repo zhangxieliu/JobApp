@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.blankj.utilcode.utils.BarUtils;
 import com.blankj.utilcode.utils.LogUtils;
 import com.blankj.utilcode.utils.SizeUtils;
 import com.blankj.utilcode.utils.ToastUtils;
@@ -26,7 +25,9 @@ import com.fosu.jobapp.R;
 import com.fosu.jobapp.activity.JobDetailActivity;
 import com.fosu.jobapp.activity.ZxingActivity;
 import com.fosu.jobapp.adapter.JobAdapter;
+import com.fosu.jobapp.base.BaseFragment;
 import com.fosu.jobapp.bean.Job;
+import com.fosu.jobapp.listener.OnItemClickListener;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.yalantis.phoenix.PullToRefreshView;
 import com.yanzhenjie.recyclerview.swipe.Closeable;
@@ -43,7 +44,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -81,45 +81,19 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        initStatusBar();
+        super.onViewCreated(view, savedInstanceState);
+        initStatusBar(mTopBar);
+        initProgressDialog();
         initBanner();
         initRecyclerView();
-        initBmob();
-        loadJobData();
+        loadData();
     }
 
-    private void initBmob() {
-        //提供以下两种方式进行初始化操作：
-        //第一：默认初始化
-        Bmob.initialize(getActivity(), "53cd5abd1c22bcf54c7f7042ecd26731");
-        //第二：自v3.4.7版本开始,设置BmobConfig,允许设置请求超时时间、文件分片上传时每片的大小、文件的过期时间(单位为秒)，
-        //BmobConfig config =new BmobConfig.Builder(this)
-        ////设置appkey
-        //.setApplicationId("53cd5abd1c22bcf54c7f7042ecd26731")
-        ////请求超时时间（单位为秒）：默认15s
-        //.setConnectTimeout(30)
-        ////文件分片上传时每片的大小（单位字节），默认512*1024
-        //.setUploadBlockSize(1024*1024)
-        ////文件的过期时间(单位为秒)：默认1800s
-        //.setFileExpiration(2500)
-        //.build();
-        //Bmob.initialize(config);
+    public void initBmob() {
+        super.initBmob();
         query = new BmobQuery<>();
         query.include("company,company.companyType,company.companyScale,company.companyAudit," +
                 "jobExperience,jobEducation,jobType");
-    }
-
-    /**
-     * 初始化状态栏，如果存在状态栏，则设置状态栏颜色的沉浸式，并处理actionbar的高度
-     */
-    private void initStatusBar() {
-        if (BarUtils.isStatusBarExists(getActivity())) {
-            int statusBarHeight = BarUtils.getStatusBarHeight(getActivity());
-            ViewGroup.LayoutParams layoutParams = mTopBar.getLayoutParams();
-            layoutParams.height = SizeUtils.dp2px(65);
-            mTopBar.setLayoutParams(layoutParams);
-            mTopBar.setPadding(0, statusBarHeight, 0, 0);
-        }
     }
 
     /**
@@ -183,14 +157,20 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
         mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadJobData();
+                loadData();
+                mPullToRefreshView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPullToRefreshView.setRefreshing(false);
+                    }
+                }, 10000);
             }
         });
         initSwipeMenu();
         adapter = new JobAdapter(getActivity());
         adapter.setHeaderView(view);
         mRecyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int postion, Object object) {
                 Intent intent = new Intent(getActivity(), JobDetailActivity.class);
@@ -201,19 +181,23 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
         });
     }
 
-    private void loadJobData() {
+    @Override
+    public void loadData() {
+        super.loadData();
         query.findObjects(getActivity(), new FindListener<Job>() {
             @Override
             public void onSuccess(List<Job> jobs) {
                 mJobs = jobs;
                 adapter.addDatas(jobs);
                 mPullToRefreshView.setRefreshing(false);
+                dialog.cancel();
             }
 
             @Override
             public void onError(int i, String s) {
                 LogUtils.i(TAG, "Error:" + s);
                 ToastUtils.showShortToast("数据获取异常");
+                dialog.cancel();
             }
         });
     }
@@ -271,6 +255,7 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
     }
 
     private static final int REQUEST_CODE = 0x002;   // 请求二维码扫描的请求码
+
     @OnClick({R.id.search, R.id.zxing})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -313,6 +298,7 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
 
     /**
      * EsayPermissions接管权限处理逻辑
+     *
      * @param requestCode
      * @param permissions
      * @param grantResults

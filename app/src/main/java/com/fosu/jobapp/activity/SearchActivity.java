@@ -4,11 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.fosu.jobapp.R;
-import com.fosu.jobapp.view.JJBarWithErrorIconController;
-import com.fosu.jobapp.view.SearchView;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.fosu.jobapp.base.BaseActivity;
 
 /**
  * Created by Administrator on 2017/2/16.
