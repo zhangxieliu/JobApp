@@ -336,7 +336,6 @@ public class CompanyFragment extends BaseFragment {
         companyIndustryBmobQuery.findObjects(mContext, new FindListener<CompanyIndustry>() {
             @Override
             public void onSuccess(List<CompanyIndustry> list) {
-                LogUtils.i(TAG, list.toString());
                 industryAdapter.setData(getString(list));
             }
 
