@@ -31,6 +31,7 @@ import com.fosu.jobapp.bean.CompanyIndustry;
 import com.fosu.jobapp.bean.CompanyScale;
 import com.fosu.jobapp.bean.CompanyType;
 import com.fosu.jobapp.bean.SimpleInfo;
+import com.orhanobut.logger.Logger;
 import com.yalantis.phoenix.PullToRefreshView;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 import com.yyydjk.library.DropDownMenu;
@@ -44,6 +45,7 @@ import java.util.Set;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.listener.FindListener;
 
 /**
@@ -83,6 +85,10 @@ public class CompanyFragment extends BaseFragment {
     private BmobQuery<CompanyType> companyTypeBmobQuery;
     private BmobQuery<CompanyScale> companyScaleBmobQuery;
     private BmobQuery<CompanyIndustry> companyIndustryBmobQuery;
+    private int count = 4;
+    private List<CompanyType> mCompanyTypes;
+    private List<CompanyScale> mCompanyScales;
+    private List<CompanyIndustry> mCompanyIndustries;
 
     @Nullable
     @Override
@@ -100,6 +106,7 @@ public class CompanyFragment extends BaseFragment {
         initStatusBar(mTopBar);
         initRecyclerView();
         initProgressDialog();
+        loadSearchData();
     }
 
     @Override
@@ -141,6 +148,19 @@ public class CompanyFragment extends BaseFragment {
                         headers[1] :
                         headers[1] + "(" + selType.size() + ")");
                 mDropDownMenu.closeMenu();
+                List<CompanyType> companyTypes = new ArrayList<CompanyType>();
+                // TODO: 2017/3/10
+                if (selType.contains(0)) {
+                    query.addWhereContainsAll("companyType", null);
+                } else {
+                    for (Integer i : selType) {
+                        if (i != 0)
+                            companyTypes.add(mCompanyTypes.get(i-1));
+                    }
+                    companyTypeBmobQuery.addWhereEqualTo("type", "已上市");
+                    query.addWhereMatchesQuery("companyType", "CompanyType", companyTypeBmobQuery);
+                }
+                loadData();
             }
         });
         reset1.setOnClickListener(new View.OnClickListener() {
@@ -273,6 +293,7 @@ public class CompanyFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 loadData();
+                count = 4;
                 mPullToRefreshView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -300,50 +321,69 @@ public class CompanyFragment extends BaseFragment {
                 mCompanies = companies;
                 adapter.setCompanies(companies);
                 mRecyclerView.setAdapter(adapter);
-                mPullToRefreshView.setRefreshing(false);
                 dialog.cancel();
+                count--;
+                if (count == 0) {
+                    mPullToRefreshView.setRefreshing(false);
+                }
             }
 
             @Override
             public void onError(int i, String s) {
-                LogUtils.i(TAG, "Error:" + s);
+                Logger.e("error code:" + i + "message:" + s);
                 ToastUtils.showShortToast("数据获取异常");
                 dialog.cancel();
             }
         });
+    }
+
+    private void loadSearchData() {
         companyTypeBmobQuery.findObjects(mContext, new FindListener<CompanyType>() {
             @Override
             public void onSuccess(List<CompanyType> list) {
+                Logger.i(list.toString());
+                mCompanyTypes = list;
                 typeAdapter.setData(getString(list));
+                execProgress();
             }
 
             @Override
             public void onError(int i, String s) {
-                LogUtils.i(TAG, "Error:" + s);
+                Logger.e("error code:" + i + "message:" + s);
             }
         });
         companyScaleBmobQuery.findObjects(mContext, new FindListener<CompanyScale>() {
             @Override
             public void onSuccess(List<CompanyScale> list) {
+                mCompanyScales = list;
                 scaleAdapter.setData(getString(list));
+                execProgress();
             }
 
             @Override
             public void onError(int i, String s) {
-                LogUtils.i(TAG, "Error:" + s);
+                Logger.e("error code:" + i + "message:" + s);
             }
         });
         companyIndustryBmobQuery.findObjects(mContext, new FindListener<CompanyIndustry>() {
             @Override
             public void onSuccess(List<CompanyIndustry> list) {
+                mCompanyIndustries = list;
                 industryAdapter.setData(getString(list));
+                execProgress();
             }
 
             @Override
             public void onError(int i, String s) {
-                LogUtils.i(TAG, "Error:" + s);
+                Logger.e("error code:" + i + "message:" + s);
             }
         });
+    }
+
+    private void execProgress() {
+        count--;
+        if (count == 0)
+            mPullToRefreshView.setRefreshing(false);
     }
 
     private List<String> getString(List objects) {

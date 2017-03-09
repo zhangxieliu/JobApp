@@ -6,6 +6,7 @@ import com.blankj.utilcode.utils.CrashUtils;
 import com.blankj.utilcode.utils.LogUtils;
 import com.blankj.utilcode.utils.Utils;
 import com.fosu.jobapp.controller.ChatMessageHandler;
+import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
@@ -31,6 +32,7 @@ public class MainApplication extends Application {
         super.onCreate();
         // 初始化二维码扫描
         ZXingLibrary.initDisplayOpinion(this);
+        Logger.init("JobApp");
         //只有主进程运行的时候才需要初始化
         if (getApplicationInfo().packageName.equals(getMyProcessName())){
             //im初始化
