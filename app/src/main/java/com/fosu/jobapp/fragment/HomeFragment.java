@@ -1,6 +1,7 @@
 package com.fosu.jobapp.fragment;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -26,8 +27,10 @@ import com.fosu.jobapp.activity.JobDetailActivity;
 import com.fosu.jobapp.activity.ZxingActivity;
 import com.fosu.jobapp.adapter.JobAdapter;
 import com.fosu.jobapp.base.BaseFragment;
+import com.fosu.jobapp.bean.Company;
 import com.fosu.jobapp.bean.Job;
 import com.fosu.jobapp.listener.OnItemClickListener;
+import com.orhanobut.logger.Logger;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.yalantis.phoenix.PullToRefreshView;
 import com.yanzhenjie.recyclerview.swipe.Closeable;
@@ -70,12 +73,14 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
     private int mDistanceY = 0;
     private BmobQuery<Job> query;
     private JobAdapter adapter;
+    private Context mContext;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
+        mContext = getActivity();
         return view;
     }
 
@@ -94,6 +99,14 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
         query = new BmobQuery<>();
         query.include("company,company.companyType,company.companyScale,company.companyAudit," +
                 "jobExperience,jobEducation,jobType");
+        query.order("createdAt");
+        // TODO: 2017/3/10 设置缓存出现空指针，待解决
+//        boolean isCache = query.hasCachedResult(mContext, Job.class);
+//        if (isCache) {
+//            query.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);
+//        } else {
+//            query.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);
+//        }
     }
 
     /**
@@ -190,12 +203,12 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
                 mJobs = jobs;
                 adapter.addDatas(jobs);
                 mPullToRefreshView.setRefreshing(false);
-                dialog.cancel();
+                dialog.hide();
             }
 
             @Override
             public void onError(int i, String s) {
-                LogUtils.i(TAG, "Error:" + s);
+                Logger.e("error code:" + i + ", message:" + s);
                 ToastUtils.showShortToast("数据获取异常");
                 dialog.cancel();
             }
@@ -273,7 +286,8 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
         if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK) {
             if (data != null) {
                 String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
-                LogUtils.i("当前选择：" + city);
+                Logger.i("当前选择的城市是：" + city);
+                ToastUtils.showShortToast(city);
             }
         } else if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             //处理扫描结果（在界面上显示）

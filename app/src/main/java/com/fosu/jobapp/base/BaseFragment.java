@@ -78,4 +78,10 @@ public abstract class BaseFragment extends Fragment {
     public void loadData() {
 
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        dialog.cancel();
+    }
 }

@@ -89,6 +89,7 @@ public class CompanyFragment extends BaseFragment {
     private List<CompanyType> mCompanyTypes;
     private List<CompanyScale> mCompanyScales;
     private List<CompanyIndustry> mCompanyIndustries;
+    private List<String> companyIndusties;
 
     @Nullable
     @Override
@@ -114,17 +115,16 @@ public class CompanyFragment extends BaseFragment {
         super.initBmob();
         query = new BmobQuery<>();
         query.include("companyType,companyScale,companyAudit");
+        query.order("createdAt");
+        boolean isCache = query.hasCachedResult(mContext, Company.class);
+        if (isCache) {
+            query.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);
+        } else {
+            query.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);
+        }
         companyTypeBmobQuery = new BmobQuery<>();
         companyScaleBmobQuery = new BmobQuery<>();
         companyIndustryBmobQuery = new BmobQuery<>();
-    }
-
-    private List<String> getLimit(Set<Integer> list, List<CompanyIndustry> companyIndustries) {
-        List<String> result = new ArrayList<>();
-        for (Integer s : list) {
-            result.add(companyIndustries.get(s - 1).getInfo());
-        }
-        return result;
     }
 
     private void initView() {
@@ -165,6 +165,7 @@ public class CompanyFragment extends BaseFragment {
      */
     private View initCompanyType() {
         // 公司类型的下拉列表
+        selType.add(0);
         final View companyTypeView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_drop_down_grid, null);
         GridView companyType = ButterKnife.findById(companyTypeView, R.id.grid_view);
         typeAdapter = new ConstellationAdapter(getActivity(), Arrays.asList(type));
@@ -180,27 +181,17 @@ public class CompanyFragment extends BaseFragment {
                 mDropDownMenu.closeMenu();
                 List<String> companyTypes = new ArrayList<>();
                 if (selType.contains(0)) {
-                    query = new BmobQuery<>();
                     selType.clear();
                     selType.add(0);
+                    companyTypeBmobQuery = new BmobQuery<>();
                 } else {
                     for (Integer s : selType) {
                         companyTypes.add(mCompanyTypes.get(s - 1).getInfo());
                     }
                     companyTypeBmobQuery = new BmobQuery<>();
                     companyTypeBmobQuery.addWhereContainedIn("type", companyTypes);
-                    query = new BmobQuery<>();
-                    query.include("companyType,companyScale,companyAudit");
-                    BmobQuery<Company> q1 = new BmobQuery<>();
-                    q1.addWhereMatchesQuery("companyType", "CompanyType", companyTypeBmobQuery);
-                    BmobQuery<Company> q2 = new BmobQuery<>();
-                    q2.addWhereMatchesQuery("companyScale", "CompanyScale", companyScaleBmobQuery);
-                    BmobQuery<Company> q3 = new BmobQuery<>();
-                    // TODO: 2017/3/10 公司行业一对多关联 ，需要在表中设置
-                    if (!selIndustry.contains(0))
-                        q3.addWhereContainsAll("companyIndustry", getLimit(selIndustry, mCompanyIndustries));
-                    query.and(Arrays.asList(q1, q2, q3));
                 }
+                addSearch();
                 loadData();
             }
         });
@@ -222,10 +213,32 @@ public class CompanyFragment extends BaseFragment {
                     selType.remove(0);
                     selType.add(position);
                 }
+                if (selType.size() == 0) {
+                    selType.add(0);
+                }
                 typeAdapter.setCheckItem(selType);
             }
         });
         return companyTypeView;
+    }
+
+    private void addSearch() {
+        dialog.show();
+        query = new BmobQuery<>();
+        List<BmobQuery<Company>> list = new ArrayList<>();
+        BmobQuery<Company> q1 = new BmobQuery<>();
+        q1.addWhereMatchesQuery("companyType", "CompanyType", companyTypeBmobQuery);
+        list.add(q1);
+        BmobQuery<Company> q2 = new BmobQuery<>();
+        q2.addWhereMatchesQuery("companyScale", "CompanyScale", companyScaleBmobQuery);
+        list.add(q2);
+        if (companyIndusties != null) {
+            BmobQuery<Company> q3 = new BmobQuery<>();
+            q3.addWhereContainedIn("companyIndustry", companyIndusties);
+            list.add(q3);
+        }
+        query.include("companyType,companyScale,companyAudit");
+        query.and(list);
     }
 
     /**
@@ -235,6 +248,7 @@ public class CompanyFragment extends BaseFragment {
      */
     private View initCompanyScale() {
         // 公司规模的下拉列表
+        selScale.add(0);
         final View companyScaleView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_drop_down_grid, null);
         GridView companyScale = ButterKnife.findById(companyScaleView, R.id.grid_view);
         scaleAdapter = new ConstellationAdapter(getActivity(), Arrays.asList(scale));
@@ -248,6 +262,20 @@ public class CompanyFragment extends BaseFragment {
                         headers[2] :
                         headers[2] + "(" + selScale.size() + ")");
                 mDropDownMenu.closeMenu();
+                List<String> companyScales = new ArrayList<>();
+                if (selScale.contains(0)) {
+                    selScale.clear();
+                    selScale.add(0);
+                    companyScaleBmobQuery = new BmobQuery<>();
+                } else {
+                    for (Integer s : selScale) {
+                        companyScales.add(mCompanyScales.get(s - 1).getInfo());
+                    }
+                    companyScaleBmobQuery = new BmobQuery<>();
+                    companyScaleBmobQuery.addWhereContainedIn("scale", companyScales);
+                }
+                addSearch();
+                loadData();
             }
         });
         reset2.setOnClickListener(new View.OnClickListener() {
@@ -270,6 +298,9 @@ public class CompanyFragment extends BaseFragment {
                     selScale.remove(0);
                     selScale.add(position);
                 }
+                if (selScale.size() == 0) {
+                    selScale.add(0);
+                }
                 scaleAdapter.setCheckItem(selScale);
             }
         });
@@ -283,6 +314,7 @@ public class CompanyFragment extends BaseFragment {
      */
     private View initCompanyIndustry() {
         // 公司行业的下拉列表
+        selIndustry.add(0);
         final View companyIndustryView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_drop_down_grid, null);
         GridView companyIndustry = ButterKnife.findById(companyIndustryView, R.id.grid_view);
         industryAdapter = new ConstellationAdapter(getActivity());
@@ -296,6 +328,18 @@ public class CompanyFragment extends BaseFragment {
                         headers[3] :
                         headers[3] + "(" + selIndustry.size() + ")");
                 mDropDownMenu.closeMenu();
+                if (selIndustry.contains(0)) {
+                    selIndustry.clear();
+                    selIndustry.add(0);
+                    companyIndusties = null;
+                } else {
+                    companyIndusties = new ArrayList<>();
+                    for (Integer s : selIndustry) {
+                        companyIndusties.add(mCompanyIndustries.get(s - 1).getInfo());
+                    }
+                }
+                addSearch();
+                loadData();
             }
         });
         reset3.setOnClickListener(new View.OnClickListener() {
@@ -318,6 +362,9 @@ public class CompanyFragment extends BaseFragment {
                     selIndustry.remove(0);
                     selIndustry.add(position);
                 }
+                if (selIndustry.size() == 0) {
+                    selIndustry.add(0);
+                }
                 industryAdapter.setCheckItem(selIndustry);
             }
         });
@@ -339,7 +386,7 @@ public class CompanyFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 loadData();
-                count = 4;
+                count = 1;
                 mPullToRefreshView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -367,7 +414,7 @@ public class CompanyFragment extends BaseFragment {
                 mCompanies = companies;
                 adapter.setCompanies(companies);
                 mRecyclerView.setAdapter(adapter);
-                dialog.cancel();
+                dialog.hide();
                 count--;
                 if (count == 0) {
                     mPullToRefreshView.setRefreshing(false);
@@ -376,7 +423,7 @@ public class CompanyFragment extends BaseFragment {
 
             @Override
             public void onError(int i, String s) {
-                Logger.e("error code:" + i + "message:" + s);
+                Logger.e("error code:" + i + ", message:" + s);
                 ToastUtils.showShortToast("数据获取异常");
                 dialog.cancel();
             }
@@ -395,7 +442,7 @@ public class CompanyFragment extends BaseFragment {
 
             @Override
             public void onError(int i, String s) {
-                Logger.e("error code:" + i + "message:" + s);
+                Logger.e("error code:" + i + ", message:" + s);
             }
         });
         companyScaleBmobQuery.findObjects(mContext, new FindListener<CompanyScale>() {
@@ -408,7 +455,7 @@ public class CompanyFragment extends BaseFragment {
 
             @Override
             public void onError(int i, String s) {
-                Logger.e("error code:" + i + "message:" + s);
+                Logger.e("error code:" + i + ", message:" + s);
             }
         });
         companyIndustryBmobQuery.findObjects(mContext, new FindListener<CompanyIndustry>() {
@@ -421,7 +468,7 @@ public class CompanyFragment extends BaseFragment {
 
             @Override
             public void onError(int i, String s) {
-                Logger.e("error code:" + i + "message:" + s);
+                Logger.e("error code:" + i + ", message:" + s);
             }
         });
     }

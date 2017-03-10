@@ -14,7 +14,7 @@ public class Company extends BmobObject {
     private BmobFile companyLogo;   // 公司logo
     private String companyCity; // 公司所在城市
     private String companyCityLocation; // 公司所在城市具体位置
-    private List<String> companyIndustry;    // 公司标签
+    private List<String> companyIndustry;    // 公司行业
     private String companyWebsite;  // 公司网址
     private String companyIntroduce;    // 公司介绍
     private CompanyType companyType;
