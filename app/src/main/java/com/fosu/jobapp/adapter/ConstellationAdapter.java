@@ -26,7 +26,11 @@ public class ConstellationAdapter extends BaseAdapter {
     private Set<Integer> set = new HashSet<>(); //选中项的集合
 
     public void setCheckItem(Set<Integer> set) {
-        this.set = set;
+        if (set == null) {
+            this.set.clear();
+            this.set.add(0);
+        } else
+            this.set = set;
         notifyDataSetChanged();
     }
 

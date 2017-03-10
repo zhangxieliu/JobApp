@@ -125,7 +125,7 @@ public class JobAdapter extends SwipeMenuAdapter<JobAdapter.Holder> {
             holder.tvJobSalary.setText(job.getJobSalary().get(0) + "K-" + job.getJobSalary().get(1) + "K");
             holder.tvCompanyScale.setText(company.getCompanyScale().getScale());
             holder.tvCompanyType.setText(company.getCompanyType().getType());
-            holder.tvCompanyTag.setText(company.getCompanyTag().toString());
+            holder.tvCompanyTag.setText(company.getCompanyIndustry().toString());
             holder.tvEducation.setText(job.getJobEducation().getEducation());
             holder.tvExperience.setText(job.getJobExperience().getExperience());
             holder.tvJobCity.setText(job.getJobCity());

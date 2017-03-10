@@ -115,7 +115,7 @@ public class CompanyAdapter extends SwipeMenuAdapter<CompanyAdapter.Holder> {
             Glide.with(context).load(company.getCompanyLogo().getUrl()).into(holder.companyLogo);
             holder.tvCompanyName.setText(company.getCompanyName());
             holder.tvCompanyCityLocation.setText(company.getCompanyCityLocation());
-            holder.tvCompanyInfo.setText(company.getCompanyTag().get(0) + " | " +
+            holder.tvCompanyInfo.setText(company.getCompanyIndustry().get(0) + " | " +
                     company.getCompanyType().getType() + " | " + company.getCompanyScale().getScale());
             if (mListener != null) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {

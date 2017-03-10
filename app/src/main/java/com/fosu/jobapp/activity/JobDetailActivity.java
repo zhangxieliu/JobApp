@@ -139,7 +139,7 @@ public class JobDetailActivity extends BaseActivity {
         Company company = job.getCompany();
         tvCompanyName.setText(company.getCompanyName());
         Glide.with(this).load(company.getCompanyLogo().getUrl()).asBitmap().into(companyLogo);
-        tvCompanyInfo.setText(company.getCompanyTag().get(0) + "|" +
+        tvCompanyInfo.setText(company.getCompanyIndustry().get(0) + "|" +
                 company.getCompanyType().getType() + "|"+ company.getCompanyScale().getScale());
         tvJobBenefits.setText(job.getJobBenefits());
         tvJobType.setText(job.getJobType().getType());

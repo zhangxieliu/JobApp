@@ -1,6 +1,5 @@
 package com.fosu.jobapp.bean;
 
-import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.BmobObject;

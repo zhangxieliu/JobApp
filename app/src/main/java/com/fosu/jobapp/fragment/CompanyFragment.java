@@ -119,6 +119,14 @@ public class CompanyFragment extends BaseFragment {
         companyIndustryBmobQuery = new BmobQuery<>();
     }
 
+    private List<String> getLimit(Set<Integer> list, List<CompanyIndustry> companyIndustries) {
+        List<String> result = new ArrayList<>();
+        for (Integer s : list) {
+            result.add(companyIndustries.get(s - 1).getInfo());
+        }
+        return result;
+    }
+
     private void initView() {
         // 城市列表下拉列表
         final ListView cityView = new ListView(getActivity());
@@ -134,6 +142,28 @@ public class CompanyFragment extends BaseFragment {
             }
         });
 
+        View companyTypeView = initCompanyType();
+        View companyScaleView = initCompanyScale();
+        View companyIndustryView = initCompanyIndustry();
+
+        List<View> popupViews = new ArrayList<>();
+        popupViews.add(cityView);
+        popupViews.add(companyTypeView);
+        popupViews.add(companyScaleView);
+        popupViews.add(companyIndustryView);
+
+        // 解析出公司列表的view
+        contentView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_pull_refresh, null);
+        // 设置下拉列表view和内容view
+        mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
+    }
+
+    /**
+     * 初始化公司类型下拉面板
+     *
+     * @return 初始化完成的面板
+     */
+    private View initCompanyType() {
         // 公司类型的下拉列表
         final View companyTypeView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_drop_down_grid, null);
         GridView companyType = ButterKnife.findById(companyTypeView, R.id.grid_view);
@@ -148,17 +178,28 @@ public class CompanyFragment extends BaseFragment {
                         headers[1] :
                         headers[1] + "(" + selType.size() + ")");
                 mDropDownMenu.closeMenu();
-                List<CompanyType> companyTypes = new ArrayList<CompanyType>();
-                // TODO: 2017/3/10
+                List<String> companyTypes = new ArrayList<>();
                 if (selType.contains(0)) {
-                    query.addWhereContainsAll("companyType", null);
+                    query = new BmobQuery<>();
+                    selType.clear();
+                    selType.add(0);
                 } else {
-                    for (Integer i : selType) {
-                        if (i != 0)
-                            companyTypes.add(mCompanyTypes.get(i-1));
+                    for (Integer s : selType) {
+                        companyTypes.add(mCompanyTypes.get(s - 1).getInfo());
                     }
-                    companyTypeBmobQuery.addWhereEqualTo("type", "已上市");
-                    query.addWhereMatchesQuery("companyType", "CompanyType", companyTypeBmobQuery);
+                    companyTypeBmobQuery = new BmobQuery<>();
+                    companyTypeBmobQuery.addWhereContainedIn("type", companyTypes);
+                    query = new BmobQuery<>();
+                    query.include("companyType,companyScale,companyAudit");
+                    BmobQuery<Company> q1 = new BmobQuery<>();
+                    q1.addWhereMatchesQuery("companyType", "CompanyType", companyTypeBmobQuery);
+                    BmobQuery<Company> q2 = new BmobQuery<>();
+                    q2.addWhereMatchesQuery("companyScale", "CompanyScale", companyScaleBmobQuery);
+                    BmobQuery<Company> q3 = new BmobQuery<>();
+                    // TODO: 2017/3/10 公司行业一对多关联 ，需要在表中设置
+                    if (!selIndustry.contains(0))
+                        q3.addWhereContainsAll("companyIndustry", getLimit(selIndustry, mCompanyIndustries));
+                    query.and(Arrays.asList(q1, q2, q3));
                 }
                 loadData();
             }
@@ -166,9 +207,7 @@ public class CompanyFragment extends BaseFragment {
         reset1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selType.clear();
-                selType.add(0);
-                typeAdapter.setCheckItem(selIndustry);
+                typeAdapter.setCheckItem(null);
             }
         });
         companyType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -186,7 +225,15 @@ public class CompanyFragment extends BaseFragment {
                 typeAdapter.setCheckItem(selType);
             }
         });
+        return companyTypeView;
+    }
 
+    /**
+     * 初始化公司规模下拉面板
+     *
+     * @return 初始化完成的面板
+     */
+    private View initCompanyScale() {
         // 公司规模的下拉列表
         final View companyScaleView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_drop_down_grid, null);
         GridView companyScale = ButterKnife.findById(companyScaleView, R.id.grid_view);
@@ -226,7 +273,15 @@ public class CompanyFragment extends BaseFragment {
                 scaleAdapter.setCheckItem(selScale);
             }
         });
+        return companyScaleView;
+    }
 
+    /**
+     * 初始化公司行业下拉面板
+     *
+     * @return 初始化完成的面板
+     */
+    private View initCompanyIndustry() {
         // 公司行业的下拉列表
         final View companyIndustryView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_drop_down_grid, null);
         GridView companyIndustry = ButterKnife.findById(companyIndustryView, R.id.grid_view);
@@ -266,18 +321,9 @@ public class CompanyFragment extends BaseFragment {
                 industryAdapter.setCheckItem(selIndustry);
             }
         });
-
-        List<View> popupViews = new ArrayList<>();
-        popupViews.add(cityView);
-        popupViews.add(companyTypeView);
-        popupViews.add(companyScaleView);
-        popupViews.add(companyIndustryView);
-
-        // 解析出公司列表的view
-        contentView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_pull_refresh, null);
-        // 设置下拉列表view和内容view
-        mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
+        return companyIndustryView;
     }
+
 
     /**
      * 初始化SwipeRecyclerView的布局，设置adapter，添加滚动监听实现状态栏颜色渐变

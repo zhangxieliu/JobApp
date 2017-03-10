@@ -14,7 +14,7 @@ public class Company extends BmobObject {
     private BmobFile companyLogo;   // 公司logo
     private String companyCity; // 公司所在城市
     private String companyCityLocation; // 公司所在城市具体位置
-    private List<String> companyTag;    // 公司标签
+    private List<String> companyIndustry;    // 公司标签
     private String companyWebsite;  // 公司网址
     private String companyIntroduce;    // 公司介绍
     private CompanyType companyType;
@@ -28,12 +28,12 @@ public class Company extends BmobObject {
         super(tableName);
     }
 
-    public Company(String companyName, BmobFile companyLogo, String companyCity, String companyCityLocation, List<String> companyTag, String companyWebsite, String companyIntroduce, CompanyType companyType, CompanyScale companyScale, CompanyAudit companyAudit) {
+    public Company(String companyName, BmobFile companyLogo, String companyCity, String companyCityLocation, List<String> companyIndustry, String companyWebsite, String companyIntroduce, CompanyType companyType, CompanyScale companyScale, CompanyAudit companyAudit) {
         this.companyName = companyName;
         this.companyLogo = companyLogo;
         this.companyCity = companyCity;
         this.companyCityLocation = companyCityLocation;
-        this.companyTag = companyTag;
+        this.companyIndustry = companyIndustry;
         this.companyWebsite = companyWebsite;
         this.companyIntroduce = companyIntroduce;
         this.companyType = companyType;
@@ -41,13 +41,13 @@ public class Company extends BmobObject {
         this.companyAudit = companyAudit;
     }
 
-    public Company(String tableName, String companyName, BmobFile companyLogo, String companyCity, String companyCityLocation, List<String> companyTag, String companyWebsite, String companyIntroduce, CompanyType companyType, CompanyScale companyScale, CompanyAudit companyAudit) {
+    public Company(String tableName, String companyName, BmobFile companyLogo, String companyCity, String companyCityLocation, List<String> companyIndustry, String companyWebsite, String companyIntroduce, CompanyType companyType, CompanyScale companyScale, CompanyAudit companyAudit) {
         super(tableName);
         this.companyName = companyName;
         this.companyLogo = companyLogo;
         this.companyCity = companyCity;
         this.companyCityLocation = companyCityLocation;
-        this.companyTag = companyTag;
+        this.companyIndustry = companyIndustry;
         this.companyWebsite = companyWebsite;
         this.companyIntroduce = companyIntroduce;
         this.companyType = companyType;
@@ -87,12 +87,12 @@ public class Company extends BmobObject {
         this.companyCityLocation = companyCityLocation;
     }
 
-    public List<String> getCompanyTag() {
-        return companyTag;
+    public List<String> getCompanyIndustry() {
+        return companyIndustry;
     }
 
-    public void setCompanyTag(List<String> companyTag) {
-        this.companyTag = companyTag;
+    public void setCompanyIndustry(List<String> companyTag) {
+        this.companyIndustry = companyIndustry;
     }
 
     public String getCompanyWebsite() {
@@ -142,7 +142,7 @@ public class Company extends BmobObject {
                 ", companyLogo=" + companyLogo.getUrl() +
                 ", companyCity='" + companyCity + '\'' +
                 ", companyCityLocation='" + companyCityLocation + '\'' +
-                ", companyTag=" + companyTag +
+                ", companyIndustry=" + companyIndustry +
                 ", companyWebsite='" + companyWebsite + '\'' +
                 ", companyIntroduce='" + companyIntroduce + '\'' +
                 ", companyType=" + companyType +
