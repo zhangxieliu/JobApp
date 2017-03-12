@@ -1,22 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray">
+
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/actionbar_bg_color"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/image_size"
+            android:layout_height="@dimen/image_size"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_back_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="职位详情"
+            android:textColor="@color/white"
+            android:textSize="@dimen/lg_text_size" />
+
+        <com.ldoublem.thumbUplib.ThumbUpView
+            android:id="@+id/thumbUpView"
+            bgColor="@color/gray"
+            android:layout_width="@dimen/image_size"
+            android:layout_height="@dimen/image_size"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/btn_collection"
+            app:cracksColor="@color/white"
+            app:edgeColor="@color/white"
+            app:fillColor="#e63d31" />
+
+        <com.sackcentury.shinebuttonlib.ShineButton
+            android:id="@+id/btn_collection"
+            android:layout_width="@dimen/image_size"
+            android:layout_height="@dimen/image_size"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            app:btn_color="@color/bottombar_color"
+            app:btn_fill_color="#efd80c"
+            app:enable_flashing="true"
+            app:shine_size="10dp"
+            app:siShape="@raw/star" />
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_btn_layout"
-        android:layout_below="@+id/top_bar"
-        android:padding="@dimen/custom_padding">
+        android:layout_below="@+id/top_bar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/custom_padding">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -157,7 +206,8 @@
 
                 <me.gujun.android.taggroup.TagGroup
                     android:id="@+id/tag_group"
-                    style="@style/TagGroup.Beauty_primary" />
+                    style="@style/TagGroup.Beauty_primary"
+                    android:padding="@dimen/custom_padding" />
 
                 <TextView
                     android:id="@+id/tv_requirement"
@@ -228,78 +278,24 @@
         android:id="@+id/bottom_btn_layout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:paddingLeft="@dimen/custom_padding"
-        android:paddingRight="@dimen/custom_padding">
+        android:layout_alignParentBottom="true">
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/custom_padding"
             android:layout_weight="4"
-            android:background="@drawable/button_selector"
+            android:background="@drawable/send_resume_shape"
             android:text="发送简历"
-            android:textColor="@color/white"
+            android:textColor="@color/actionbar_bg_color"
             android:textSize="@dimen/sm_text_size" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/custom_padding"
             android:layout_weight="6"
-            android:background="@drawable/button_selector"
+            android:background="@color/actionbar_bg_color"
             android:text="和TA聊聊"
             android:textColor="@color/white"
             android:textSize="@dimen/sm_text_size" />
     </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_alignParentTop="true"
-        android:background="@color/actionbar_bg_color"
-        android:gravity="center_vertical">
-
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/btn_back_selector" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="职位详情"
-            android:textColor="@color/white"
-            android:textSize="@dimen/lg_text_size" />
-
-        <com.ldoublem.thumbUplib.ThumbUpView
-            android:id="@+id/thumbUpView"
-            bgColor="@color/gray"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/btn_collection"
-            app:cracksColor="@color/white"
-            app:edgeColor="@color/white"
-            app:fillColor="#e63d31" />
-
-        <com.sackcentury.shinebuttonlib.ShineButton
-            android:id="@+id/btn_collection"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            app:btn_color="@color/bottombar_color"
-            app:btn_fill_color="#efd80c"
-            app:enable_flashing="true"
-            app:shine_size="10dp"
-            app:siShape="@raw/star" />
-    </RelativeLayout>
 </RelativeLayout>

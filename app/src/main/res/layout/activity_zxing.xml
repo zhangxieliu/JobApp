@@ -6,7 +6,7 @@
     <FrameLayout
         android:id="@+id/fl_my_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:id="@+id/top_bar"
@@ -17,8 +17,8 @@
 
         <ImageButton
             android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/image_size"
+            android:layout_height="@dimen/image_size"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/custom_padding"
             android:background="@drawable/btn_back_selector" />

@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.utils.LogUtils;
@@ -24,6 +25,7 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.activity.JobDetailActivity;
+import com.fosu.jobapp.activity.SearchActivity;
 import com.fosu.jobapp.activity.ZxingActivity;
 import com.fosu.jobapp.adapter.JobAdapter;
 import com.fosu.jobapp.base.BaseFragment;
@@ -67,7 +69,7 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
     @BindView(R.id.pull_to_refresh)
     PullToRefreshView mPullToRefreshView;
     @BindView(R.id.top_bar)
-    RelativeLayout mTopBar;
+    LinearLayout mTopBar;
     private SliderLayout slide;
     private View view;
     private int mDistanceY = 0;
@@ -257,23 +259,14 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
         slide.stopAutoCycle();
     }
 
-    private static final int REQUEST_CODE_PICK_CITY = 0x001;
-
-    /**
-     * 进入选择城市activity
-     */
-    private void enterSelectCity() {
-        //启动
-        startActivityForResult(new Intent(getActivity(), CityPickerActivity.class), REQUEST_CODE_PICK_CITY);
-    }
-
     private static final int REQUEST_CODE = 0x002;   // 请求二维码扫描的请求码
 
     @OnClick({R.id.search, R.id.zxing})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.search:
-                enterSelectCity();
+//                enterSelectCity();
+                startActivity(new Intent(mContext, SearchActivity.class));
                 break;
             case R.id.zxing:
                 cameraTask();
@@ -283,13 +276,7 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK) {
-            if (data != null) {
-                String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
-                Logger.i("当前选择的城市是：" + city);
-                ToastUtils.showShortToast(city);
-            }
-        } else if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             //处理扫描结果（在界面上显示）
             if (null != data) {
                 Bundle bundle = data.getExtras();

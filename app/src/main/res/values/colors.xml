@@ -23,4 +23,5 @@
     <color name="un_press_color">#03a9f4</color>
     <color name="scan_corner_color">#0effc2</color>
     <color name="salary_red">#f55353</color>
+    <color name="search_bg">#f9f9f9</color>
 </resources>

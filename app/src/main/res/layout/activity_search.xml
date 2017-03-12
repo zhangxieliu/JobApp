@@ -1,31 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:background="@color/search_bg"
+    android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/actionbar_bg_color"
         android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/tv_city"
+        <LinearLayout
+            android:id="@+id/layout_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:drawableRight="@drawable/ic_expand_normal"
-            android:text="广州"
-            android:textColor="@color/white"
-            android:textSize="@dimen/lg_text_size" />
+            android:layout_marginLeft="@dimen/lg_padding"
+            android:layout_marginRight="@dimen/custom_padding"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="广州"
+                android:textColor="@color/white"
+                android:textSize="@dimen/lg_text_size" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="2dp"
+                android:src="@drawable/ic_expand_normal" />
+
+        </LinearLayout>
 
         <EditText
+            android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
             android:layout_toLeftOf="@+id/tv_cancel"
-            android:layout_toRightOf="@+id/tv_city" />
+            android:layout_toRightOf="@+id/layout_city"
+            android:background="@drawable/et_backgroud_shape"
+            android:gravity="center_vertical"
+            android:hint="@string/et_search_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:lines="1"
+            android:paddingLeft="30dp"
+            android:textColor="@color/text_gray_color"
+            android:textColorHint="@color/black_overlay"
+            android:textSize="@dimen/sm_text_size" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignLeft="@+id/et_search"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/custom_padding"
+            android:src="@drawable/ic_search_pressed" />
 
         <TextView
             android:id="@+id/tv_cancel"
@@ -33,9 +69,43 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="取消"
+            android:layout_marginLeft="@dimen/custom_padding"
+            android:layout_marginRight="@dimen/lg_padding"
+            android:text="@string/cancel"
             android:textColor="@color/white"
             android:textSize="@dimen/lg_text_size" />
     </RelativeLayout>
 
-</RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/custom_padding"
+        android:paddingLeft="@dimen/lg_padding"
+        android:paddingTop="@dimen/lg_padding"
+        android:text="@string/hot_search"
+        android:textColor="@color/text_normal_color"
+        android:textSize="@dimen/lg_text_size" />
+
+    <me.gujun.android.taggroup.TagGroup
+        android:id="@+id/tag_group"
+        style="@style/TagGroup.Beauty_primary"
+        android:paddingBottom="@dimen/lg_padding"
+        android:paddingLeft="@dimen/lg_padding"
+        android:paddingTop="@dimen/custom_padding" />
+
+    <ListView
+        android:id="@+id/lv_history_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:padding="@dimen/lg_padding"
+        android:text="@string/clean_search_history"
+        android:textColor="@color/text_gray_color"
+        android:textSize="@dimen/lg_text_size" />
+</LinearLayout>
