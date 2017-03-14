@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/zxing_hint"
-            android:textColor="@color/white"
+            android:textColor="@color/colorWhite"
             android:textSize="@dimen/lg_text_size" />
     </RelativeLayout>
 
@@ -46,7 +46,7 @@
             android:layout_marginRight="@dimen/custom_padding"
             android:background="@drawable/button_selector"
             android:text="开启闪光灯"
-            android:textColor="@color/white"
+            android:textColor="@color/colorWhite"
             android:textSize="@dimen/xs_text_size" />
 
         <Button
@@ -57,7 +57,7 @@
             android:layout_marginLeft="@dimen/custom_padding"
             android:background="@drawable/button_selector"
             android:text="本地选取"
-            android:textColor="@color/white"
+            android:textColor="@color/colorWhite"
             android:textSize="@dimen/xs_text_size" />
     </LinearLayout>
 

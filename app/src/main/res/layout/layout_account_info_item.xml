@@ -9,14 +9,14 @@
     <ImageView
         android:layout_width="@dimen/image_size"
         android:layout_height="@dimen/image_size"
-        android:src="@drawable/ic_history_timer" />
+        android:src="@drawable/icon_setting_nor" />
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/lg_padding"
         android:layout_weight="11"
-        android:text="历史搜索条件"
+        android:text="我的简历"
         android:textColor="@color/text_normal_color"
         android:textSize="@dimen/lg_text_size" />
 

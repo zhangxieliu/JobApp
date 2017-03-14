@@ -14,21 +14,29 @@
     </style>
 
     <style name="SearchView">
-        <item name="floatingSearch_backgroundColor">@color/white</item>
+        <item name="floatingSearch_backgroundColor">@color/colorWhite</item>
         <item name="floatingSearch_viewTextColor">@color/text_normal_color</item>
         <item name="floatingSearch_hintTextColor">@color/text_gray_color</item>
-        <item name="floatingSearch_dividerColor">@color/gray</item>
+        <item name="floatingSearch_dividerColor">@color/colorGray</item>
         <item name="floatingSearch_clearBtnColor">@color/text_gray_color</item>
         <item name="floatingSearch_leftActionColor">@color/text_gray_color</item>
         <item name="floatingSearch_menuItemIconColor">@color/text_gray_color</item>
         <item name="floatingSearch_suggestionRightIconColor">@color/text_gray_color</item>
         <item name="floatingSearch_actionMenuOverflowColor">@color/text_gray_color</item>
     </style>
-    <style name="TextGrey">
+    <style name="TextXsGrey">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginRight">8dp</item>
         <item name="android:textColor">@color/text_gray_color</item>
         <item name="android:textSize">@dimen/xs_text_size</item>
+    </style>
+
+    <style name="TextGrey" parent="TextXsGrey">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:textColor">@color/text_gray_color</item>
+        <item name="android:textSize">@dimen/sm_text_size</item>
     </style>
 </resources>

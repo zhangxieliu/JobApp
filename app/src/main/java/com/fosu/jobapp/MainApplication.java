@@ -38,7 +38,7 @@ public class MainApplication extends Application {
             //im初始化
             BmobIM.init(this);
             //注册消息接收器
-            BmobIM.registerDefaultMessageHandler(new ChatMessageHandler());
+//            BmobIM.registerDefaultMessageHandler(new ChatMessageHandler());
         }
         // 内存泄露检查工具
 //        if (LeakCanary.isInAnalyzerProcess(this)) {

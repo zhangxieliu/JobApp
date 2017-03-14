@@ -3,10 +3,10 @@
 
     <corners android:radius="5dp" />
 
-    <solid android:color="@color/actionbar_bg_color" />
+    <solid android:color="@color/colorPrimaryDark" />
 
     <stroke
         android:width="2dp"
-        android:color="@color/actionbar_bg_color" />
+        android:color="@color/colorPrimaryDark" />
 
 </shape>

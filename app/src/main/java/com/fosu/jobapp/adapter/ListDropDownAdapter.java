@@ -66,7 +66,7 @@ public class ListDropDownAdapter extends BaseAdapter {
                 viewHolder.mText.setBackgroundResource(R.color.check_bg);
             } else {
                 viewHolder.mText.setTextColor(context.getResources().getColor(R.color.drop_down_unselected));
-                viewHolder.mText.setBackgroundResource(R.color.white);
+                viewHolder.mText.setBackgroundResource(R.color.colorWhite);
             }
         }
     }

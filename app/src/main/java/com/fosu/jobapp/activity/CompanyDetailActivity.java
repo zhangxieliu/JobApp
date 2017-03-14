@@ -123,7 +123,7 @@ public class CompanyDetailActivity extends BaseActivity {
         });
         viewPagerTab.setTitles("公司概述", "热招职位", "公司问答");
         viewPagerTab.setTitleSize(SizeUtils.sp2px(15));
-        viewPagerTab.setStripColor(getResources().getColor(R.color.actionbar_bg_color, null));
+        viewPagerTab.setStripColor(getResources().getColor(R.color.colorPrimary, null));
         viewPagerTab.setStripWeight(SizeUtils.dp2px(3));
         viewPagerTab.setStripFactor(2);
         viewPagerTab.setStripType(NavigationTabStrip.StripType.LINE);

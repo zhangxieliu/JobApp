@@ -49,6 +49,7 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 初始化状态栏，如果存在状态栏，则设置状态栏颜色的沉浸式，并处理顶部适应的高度
+     *
      * @param view 需要调整的头部View
      */
     public void initStatusBar(View view) {
@@ -82,6 +83,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        dialog.cancel();
+        if (dialog != null)
+            dialog.hide();
     }
 }

@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <!--主色-->
+    <color name="colorPrimary">#3399ff</color>
+    <color name="colorPrimaryDark">#3091f2</color>
+    <color name="colorLightPrimary">#5cadff</color>
     <color name="colorAccent">#FF4081</color>
-
+    <!--辅助色-->
+    <color name="colorInfo">#3399ff</color>
+    <color name="colorSuccess">#00cc66</color>
+    <color name="colorWarning">#ff9900</color>
+    <color name="colorError">#ff6600</color>
+    <!--中性色-->
+    <color name="colorTitle">#464c5b</color>
+    <color name="colorContent">#657180</color>
+    <color name="colorSubIcon">#9ea7b4</color>
+    <color name="colorDisabled">#c3cbd6</color>
+    <color name="colorBorder">#c3cbd6</color>
+    <color name="colorDivider">#e3e8ee</color>
+    <color name="colorBackground">#f5f7f9</color>
+    <color name="colorBackgroundMask">#99f5f7f9</color>
+    <!--常规色-->
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorDarkWhite">#F9FAFC</color>
+    <color name="colorGray">#D3DCE6</color>
+    <color name="colorLightGray">#E5E9F2</color>
+    <color name="colorBlack">#1F2D3D</color>
+    <color name="colorLightBlack">#324057</color>
+    <!--自定义组件色-->
     <color name="black_overlay">#66000000</color>
-    <color name="white">#fff</color>
-    <color name="gray">#eceff1</color>
     <color name="reset_gray_nor">#e0e1e2</color>
     <color name="reset_gray_pre">#cececf</color>
     <color name="text_normal_color">#212121</color>
-    <color name="text_gray_color">#5c5b5b</color>
-    <color name="actionbar_bg_color">#03a9f4</color>
+    <color name="text_gray_color">#657180</color>
     <color name="divide_line_color">#ccc</color>
-    <color name="bottombar_color">#fff</color>
+    <color name="bottombar_color">#f5f7f9</color>
 
     <color name="drop_down_selected">#0297da</color>
     <color name="drop_down_unselected">#111111</color>

@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/colorWhite"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/actionbar_bg_color"
+        android:background="@color/colorPrimary"
         android:gravity="center_vertical">
 
         <TextView
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/company_title"
-            android:textColor="@color/white"
+            android:textColor="@color/colorWhite"
             android:textSize="@dimen/lg_text_size" />
 
         <ImageButton
@@ -34,13 +34,13 @@
         android:id="@+id/dropDownMenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:dddividerColor="@color/gray"
+        app:dddividerColor="@color/colorGray"
         app:ddmaskColor="@color/mask_color"
-        app:ddmenuBackgroundColor="@color/white"
+        app:ddmenuBackgroundColor="@color/colorWhite"
         app:ddmenuSelectedIcon="@drawable/ic_drop_down_selected"
         app:ddmenuTextSize="13sp"
         app:ddmenuUnselectedIcon="@drawable/ic_drop_down_unselected"
         app:ddtextSelectedColor="@color/drop_down_selected"
         app:ddtextUnselectedColor="@color/drop_down_unselected"
-        app:ddunderlineColor="@color/gray" />
+        app:ddunderlineColor="@color/colorGray" />
 </LinearLayout>

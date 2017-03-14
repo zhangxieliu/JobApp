@@ -8,7 +8,7 @@
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/actionbar_bg_color"
+        android:background="@color/colorPrimary"
         android:gravity="center_vertical">
 
         <TextView
@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="聊天"
-            android:textColor="@color/white"
+            android:textColor="@color/colorWhite"
             android:textSize="@dimen/lg_text_size" />
     </RelativeLayout>
 

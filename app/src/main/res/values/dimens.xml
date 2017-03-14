@@ -3,10 +3,12 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="xs_text_size">12sp</dimen>
-    <dimen name="sm_text_size">13sp</dimen>
-    <dimen name="lg_text_size">14sp</dimen>
+    <dimen name="sm_text_size">14sp</dimen>
+    <dimen name="lg_text_size">15sp</dimen>
     <dimen name="custom_padding">8dp</dimen>
+    <dimen name="custom_xs_size">5dp</dimen>
     <dimen name="grid_spacing">5dp</dimen>
     <dimen name="lg_padding">15dp</dimen>
     <dimen name="image_size">20dp</dimen>
+    <dimen name="custom_bar_height">45dp</dimen>
 </resources>

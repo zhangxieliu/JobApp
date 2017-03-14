@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
+    android:background="@color/colorPrimary"
     android:contentInsetLeft="0dp"
     android:contentInsetStart="0dp"
     android:elevation="4dp"
-    app:title="公司"
     android:gravity="center"
     app:navigationIcon="@drawable/btn_back_selector"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+    app:subtitle="Java开发工程师"
+    app:title="职位详情">
 
     <!--  any custom view -->
 

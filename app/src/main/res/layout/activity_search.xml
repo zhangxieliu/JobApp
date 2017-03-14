@@ -9,7 +9,7 @@
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/actionbar_bg_color"
+        android:background="@color/colorPrimary"
         android:gravity="center_vertical">
 
         <LinearLayout
@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="广州"
-                android:textColor="@color/white"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/lg_text_size" />
 
             <ImageView
@@ -72,7 +72,7 @@
             android:layout_marginLeft="@dimen/custom_padding"
             android:layout_marginRight="@dimen/lg_padding"
             android:text="@string/cancel"
-            android:textColor="@color/white"
+            android:textColor="@color/colorWhite"
             android:textSize="@dimen/lg_text_size" />
     </RelativeLayout>
 
@@ -88,7 +88,7 @@
 
     <me.gujun.android.taggroup.TagGroup
         android:id="@+id/tag_group"
-        style="@style/TagGroup.Beauty_primary"
+        style="@style/TagGroup.Beauty_Red"
         android:paddingBottom="@dimen/lg_padding"
         android:paddingLeft="@dimen/lg_padding"
         android:paddingTop="@dimen/custom_padding" />
@@ -102,7 +102,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
-        android:background="@color/white"
+        android:background="@color/colorWhite"
         android:gravity="center"
         android:padding="@dimen/lg_padding"
         android:text="@string/clean_search_history"

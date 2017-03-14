@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.blankj.utilcode.utils.LogUtils;
 import com.fosu.jobapp.R;
 
 import java.util.ArrayList;
@@ -82,7 +81,7 @@ public class ConstellationAdapter extends BaseAdapter {
     private void fillValue(int position, ViewHolder holder) {
         holder.mText.setText(data.get(position));
         if (set.contains(position)) {
-            holder.mText.setTextColor(context.getResources().getColor(R.color.white));
+            holder.mText.setTextColor(context.getResources().getColor(R.color.colorWhite));
             holder.mText.setBackgroundResource(R.drawable.check_bg);
         } else {
             holder.mText.setTextColor(context.getResources().getColor(R.color.text_gray_color));

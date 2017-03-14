@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/colorBackground"
     android:orientation="vertical">
 
     <include layout="@layout/layout_pull_refresh" />
@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/custom_bar_height"
         android:gravity="center_vertical">
 
         <LinearLayout
@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="广州"
-                android:textColor="@color/white"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/lg_text_size" />
 
             <ImageView
@@ -40,8 +40,8 @@
         <LinearLayout
             android:id="@+id/search"
             android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_margin="5dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/custom_padding"
             android:layout_toLeftOf="@+id/zxing"
             android:layout_weight="1"
             android:background="@drawable/shape_edit_search"
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="搜索公司"
-                android:textColor="@color/text_gray_color"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/xs_text_size" />
         </LinearLayout>
 

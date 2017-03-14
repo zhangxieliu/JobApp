@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center|bottom"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_user_head"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/icon_default_user_small"
+        app:civ_border_color="@color/colorPrimary"
+        app:civ_border_width="0.5dp" />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/custom_padding"
+        android:text="张协流"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/lg_text_size" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/custom_bar_height"
+        android:layout_marginTop="@dimen/custom_padding"
+        android:background="@color/mask_color"
+        android:divider="@drawable/ic_img_line_v"
+        android:dividerPadding="10dp"
+        android:showDividers="middle">
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:text="注册"
+            android:textColor="@color/colorInfo"
+            android:textSize="@dimen/sm_text_size" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:text="登录"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/sm_text_size" />
+    </LinearLayout>
+</LinearLayout>

@@ -9,6 +9,7 @@
 
     <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
         android:id="@+id/recycleView"
+        android:stateListAnimator="@anim/dd_mask_out"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </com.yalantis.phoenix.PullToRefreshView>

@@ -13,6 +13,7 @@ import com.fosu.jobapp.R;
 import com.fosu.jobapp.bean.Company;
 import com.fosu.jobapp.bean.Job;
 import com.fosu.jobapp.listener.OnItemClickListener;
+import com.fosu.jobapp.listener.OnNODoubleClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuAdapter;
 
 import java.text.ParseException;
@@ -139,9 +140,9 @@ public class JobAdapter extends SwipeMenuAdapter<JobAdapter.Holder> {
                 e.printStackTrace();
             }
             if (mListener != null) {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                holder.itemView.setOnClickListener(new OnNODoubleClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onNoDoubleClick(View v) {
                         mListener.onItemClick(pos, job);
                     }
                 });

@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.utils.LogUtils;
 import com.blankj.utilcode.utils.SizeUtils;
@@ -29,7 +28,6 @@ import com.fosu.jobapp.activity.SearchActivity;
 import com.fosu.jobapp.activity.ZxingActivity;
 import com.fosu.jobapp.adapter.JobAdapter;
 import com.fosu.jobapp.base.BaseFragment;
-import com.fosu.jobapp.bean.Company;
 import com.fosu.jobapp.bean.Job;
 import com.fosu.jobapp.listener.OnItemClickListener;
 import com.orhanobut.logger.Logger;
@@ -41,7 +39,6 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
-import com.zaaach.citypicker.CityPickerActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -165,7 +162,7 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
                     float alpha = scale * 255;
                     mTopBar.setBackgroundColor(Color.argb((int) alpha, 3, 169, 244));
                 } else {
-                    mTopBar.setBackgroundResource(R.color.actionbar_bg_color);
+                    mTopBar.setBackgroundResource(R.color.colorPrimary);
                 }
             }
         });
@@ -225,7 +222,7 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
             @Override
             public void onCreateMenu(SwipeMenu swipeLeftMenu, SwipeMenu swipeRightMenu, int viewType) {
                 SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity())
-                        .setBackgroundDrawable(R.color.actionbar_bg_color)
+                        .setBackgroundDrawable(R.color.colorPrimary)
                         .setImage(R.drawable.icon_not_interested) // 图标。
                         .setText("不感兴趣") // 文字。
                         .setTextColor(getResources().getColor(R.color.text_gray_color)) // 文字颜色。
