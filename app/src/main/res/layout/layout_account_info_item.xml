@@ -12,6 +12,7 @@
         android:src="@drawable/icon_setting_nor" />
 
     <TextView
+        android:id="@+id/tv_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/lg_padding"

@@ -399,7 +399,10 @@ public class CompanyFragment extends BaseFragment {
         adapter.setOnItemClickListener(new CompanyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int postion, Object object) {
-                startActivity(new Intent(getActivity(), CompanyDetailActivity.class));
+                Intent intent = new Intent(mContext, CompanyDetailActivity.class);
+                Logger.i(mCompanies.get(postion).toString());
+                intent.putExtra("company", mCompanies.get(postion));
+                startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
             }
         });

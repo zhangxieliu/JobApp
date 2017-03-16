@@ -88,7 +88,7 @@
 
     <me.gujun.android.taggroup.TagGroup
         android:id="@+id/tag_group"
-        style="@style/TagGroup.Beauty_Red"
+        style="@style/TagGroup.Beauty_primary"
         android:paddingBottom="@dimen/lg_padding"
         android:paddingLeft="@dimen/lg_padding"
         android:paddingTop="@dimen/custom_padding" />

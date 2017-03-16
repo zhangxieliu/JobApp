@@ -13,29 +13,14 @@
         android:layout_height="@dimen/custom_bar_height"
         android:gravity="center_vertical">
 
-        <LinearLayout
-            android:id="@+id/layout_city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="广州"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/lg_text_size" />
-
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_marginLeft="2dp"
-                android:src="@drawable/ic_expand_normal" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_city"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="@dimen/custom_xs_size"
+            android:text="广州"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/lg_text_size" />
 
         <LinearLayout
             android:id="@+id/search"
@@ -66,8 +51,7 @@
             android:id="@+id/zxing"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/custom_xs_size"
             android:background="@drawable/icon_scan_code" />
     </LinearLayout>
 

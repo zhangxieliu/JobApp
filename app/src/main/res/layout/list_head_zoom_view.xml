@@ -4,4 +4,4 @@
     android:layout_width="match_parent"
     android:layout_height="140dp"
     android:scaleType="centerCrop"
-    android:src="@drawable/splash01" />
+    android:src="@drawable/wall01" />

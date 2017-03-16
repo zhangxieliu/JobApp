@@ -48,47 +48,50 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
                 android:background="@color/colorWhite"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:padding="@dimen/custom_padding">
 
                 <ImageView
-                    android:id="@+id/company_logo"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:id="@+id/iv_company_logo"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/custom_padding"
                     android:src="@mipmap/tencent" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/arrow_right"
-                    android:layout_toRightOf="@id/company_logo"
+                    android:layout_toRightOf="@id/iv_company_logo"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_company_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="@dimen/custom_xs_size"
                         android:text="腾讯计算机系统有限公司"
                         android:textColor="@color/text_normal_color" />
 
                     <TextView
+                        android:id="@+id/tv_company_website"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="@dimen/custom_xs_size"
                         android:text="http://www.baidu.com"
                         android:textColor="@color/colorPrimary" />
 
                     <TextView
+                        android:id="@+id/tv_company_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="@dimen/custom_xs_size"
                         android:text="IT软件 | 已上市 | 2000人以上"
                         android:textColor="@color/text_gray_color" />
                 </LinearLayout>
             </RelativeLayout>
-
 
             <com.gigamole.navigationtabstrip.NavigationTabStrip
                 android:id="@+id/viewPagerTab"
@@ -102,7 +105,6 @@
                 android:minHeight="400dp" />
 
         </LinearLayout>
-        -->
     </ScrollView>
 
     <FrameLayout
@@ -124,7 +126,6 @@
                 android:layout_height="40dp"
                 android:padding="10dp"
                 android:src="@drawable/btn_back_selector" />
-
         </FrameLayout>
     </FrameLayout>
 </FrameLayout>

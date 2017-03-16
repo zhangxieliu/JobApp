@@ -7,9 +7,9 @@
     android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/iv_user_head"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:id="@+id/avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@drawable/icon_default_user_small"
         app:civ_border_color="@color/colorPrimary"
         app:civ_border_width="0.5dp" />
@@ -18,12 +18,14 @@
         android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/custom_padding"
         android:layout_marginTop="@dimen/custom_padding"
         android:text="张协流"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/lg_text_size" />
 
     <LinearLayout
+        android:id="@+id/register_or_login"
         android:layout_width="match_parent"
         android:layout_height="@dimen/custom_bar_height"
         android:layout_marginTop="@dimen/custom_padding"

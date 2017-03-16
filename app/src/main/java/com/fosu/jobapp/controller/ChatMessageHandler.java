@@ -1,5 +1,7 @@
 package com.fosu.jobapp.controller;
 
+import android.content.Context;
+
 import cn.bmob.newim.event.MessageEvent;
 import cn.bmob.newim.event.OfflineMessageEvent;
 import cn.bmob.newim.listener.BmobIMMessageHandler;
@@ -9,6 +11,12 @@ import cn.bmob.newim.listener.BmobIMMessageHandler;
  */
 
 public class ChatMessageHandler extends BmobIMMessageHandler {
+    private Context mContext;
+
+    public ChatMessageHandler(Context mContext) {
+        this.mContext = mContext;
+    }
+
     @Override
     public void onMessageReceive(final MessageEvent event) {
         //当接收到服务器发来的消息时，此方法被调用

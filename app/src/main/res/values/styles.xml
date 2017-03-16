@@ -39,4 +39,37 @@
         <item name="android:textColor">@color/text_gray_color</item>
         <item name="android:textSize">@dimen/sm_text_size</item>
     </style>
+    <style name="TextBlack">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:textColor">@color/text_normal_color</item>
+        <item name="android:textSize">@dimen/lg_text_size</item>
+    </style>
+    <style name="TagGroup.Beauty_primary" parent="TagGroup">
+        <item name="atg_borderColor">@color/colorPrimary</item>
+        <item name="atg_textColor">@color/colorPrimary</item>
+        <item name="atg_checkedBorderColor">@color/colorPrimary</item>
+        <item name="atg_checkedBackgroundColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="layout_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginTop">@dimen/custom_padding</item>
+        <item name="android:padding">@dimen/custom_padding</item>
+    </style>
+
+    <style name="edit_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/lg_text_size</item>
+        <item name="android:textColorHint">@color/colorTitle</item>
+        <item name="android:lines">1</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:paddingTop">@dimen/custom_xs_size</item>
+        <item name="android:paddingBottom">@dimen/custom_xs_size</item>
+    </style>
 </resources>

@@ -206,7 +206,7 @@
 
                 <me.gujun.android.taggroup.TagGroup
                     android:id="@+id/tag_group"
-                    style="@style/TagGroup.Beauty_Red"
+                    style="@style/TagGroup.Beauty_primary"
                     android:padding="@dimen/custom_padding" />
 
                 <TextView
