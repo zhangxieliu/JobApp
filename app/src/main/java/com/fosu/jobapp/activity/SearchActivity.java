@@ -14,11 +14,17 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.SPUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.base.BaseActivity;
+import com.fosu.jobapp.utils.CustomContact;
 import com.orhanobut.logger.Logger;
 import com.zaaach.citypicker.CityPickerActivity;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +45,7 @@ public class SearchActivity extends BaseActivity {
     @BindView(R.id.et_search)
     EditText mEtSearch;
     private Context mContext;
+    private SPUtils spUtils;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +58,14 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void init() {
-        mTagGroup.setTags("ios", "android", "java", "php", "前端", "后端开发", "node");
+        spUtils = new SPUtils(CustomContact.SP_NAME);
+        final String searchArray = spUtils.getString("search_array", "");
+        final String[] split = searchArray.split("%%");
+        final List<String> linkedList = new LinkedList<>();
+        for (String s : split) {
+            linkedList.add(s);
+        }
+        mTagGroup.setTags(linkedList);
         mLvHistorySearch.setAdapter(new BaseAdapter() {
             @Override
             public int getCount() {
@@ -81,7 +95,11 @@ public class SearchActivity extends BaseActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEND ||
                         (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    Logger.i("搜索框输入内容为："+ mEtSearch.getText().toString());
+                    String searchContent = mEtSearch.getText().toString().trim();
+                    Logger.i("搜索框输入内容为："+ searchContent);
+                    linkedList.remove(5);
+//                    linkedList.add(5, searchContent);
+//                    spUtils.putString("search_array", linkedList.);
                     ToastUtils.showShortToast(mEtSearch.getText().toString());
                     return true;
                 }

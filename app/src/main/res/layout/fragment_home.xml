@@ -15,18 +15,19 @@
 
         <TextView
             android:id="@+id/tv_city"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_margin="@dimen/custom_xs_size"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/custom_padding"
             android:text="广州"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/lg_text_size" />
+            android:textSize="@dimen/sm_text_size" />
 
         <LinearLayout
             android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/custom_padding"
+            android:layout_marginBottom="@dimen/custom_padding"
+            android:layout_marginTop="@dimen/custom_padding"
             android:layout_toLeftOf="@+id/zxing"
             android:layout_weight="1"
             android:background="@drawable/shape_edit_search"
@@ -49,9 +50,9 @@
 
         <ImageButton
             android:id="@+id/zxing"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_margin="@dimen/custom_xs_size"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/custom_padding"
             android:background="@drawable/icon_scan_code" />
     </LinearLayout>
 
