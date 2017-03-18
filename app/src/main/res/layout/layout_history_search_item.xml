@@ -12,6 +12,7 @@
         android:src="@drawable/ic_history_timer" />
 
     <TextView
+        android:id="@+id/tv_history"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/lg_padding"

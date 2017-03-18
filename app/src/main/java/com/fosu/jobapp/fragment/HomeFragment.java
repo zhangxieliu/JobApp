@@ -257,13 +257,14 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
     }
 
     private static final int REQUEST_CODE = 0x002;   // 请求二维码扫描的请求码
+    private static final int SEARCH_REQUEST_CODE = 0x003;   // 请求二维码扫描的请求码
 
     @OnClick({R.id.search, R.id.zxing})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.search:
 //                enterSelectCity();
-                startActivity(new Intent(mContext, SearchActivity.class));
+                startActivityForResult(new Intent(mContext, SearchActivity.class), SEARCH_REQUEST_CODE);
                 break;
             case R.id.zxing:
                 cameraTask();
@@ -287,6 +288,10 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
                     ToastUtils.showShortToast("解析二维码失败");
                 }
             }
+        } else if (requestCode == SEARCH_REQUEST_CODE && resultCode == RESULT_OK) {
+            String searchContent = data.getStringExtra("searchContent");
+            ToastUtils.showShortToast(searchContent);
+            // TODO: 2017/3/18 这里做搜索功能实现
         }
         if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.
