@@ -4,118 +4,110 @@
     xmlns:custom="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    android:fitsSystemWindows="true">
+    android:background="@color/colorBackground">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:background="@color/colorBackground">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
+            android:layout_height="160dp"
             app:contentScrim="@color/colorPrimary"
             app:layout_scrollFlags="scroll"
+            app:title="@string/app_name"
             app:statusBarScrim="@android:color/transparent"
-            app:titleEnabled="false">
+            app:titleEnabled="true">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp">
+
+                <com.daimajia.slider.library.SliderLayout
+                    android:id="@+id/slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.daimajia.slider.library.Indicators.PagerIndicator
+                        android:id="@+id/custom_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="10dp"
+                        custom:selected_color="@color/colorPrimary"
+                        custom:selected_height="3dp"
+                        custom:selected_padding_left="2dp"
+                        custom:selected_padding_right="2dp"
+                        custom:selected_width="16dp"
+                        custom:shape="rectangle"
+                        custom:unselected_color="#55333333"
+                        custom:unselected_height="3dp"
+                        custom:unselected_padding_left="2dp"
+                        custom:unselected_padding_right="2dp"
+                        custom:unselected_width="16dp" />
+                </com.daimajia.slider.library.SliderLayout>
+            </FrameLayout>
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+        <RelativeLayout
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/custom_padding"
+            android:background="@color/colorWhite"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/iv_company_logo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/custom_padding"
+                android:src="@mipmap/tencent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/arrow_right"
+                android:layout_toRightOf="@id/iv_company_logo"
                 android:orientation="vertical">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp">
-
-                    <com.daimajia.slider.library.SliderLayout
-                        android:id="@+id/slider"
-                        android:layout_width="match_parent"
-                        android:layout_height="160dp">
-
-                        <com.daimajia.slider.library.Indicators.PagerIndicator
-                            android:id="@+id/custom_indicator"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginBottom="10dp"
-                            custom:selected_color="@color/colorPrimary"
-                            custom:selected_height="3dp"
-                            custom:selected_padding_left="2dp"
-                            custom:selected_padding_right="2dp"
-                            custom:selected_width="16dp"
-                            custom:shape="rectangle"
-                            custom:unselected_color="#55333333"
-                            custom:unselected_height="3dp"
-                            custom:unselected_padding_left="2dp"
-                            custom:unselected_padding_right="2dp"
-                            custom:unselected_width="16dp" />
-                    </com.daimajia.slider.library.SliderLayout>
-                </FrameLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_company_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorWhite"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/custom_padding">
+                    android:padding="@dimen/custom_xs_size"
+                    android:text="腾讯计算机系统有限公司"
+                    android:textColor="@color/text_normal_color" />
 
-                    <ImageView
-                        android:id="@+id/iv_company_logo"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/custom_padding"
-                        android:src="@mipmap/tencent" />
+                <TextView
+                    android:id="@+id/tv_company_website"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/custom_xs_size"
+                    android:text="http://www.baidu.com"
+                    android:textColor="@color/colorPrimary" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/arrow_right"
-                        android:layout_toRightOf="@id/iv_company_logo"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_company_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/custom_xs_size"
-                            android:text="腾讯计算机系统有限公司"
-                            android:textColor="@color/text_normal_color" />
-
-                        <TextView
-                            android:id="@+id/tv_company_website"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/custom_xs_size"
-                            android:text="http://www.baidu.com"
-                            android:textColor="@color/colorPrimary" />
-
-                        <TextView
-                            android:id="@+id/tv_company_info"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/custom_xs_size"
-                            android:text="IT软件 | 已上市 | 2000人以上"
-                            android:textColor="@color/text_gray_color" />
-                    </LinearLayout>
-                </RelativeLayout>
-
+                <TextView
+                    android:id="@+id/tv_company_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/custom_xs_size"
+                    android:text="IT软件 | 已上市 | 2000人以上"
+                    android:textColor="@color/text_gray_color" />
             </LinearLayout>
-
-        </android.support.design.widget.CollapsingToolbarLayout>
+        </RelativeLayout>
 
         <com.gigamole.navigationtabstrip.NavigationTabStrip
             android:id="@+id/viewPagerTab"
             android:layout_width="match_parent"
             android:layout_height="@dimen/custom_bar_height"
+            android:background="@color/colorBackground"
             android:paddingLeft="@dimen/custom_padding"
             android:paddingRight="@dimen/custom_padding"
-            android:background="@color/colorBackground"
             app:nts_active_color="@color/text_normal_color"
             app:nts_color="@color/colorPrimary"
             app:nts_corners_radius="1.5dp"
@@ -127,19 +119,18 @@
             app:nts_type="line"
             app:nts_typeface="fonts/typeface.otf"
             app:nts_weight="3dp" />
-    </android.support.design.widget.AppBarLayout>
 
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="always"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <com.fosu.jobapp.view.CustomViewPager
+        <android.support.v4.view.ViewPager
             android:id="@+id/viewPage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minHeight="200dp" />
+
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

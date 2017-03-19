@@ -156,7 +156,7 @@ public class CompanyDetailActivity extends BaseActivity {
 
             @Override
             public int getCount() {
-                return 3;
+                return 1;
             }
         });
         viewPagerTab.setViewPager(viewPage, 0);
