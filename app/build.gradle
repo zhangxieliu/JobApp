@@ -105,4 +105,6 @@ dependencies {
     compile 'cn.pedant.sweetalert:library:1.3'
     // 打印Log的库
     compile 'com.orhanobut:logger:1.15'
+    // 顶部滚动悬浮
+    compile 'com.github.w446108264:ScrollableLayout:1.0.3'
 }

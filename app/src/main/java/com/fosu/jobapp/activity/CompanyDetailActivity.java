@@ -2,9 +2,9 @@ package com.fosu.jobapp.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -42,19 +42,19 @@ import butterknife.OnClick;
  */
 
 public class CompanyDetailActivity extends BaseActivity {
+    @BindView(R.id.viewPage)
+    ViewPager viewPage;
+    @BindView(R.id.viewPagerTab)
+    NavigationTabStrip viewPagerTab;
     private Context mContext;
-    @BindView(R.id.btn_back)
-    ImageView btnBack;
+    //    @BindView(R.id.btn_back)
+//    ImageView btnBack;
     @BindView(R.id.slider)
     SliderLayout slider;
     @BindView(R.id.custom_indicator)
     PagerIndicator customIndicator;
-    @BindView(R.id.viewPagerTab)
-    NavigationTabStrip viewPagerTab;
-    @BindView(R.id.viewPager)
-    ViewPager viewPager;
-    @BindView(R.id.back_layout)
-    FrameLayout mBackLayout;
+    //    @BindView(R.id.back_layout)
+//    FrameLayout mBackLayout;
     @BindView(R.id.iv_company_logo)
     ImageView ivCompanyLogo;
     @BindView(R.id.tv_company_name)
@@ -68,10 +68,9 @@ public class CompanyDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_company_detail);
+        setContentView(R.layout.activity_company_details);
         ButterKnife.bind(this);
         mContext = this;
-        initStatusBar();
         initBanner();
         initViewPager();
         initData();
@@ -83,22 +82,22 @@ public class CompanyDetailActivity extends BaseActivity {
         tvCompanyName.setText(company.getCompanyName());
         tvCompanyWebsite.setText(company.getCompanyWebsite());
         tvCompanyInfo.setText(company.getCompanyIndustry().get(0) + " | " +
-        company.getCompanyType().getType() + " | " + company.getCompanyScale().getScale());
+                company.getCompanyType().getType() + " | " + company.getCompanyScale().getScale());
         Glide.with(mContext).load(company.getCompanyLogo().getUrl()).into(ivCompanyLogo);
     }
-
-    /**
-     * 初始化状态栏，如果存在状态栏，则设置状态栏颜色的沉浸式，并处理actionbar的高度
-     */
-    private void initStatusBar() {
-        if (BarUtils.isStatusBarExists(this)) {
-            int statusBarHeight = BarUtils.getStatusBarHeight(this);
-            ViewGroup.LayoutParams layoutParams = mBackLayout.getLayoutParams();
-            layoutParams.height = SizeUtils.dp2px(layoutParams.height + statusBarHeight);
-            mBackLayout.setLayoutParams(layoutParams);
-            mBackLayout.setPadding(0, statusBarHeight, 0, 0);
-        }
-    }
+//
+//    /**
+//     * 初始化状态栏，如果存在状态栏，则设置状态栏颜色的沉浸式，并处理actionbar的高度
+//     */
+//    private void initStatusBar() {
+//        if (BarUtils.isStatusBarExists(this)) {
+//            int statusBarHeight = BarUtils.getStatusBarHeight(this);
+//            ViewGroup.LayoutParams layoutParams = mBackLayout.getLayoutParams();
+//            layoutParams.height = SizeUtils.dp2px(layoutParams.height + statusBarHeight);
+//            mBackLayout.setLayoutParams(layoutParams);
+//            mBackLayout.setPadding(0, statusBarHeight, 0, 0);
+//        }
+//    }
 
 
     /**
@@ -140,7 +139,7 @@ public class CompanyDetailActivity extends BaseActivity {
      * 初始化ViewPager
      */
     private void initViewPager() {
-        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+        viewPage.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 CompanyInfoFragment companyInfoFragment = new CompanyInfoFragment();
@@ -160,25 +159,13 @@ public class CompanyDetailActivity extends BaseActivity {
                 return 3;
             }
         });
-        viewPagerTab.setTitles("公司概述", "热招职位", "公司问答");
-        viewPagerTab.setTitleSize(SizeUtils.sp2px(15));
-        viewPagerTab.setStripColor(getResources().getColor(R.color.colorPrimary));
-        viewPagerTab.setStripWeight(SizeUtils.dp2px(3));
-        viewPagerTab.setStripFactor(2);
-        viewPagerTab.setStripType(NavigationTabStrip.StripType.LINE);
-        viewPagerTab.setStripGravity(NavigationTabStrip.StripGravity.BOTTOM);
-//        viewPagerTab.setTypeface("font/drugs.otf");
-        viewPagerTab.setCornersRadius(3);//设置tab的圆角度
-        viewPagerTab.setAnimationDuration(300);// 设置tab移动的动画持续时间
-        viewPagerTab.setInactiveColor(Color.GRAY);
-        viewPagerTab.setActiveColor(Color.BLACK);
-        viewPagerTab.setViewPager(viewPager, 0);
+        viewPagerTab.setViewPager(viewPage, 0);
         viewPagerTab.setTabIndex(0, false);
     }
 
-    @OnClick(R.id.btn_back)
-    public void onClick() {
-        finish();
-        overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);// 设置Activity跳转动画
-    }
+//    @OnClick(R.id.btn_back)
+//    public void onClick() {
+//        finish();
+//        overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);// 设置Activity跳转动画
+//    }
 }

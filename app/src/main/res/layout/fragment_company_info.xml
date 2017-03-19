@@ -2,56 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGray"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="@dimen/custom_padding">
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/custom_padding"
+        android:text="公司介绍"
+        android:textColor="@color/text_normal_color"
+        android:textSize="@dimen/lg_text_size"
+        android:textStyle="bold" />
 
-        <LinearLayout
+    <com.ms.square.android.expandabletextview.ExpandableTextView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/expand_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="80dp"
+        expandableTextView:animDuration="200"
+        expandableTextView:maxCollapsedLines="3">
+
+        <TextView
+            android:id="@id/expandable_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/text_gray_color"
+            android:textSize="@dimen/lg_text_size" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="公司介绍"
-                android:textStyle="bold"
-                android:padding="10dp"
-                android:textColor="@color/text_normal_color"
-                android:textSize="@dimen/lg_text_size" />
-
-            <com.ms.square.android.expandabletextview.ExpandableTextView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/expand_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                expandableTextView:animDuration="200"
-                expandableTextView:maxCollapsedLines="3">
-
-                <TextView
-                    android:id="@id/expandable_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textColor="#666666"
-                    android:textSize="16sp" />
-
-                <ImageButton
-                    android:id="@id/expand_collapse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right|bottom"
-                    android:background="@android:color/transparent"
-                    android:padding="16dp" />
-            </com.ms.square.android.expandabletextview.ExpandableTextView>
-        </LinearLayout>
-    </ScrollView>
+        <ImageButton
+            android:id="@id/expand_collapse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/custom_padding" />
+    </com.ms.square.android.expandabletextview.ExpandableTextView>
 </LinearLayout>

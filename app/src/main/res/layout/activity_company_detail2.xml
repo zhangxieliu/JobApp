@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <com.scrollablelayout.ScrollableLayout
+        android:id="@+id/scroll_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp">
+
+                <com.daimajia.slider.library.SliderLayout
+                    android:id="@+id/slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp">
+
+                    <com.daimajia.slider.library.Indicators.PagerIndicator
+                        android:id="@+id/custom_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="10dp"
+                        custom:selected_color="@color/colorPrimary"
+                        custom:selected_height="3dp"
+                        custom:selected_padding_left="2dp"
+                        custom:selected_padding_right="2dp"
+                        custom:selected_width="16dp"
+                        custom:shape="rect"
+                        custom:unselected_color="#55333333"
+                        custom:unselected_height="3dp"
+                        custom:unselected_padding_left="2dp"
+                        custom:unselected_padding_right="2dp"
+                        custom:unselected_width="16dp" />
+                </com.daimajia.slider.library.SliderLayout>
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:padding="@dimen/custom_padding">
+
+                <ImageView
+                    android:id="@+id/iv_company_logo"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/custom_padding"
+                    android:src="@mipmap/tencent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/arrow_right"
+                    android:layout_toRightOf="@id/iv_company_logo"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_company_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/custom_xs_size"
+                        android:text="腾讯计算机系统有限公司"
+                        android:textColor="@color/text_normal_color" />
+
+                    <TextView
+                        android:id="@+id/tv_company_website"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/custom_xs_size"
+                        android:text="http://www.baidu.com"
+                        android:textColor="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/tv_company_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/custom_xs_size"
+                        android:text="IT软件 | 已上市 | 2000人以上"
+                        android:textColor="@color/text_gray_color" />
+                </LinearLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <com.gigamole.navigationtabstrip.NavigationTabStrip
+            android:id="@+id/viewPagerTab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/custom_bar_height"
+            android:layout_marginLeft="@dimen/custom_padding"
+            android:layout_marginRight="@dimen/custom_padding"
+            app:nts_active_color="@color/text_normal_color"
+            app:nts_color="@color/colorPrimary"
+            app:nts_corners_radius="1.5dp"
+            app:nts_factor="2.5"
+            app:nts_gravity="bottom"
+            app:nts_inactive_color="@color/text_gray_color"
+            app:nts_size="@dimen/lg_text_size"
+            app:nts_titles="@array/titles"
+            app:nts_type="line"
+            app:nts_typeface="fonts/typeface.otf"
+            app:nts_weight="3dp" />
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+
+    </com.scrollablelayout.ScrollableLayout>
+
+    <FrameLayout
+        android:id="@+id/back_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/custom_padding"
+        android:background="@android:color/transparent">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.5"
+            android:background="@drawable/circular_bg">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:src="@drawable/btn_back_selector" />
+        </FrameLayout>
+    </FrameLayout>
+</FrameLayout>

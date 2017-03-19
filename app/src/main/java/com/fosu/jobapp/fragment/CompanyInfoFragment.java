@@ -25,8 +25,6 @@ public class CompanyInfoFragment extends Fragment {
 
     @BindView(R.id.expand_text_view)
     ExpandableTextView expandTextView;
-    @BindView(R.id.scrollView)
-    ScrollView mScrollView;
     private OnFragmentListener listener;
 
     @Nullable
@@ -40,13 +38,6 @@ public class CompanyInfoFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         listener.doSomething(expandTextView);
-        mScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                Logger.i("scrollX:" + scrollX + ", scrollY:" + scrollY +
-                        ", oldScrollX:" + oldScrollX + ", oldScrollY" + oldScrollY);
-            }
-        });
     }
 
     public OnFragmentListener getListener() {

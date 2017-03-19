@@ -127,7 +127,7 @@
         android:background="@drawable/button_selector"
         android:enabled="false"
         android:text="@string/login"
-        android:textColor="@color/white"
+        android:textColor="@color/colorWhite"
         android:textSize="@dimen/lg_text_size" />
 
     <LinearLayout

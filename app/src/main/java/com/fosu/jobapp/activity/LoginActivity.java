@@ -56,8 +56,11 @@ public class LoginActivity extends BaseActivity {
         initStatusBar(topBar);
         mContext = this;
         User currentUser = UserModel.getInstance().getCurrentUser();
-        if (currentUser != null)
+        if (currentUser != null) {
             Glide.with(mContext).load(currentUser.getAvatar().getUrl()).into(userDefault);
+            startActivity(new Intent(mContext, MainActivity.class));
+            finish();
+        }
         initView();
     }
 
