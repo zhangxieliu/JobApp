@@ -8,6 +8,8 @@ import com.blankj.utilcode.utils.Utils;
 import com.fosu.jobapp.controller.ChatMessageHandler;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import java.io.BufferedReader;
@@ -51,6 +53,14 @@ public class MainApplication extends Application {
         Utils.init(appContext);
         CrashUtils.getInstance().init();
         LogUtils.getBuilder().setTag("MyTag").setLog2FileSwitch(true).create();
+
+        // 初始化友盟SDK
+        UMShareAPI.get(this);
+    }
+
+    {
+        // 配置QQ平台appkey
+        PlatformConfig.setQQZone("1105983855","ZGO4WJqjue8r8lvb");
     }
 
     /**

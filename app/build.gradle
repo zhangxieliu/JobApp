@@ -8,16 +8,30 @@ android {
     defaultConfig {
         applicationId "com.fosu.jobapp"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
     buildTypes {
         release {
             minifyEnabled false
+//            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+//            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+//    signingConfigs {
+//        debug {
+//            storeFile file('job.jks')
+//            storePassword "ZXL7925542908"
+//            keyAlias "jobapp"
+//            keyPassword "ZXL7925542908"
+//        }
+//    }
 }
 repositories {
     maven {
@@ -49,7 +63,7 @@ dependencies {
     // Actionbar的滑动颜色渐变
     //    compile 'com.github.manuelpeinado.fadingactionbar:fadingactionbar:3.1.2'
     // 实现沉浸式状态栏
-//    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    //    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     // tag标签组
     compile 'me.gujun.android.taggroup:library:1.4@aar'
     // 富文本解析
@@ -81,7 +95,7 @@ dependencies {
     compile 'com.sackcentury:shinebutton:0.1.6'
     compile 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.0.6'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-//    compile 'com.android.support:support-v4:19.1.0'
+    //    compile 'com.android.support:support-v4:19.1.0'
     // 多条件筛选菜单
     compile 'com.github.dongjunkun:DropDownMenu:1.0.3'
     // 类似美团等APP的城市选择界面
@@ -97,7 +111,6 @@ dependencies {
     compile 'cn.yipianfengye.android:zxing-library:2.1'
     // gongle对于安卓6.0的权限控制解决库
     compile 'pub.devrel:easypermissions:0.3.0'
-
     //bmob-im：Bmob的即时通讯包，注意每个版本的im依赖特定版本的bmob-sdk，具体的依赖关系可查看下面注释[2]
     compile 'cn.bmob.android:bmob-im:2.0.5@aar'
     compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
@@ -107,4 +120,5 @@ dependencies {
     compile 'com.orhanobut:logger:1.15'
     // 顶部滚动悬浮
     compile 'com.github.w446108264:ScrollableLayout:1.0.3'
+    compile 'com.android.support:design:25.1.1'
 }

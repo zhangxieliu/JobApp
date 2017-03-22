@@ -1,11 +1,22 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:listDivider">@drawable/divider</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="windowNoTitle">true</item>-->
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+        <item name="android:windowBackground">@color/windowBackground</item>
+        <!--   your app branding color for the app bar -->
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--   theme UI controls like checkboxes and text fields -->
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <!--正常状态下的颜色  -->
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <!--覆盖色，按下的颜色  -->
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
     </style>
 
     <style name="CustomTitleTextAppearance">

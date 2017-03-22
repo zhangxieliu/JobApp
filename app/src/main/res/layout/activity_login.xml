@@ -166,22 +166,22 @@
         android:layout_above="@+id/layout_bottom_tv">
 
         <ImageView
-            android:id="@+id/imgWeixin"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:contentDescription="@string/login_weixin"
-            android:src="@drawable/selector_weixin" />
-
-        <ImageView
-            android:id="@+id/imgAlipay"
+            android:id="@+id/img_qq"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="1"
             android:clickable="true"
             android:contentDescription="@string/login_qq"
             android:src="@drawable/selector_qq" />
+
+        <ImageView
+            android:id="@+id/img_weixin"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="@string/login_weixin"
+            android:src="@drawable/selector_weixin" />
     </LinearLayout>
 
     <LinearLayout
@@ -192,20 +192,18 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin">
 
         <TextView
-            android:id="@+id/tv_weixin"
-            style="@style/TextGrey"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/login_weixin" />
-
-        <TextView
-            android:id="@+id/tv_alipay"
             style="@style/TextGrey"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/login_qq" />
+
+        <TextView
+            style="@style/TextGrey"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/login_weixin" />
     </LinearLayout>
 
 </RelativeLayout>

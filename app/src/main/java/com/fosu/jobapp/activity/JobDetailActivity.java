@@ -1,5 +1,6 @@
 package com.fosu.jobapp.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.utils.BarUtils;
 import com.blankj.utilcode.utils.SizeUtils;
+import com.blankj.utilcode.utils.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.base.BaseActivity;
@@ -21,6 +23,12 @@ import com.fosu.jobapp.bean.Company;
 import com.fosu.jobapp.bean.Job;
 import com.ldoublem.thumbUplib.ThumbUpView;
 import com.sackcentury.shinebuttonlib.ShineButton;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.utils.SocializeUtils;
 import com.zzhoujay.richtext.RichText;
 import com.zzhoujay.richtext.RichType;
 
@@ -73,6 +81,9 @@ public class JobDetailActivity extends BaseActivity {
     LinearLayout companyDetail;
     @BindView(R.id.bottom_btn_layout)
     LinearLayout bottomBtnLayout;
+    private Job job;
+
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,6 +93,7 @@ public class JobDetailActivity extends BaseActivity {
         initThumbUpView();
         initStatusBar();
         loadData();
+        dialog = new ProgressDialog(this);
     }
 
     /**
@@ -135,12 +147,12 @@ public class JobDetailActivity extends BaseActivity {
 
     private void loadData() {
         Intent intent = getIntent();
-        Job job = (Job) intent.getSerializableExtra("jobInfo");
+        job = (Job) intent.getSerializableExtra("jobInfo");
         Company company = job.getCompany();
         tvCompanyName.setText(company.getCompanyName());
         Glide.with(this).load(company.getCompanyLogo().getUrl()).asBitmap().into(companyLogo);
         tvCompanyInfo.setText(company.getCompanyIndustry().get(0) + "|" +
-                company.getCompanyType().getType() + "|"+ company.getCompanyScale().getScale());
+                company.getCompanyType().getType() + "|" + company.getCompanyScale().getScale());
         tvJobBenefits.setText(job.getJobBenefits());
         tvJobType.setText(job.getJobType().getType());
         tvEducation.setText(job.getJobEducation().getEducation());
@@ -156,7 +168,7 @@ public class JobDetailActivity extends BaseActivity {
                 .into(tvRequirement);
     }
 
-    @OnClick({R.id.btn_back, R.id.btn_collection})
+    @OnClick({R.id.btn_back, R.id.btn_collection, R.id.img_share})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_back:
@@ -165,7 +177,49 @@ public class JobDetailActivity extends BaseActivity {
                 break;
             case R.id.btn_collection:
                 break;
+            case R.id.img_share:
+                new ShareAction(this).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.SINA)
+                    .withMedia(new UMImage(this, R.drawable.wall01))
+                    .setCallback(umShareListener)
+                    .open();
+                break;
         }
+    }
+
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
+            SocializeUtils.safeShowDialog(dialog);
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA share_media) {
+            ToastUtils.showShortToast("分享成功");
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+            SocializeUtils.safeCloseDialog(dialog);
+            ToastUtils.showShortToast("分享失败" + throwable.getMessage());
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media) {
+            SocializeUtils.safeCloseDialog(dialog);
+            ToastUtils.showShortToast("分享取消");
+        }
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        UMShareAPI.get(this).onSaveInstanceState(outState);
     }
 
     @Override
@@ -178,5 +232,6 @@ public class JobDetailActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         RichText.clear(this);// 清除富文本缓存
+        UMShareAPI.get(this).release();
     }
 }

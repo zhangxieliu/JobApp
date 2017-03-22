@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <!--相机闪光灯权限-->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <!--通知震动-->
@@ -25,6 +26,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!--录音-->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
     <application
         android:name=".MainApplication"
@@ -44,7 +48,7 @@
         <activity android:name=".activity.JobDetailActivity" />
         <activity android:name=".activity.CompanyDetailActivity" />
         <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.ZxingActivity"/>
+        <activity android:name=".activity.ZxingActivity" />
         <activity
             android:name="com.zaaach.citypicker.CityPickerActivity"
             android:screenOrientation="portrait"
@@ -52,7 +56,7 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <!--android:theme="@style/CityPicker.NoActionBar"-->
 
-        <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver" >
+        <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver">
             <intent-filter>
                 <action android:name="cn.bmob.action.RECONNECT" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -60,6 +64,7 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
+
         <service
             android:name="cn.bmob.newim.core.service.BmobIMService"
             android:process=":bmobcore" />
@@ -76,6 +81,54 @@
         <meta-data
             android:name="Bmob_APP_KEY"
             android:value="53cd5abd1c22bcf54c7f7042ecd26731" />
+
+        <!--友盟相关-->
+        <!--新浪相关-->
+        <activity
+            android:name=".WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!--微信相关-->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--QQ精简版相关-->
+        <activity
+            android:name="com.umeng.qq.tencent.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--分享编辑页(只有新浪微博精简版，豆瓣人人腾讯微博需要)：-->
+        <activity
+            android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.UMDefault" />
+        <!--友盟appkey-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="58d2702b5312ddab6b0003b9" />
     </application>
 
 </manifest>

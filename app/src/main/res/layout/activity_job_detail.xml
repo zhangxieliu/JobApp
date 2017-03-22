@@ -29,6 +29,15 @@
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/lg_text_size" />
 
+        <ImageButton
+            android:id="@+id/img_share"
+            android:layout_width="@dimen/image_size"
+            android:layout_height="@dimen/image_size"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/thumbUpView"
+            android:background="@drawable/selector_share_img" />
+
         <com.ldoublem.thumbUplib.ThumbUpView
             android:id="@+id/thumbUpView"
             bgColor="@color/colorGray"

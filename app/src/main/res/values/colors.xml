@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--主色-->
+    <!--默认的toolbar背景色-->
     <color name="colorPrimary">#3399ff</color>
+    <!--状态栏底色-->
     <color name="colorPrimaryDark">#3091f2</color>
     <color name="colorLightPrimary">#5cadff</color>
+    <!--控制元件(比如：checkbox、switch 或是 radio) 被勾选 (checked) 或是选定 (selected) 的颜色-->
     <color name="colorAccent">#FF4081</color>
+    <!--只能在API21以上才能用各控制元件的预设颜色和colorAccent正好对应-->
+    <color name="colorControlNormal">#FF4081</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <!--App 的背景色-->
+    <color name="windowBackground">#f5f7f9</color>
     <!--辅助色-->
-    <color name="colorInfo">#3399ff</color>
+    <!--导航栏的背景色-->
+    <color name="navigationBarColor">#3399ff</color>
     <color name="colorSuccess">#00cc66</color>
     <color name="colorWarning">#ff9900</color>
     <color name="colorError">#ff6600</color>

@@ -9,9 +9,11 @@
     android:contentInsetStart="0dp"
     android:elevation="4dp"
     android:gravity="center"
+    android:subtitleTextColor="@color/colorWhite"
     app:navigationIcon="@drawable/btn_back_selector"
     app:subtitle="Java开发工程师"
-    app:title="职位详情">
+    app:title="职位详情"
+    app:titleTextColor="@color/colorWhite">
 
     <!--  any custom view -->
 
