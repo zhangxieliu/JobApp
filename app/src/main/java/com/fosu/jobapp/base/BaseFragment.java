@@ -86,4 +86,11 @@ public abstract class BaseFragment extends Fragment {
         if (dialog != null)
             dialog.hide();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (dialog != null)
+            dialog.cancel();
+    }
 }

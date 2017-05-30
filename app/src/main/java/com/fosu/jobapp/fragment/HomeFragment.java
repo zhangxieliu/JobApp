@@ -74,6 +74,12 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
     private JobAdapter adapter;
     private Context mContext;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initProgressDialog();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,7 +93,6 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initStatusBar(mTopBar);
-        initProgressDialog();
         initBanner();
         initRecyclerView();
         loadData();
@@ -209,7 +214,7 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
             public void onError(int i, String s) {
                 Logger.e("error code:" + i + ", message:" + s);
                 ToastUtils.showShortToast("数据获取异常");
-                dialog.cancel();
+                dialog.hide();
             }
         });
     }
@@ -263,7 +268,6 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.search:
-//                enterSelectCity();
                 startActivityForResult(new Intent(mContext, SearchActivity.class), SEARCH_REQUEST_CODE);
                 break;
             case R.id.zxing:
@@ -292,6 +296,7 @@ public class HomeFragment extends BaseFragment implements EasyPermissions.Permis
             String searchContent = data.getStringExtra("searchContent");
             ToastUtils.showShortToast(searchContent);
             // TODO: 2017/3/18 这里做搜索功能实现
+
         }
         if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.

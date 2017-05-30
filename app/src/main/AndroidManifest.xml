@@ -49,6 +49,7 @@
         <activity android:name=".activity.CompanyDetailActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.ZxingActivity" />
+        <activity android:name=".activity.ResumeActivity" />
         <activity
             android:name="com.zaaach.citypicker.CityPickerActivity"
             android:screenOrientation="portrait"
@@ -112,7 +113,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent100424468" />
+                <data android:scheme="1105983855" />
             </intent-filter>
         </activity>
         <activity

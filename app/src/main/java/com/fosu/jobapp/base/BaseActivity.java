@@ -1,5 +1,6 @@
 package com.fosu.jobapp.base;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.blankj.utilcode.utils.BarUtils;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.Utils;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityBase;
@@ -17,6 +19,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
  */
 public class BaseActivity extends AppCompatActivity implements SwipeBackActivityBase {
     private SwipeBackActivityHelper mHelper;
+    protected SweetAlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,17 @@ public class BaseActivity extends AppCompatActivity implements SwipeBackActivity
             view.setLayoutParams(layoutParams);
             view.setPadding(0, statusBarHeight, 0, 0);
         }
+    }
+
+    /**
+     * 初始化加载数据的对话框
+     */
+    public void initProgressDialog() {
+        dialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        dialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        dialog.setTitleText("正在加载数据...");
+        dialog.setCancelable(false);
+        dialog.show();
     }
 
     @Override
@@ -68,5 +82,19 @@ public class BaseActivity extends AppCompatActivity implements SwipeBackActivity
     public void scrollToFinishActivity() {
         Utils.convertActivityToTranslucent(this);
         getSwipeBackLayout().scrollToFinishActivity();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (dialog != null)
+            dialog.hide();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (dialog != null)
+            dialog.cancel();
     }
 }

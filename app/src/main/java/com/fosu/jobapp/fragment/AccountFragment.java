@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -16,6 +17,7 @@ import com.blankj.utilcode.utils.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.activity.LoginActivity;
+import com.fosu.jobapp.activity.ResumeActivity;
 import com.fosu.jobapp.base.BaseFragment;
 import com.fosu.jobapp.bean.User;
 import com.fosu.jobapp.listener.OnNODoubleClickListener;
@@ -100,6 +102,18 @@ public class AccountFragment extends BaseFragment {
             @Override
             public void onNoDoubleClick(View v) {
                 ToastUtils.showShortToast("暂未实现");
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 1:
+                        Intent intent = new Intent(mContext, ResumeActivity.class);
+                        startActivity(intent);
+                        break;
+                }
             }
         });
     }

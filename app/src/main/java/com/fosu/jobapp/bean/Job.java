@@ -13,8 +13,9 @@ public class Job extends BmobObject {
     private String jobName;
     private String jobCity;
     private String jobCityLocation;
+    private String jobLocation;
     private String jobBenefits;
-    private List<String> jobSalary;
+    private List<Integer> jobSalary;
     private List<String> jobTag;
     private String jobDescribe;
     private String jobRequirement;
@@ -32,28 +33,12 @@ public class Job extends BmobObject {
         super(tableName);
     }
 
-    public Job(String jobName, String jobCity, String jobCityLocation, String jobBenefits, List<String> jobSalary, List<String> jobTag, String jobDescribe, String jobRequirement, BmobDate jobPublicDate, Company company, JobExperience jobExperience, JobEducation jobEducation, JobType jobType, User user) {
-        this.jobName = jobName;
-        this.jobCity = jobCity;
-        this.jobCityLocation = jobCityLocation;
-        this.jobBenefits = jobBenefits;
-        this.jobSalary = jobSalary;
-        this.jobTag = jobTag;
-        this.jobDescribe = jobDescribe;
-        this.jobRequirement = jobRequirement;
-        this.jobPublicDate = jobPublicDate;
-        this.company = company;
-        this.jobExperience = jobExperience;
-        this.jobEducation = jobEducation;
-        this.jobType = jobType;
-        this.user = user;
-    }
-
-    public Job(String tableName, String jobName, String jobCity, String jobCityLocation, String jobBenefits, List<String> jobSalary, List<String> jobTag, String jobDescribe, String jobRequirement, BmobDate jobPublicDate, Company company, JobExperience jobExperience, JobEducation jobEducation, JobType jobType, User user) {
+    public Job(String tableName, String jobName, String jobCity, String jobCityLocation, String jobLocation, String jobBenefits, List<Integer> jobSalary, List<String> jobTag, String jobDescribe, String jobRequirement, BmobDate jobPublicDate, Company company, JobExperience jobExperience, JobEducation jobEducation, JobType jobType, User user) {
         super(tableName);
         this.jobName = jobName;
         this.jobCity = jobCity;
         this.jobCityLocation = jobCityLocation;
+        this.jobLocation = jobLocation;
         this.jobBenefits = jobBenefits;
         this.jobSalary = jobSalary;
         this.jobTag = jobTag;
@@ -91,6 +76,14 @@ public class Job extends BmobObject {
         this.jobCityLocation = jobCityLocation;
     }
 
+    public String getJobLocation() {
+        return jobLocation;
+    }
+
+    public void setJobLocation(String jobLocation) {
+        this.jobLocation = jobLocation;
+    }
+
     public String getJobBenefits() {
         return jobBenefits;
     }
@@ -99,11 +92,11 @@ public class Job extends BmobObject {
         this.jobBenefits = jobBenefits;
     }
 
-    public List<String> getJobSalary() {
+    public List<Integer> getJobSalary() {
         return jobSalary;
     }
 
-    public void setJobSalary(List<String> jobSalary) {
+    public void setJobSalary(List<Integer> jobSalary) {
         this.jobSalary = jobSalary;
     }
 
@@ -184,7 +177,7 @@ public class Job extends BmobObject {
         return "Job{" +
                 "jobName='" + jobName + '\'' +
                 ", jobCity='" + jobCity + '\'' +
-                ", jobCityLocation='" + jobCityLocation + '\'' +
+                ", jobLocation='" + jobLocation + '\'' +
                 ", jobBenefits='" + jobBenefits + '\'' +
                 ", jobSalary=" + jobSalary +
                 ", jobTag=" + jobTag +

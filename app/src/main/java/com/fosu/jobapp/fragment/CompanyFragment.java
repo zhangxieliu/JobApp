@@ -61,15 +61,8 @@ public class CompanyFragment extends BaseFragment {
     private View contentView;
     private Context mContext;
 
-    private String headers[] = {"城市", "融资", "规模", "行业"};
-    private GirdDropDownAdapter cityAdapter;
+    private String headers[] = {"融资", "规模", "行业"};
 
-    private String citys[] = {"不限", "武汉", "北京", "上海", "成都", "广州", "深圳", "重庆", "天津", "西安", "南京", "杭州", "武汉", "北京", "上海", "成都", "广州", "深圳", "重庆", "天津", "西安", "南京", "杭州"};
-    private String experiences[] = {"不限", "应届生", "一年以内", "1-3年", "3-5年", "5-10年", "10年以上"};
-    private String educations[] = {"不限", "本科", "大专", "中专", "高中"};
-    private String type[] = {"全部", "未融资", "天使轮", "A轮", "B轮", "C轮", "D轮", "不需要融资"};
-    private String scale[] = {"全部"};
-    private List<String> industry;
     private Set<Integer> selType = new HashSet<>();
     private Set<Integer> selScale = new HashSet<>();
     private Set<Integer> selIndustry = new HashSet<>();
@@ -128,26 +121,11 @@ public class CompanyFragment extends BaseFragment {
     }
 
     private void initView() {
-        // 城市列表下拉列表
-        final ListView cityView = new ListView(getActivity());
-        cityAdapter = new GirdDropDownAdapter(getActivity(), Arrays.asList(citys));
-        cityView.setDividerHeight(0);
-        cityView.setAdapter(cityAdapter);
-        cityView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                cityAdapter.setCheckItem(position);
-                mDropDownMenu.setTabText(position == 0 ? headers[0] : citys[position]);
-                mDropDownMenu.closeMenu();
-            }
-        });
-
         View companyTypeView = initCompanyType();
         View companyScaleView = initCompanyScale();
         View companyIndustryView = initCompanyIndustry();
 
         List<View> popupViews = new ArrayList<>();
-        popupViews.add(cityView);
         popupViews.add(companyTypeView);
         popupViews.add(companyScaleView);
         popupViews.add(companyIndustryView);
@@ -168,7 +146,7 @@ public class CompanyFragment extends BaseFragment {
         selType.add(0);
         final View companyTypeView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_drop_down_grid, null);
         GridView companyType = ButterKnife.findById(companyTypeView, R.id.grid_view);
-        typeAdapter = new ConstellationAdapter(getActivity(), Arrays.asList(type));
+        typeAdapter = new ConstellationAdapter(getActivity());
         companyType.setAdapter(typeAdapter);
         Button ok1 = ButterKnife.findById(companyTypeView, R.id.btn_ok);
         Button reset1 = ButterKnife.findById(companyTypeView, R.id.btn_reset);
@@ -251,7 +229,7 @@ public class CompanyFragment extends BaseFragment {
         selScale.add(0);
         final View companyScaleView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_drop_down_grid, null);
         GridView companyScale = ButterKnife.findById(companyScaleView, R.id.grid_view);
-        scaleAdapter = new ConstellationAdapter(getActivity(), Arrays.asList(scale));
+        scaleAdapter = new ConstellationAdapter(getActivity());
         companyScale.setAdapter(scaleAdapter);
         Button ok2 = ButterKnife.findById(companyScaleView, R.id.btn_ok);
         Button reset2 = ButterKnife.findById(companyScaleView, R.id.btn_reset);
@@ -400,8 +378,7 @@ public class CompanyFragment extends BaseFragment {
             @Override
             public void onItemClick(int postion, Object object) {
                 Intent intent = new Intent(mContext, CompanyDetailActivity.class);
-                Logger.i(mCompanies.get(postion).toString());
-                intent.putExtra("company", mCompanies.get(postion));
+                intent.putExtra("companyId", mCompanies.get(postion).getObjectId());
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
             }

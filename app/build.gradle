@@ -8,9 +8,11 @@ android {
     defaultConfig {
         applicationId "com.fosu.jobapp"
         minSdkVersion 19
-        targetSdkVersion 21
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+
+//        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -26,12 +28,22 @@ android {
     }
 //    signingConfigs {
 //        debug {
-//            storeFile file('job.jks')
+//            storeFile file('H:\\app.jks')
 //            storePassword "ZXL7925542908"
-//            keyAlias "jobapp"
+//            keyAlias "job"
 //            keyPassword "ZXL7925542908"
 //        }
 //    }
+    //删除META-INF信息
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+        exclude 'META-INF/maven/com.squareup.okhttp3/okhttp/pom.xml'
+        exclude 'META-INF/maven/com.squareup.okhttp3/okhttp/pom.properties'
+        exclude 'META-INF/maven/com.squareup.okio.okio/pom.xml'
+        exclude 'META-INF/maven/com.squareup.okio.okio/pom.properties'
+        exclude 'META-INF/maven/com.google.code.gson/gson/pom.xml'
+        exclude 'META-INF/maven/com.google.code.gson/gson/pom.properties'
+    }
 }
 repositories {
     maven {
@@ -41,12 +53,14 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleCompatible
+//    compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:support-v4:25.1.1'
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.android.support:recyclerview-v7:25.1.1'
     compile 'com.android.support:cardview-v7:25.1.1'
+    // 加载动画
     compile 'com.wang.avi:library:2.1.3'
     // 集成下拉刷新和上拉加载的RecyclerView
     //    compile 'com.jcodecraeer:xrecyclerview:1.3.2'
@@ -55,8 +69,9 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     // 圆形的ImageView
     compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.android.support:support-v4:+'
-    compile 'com.squareup.picasso:picasso:2.3.2'
+    //    compile 'com.android.support:support-v4:+'
+    // picasso图片加载
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.nineoldandroids:library:2.4.0'
     // 代码家的图片轮播
     compile 'com.daimajia.slider:library:1.1.5@aar'
@@ -67,19 +82,20 @@ dependencies {
     // tag标签组
     compile 'me.gujun.android.taggroup:library:1.4@aar'
     // 富文本解析
-    compile 'com.zzhoujay.richtext:richtext:2.3.7'
+    compile 'com.zzhoujay.richtext:richtext:2.4.2'
     // ListView的滑动菜单
     //    compile 'com.baoyz.swipemenulistview:library:1.3.0'
-    compile 'com.github.traex.rippleeffect:library:1.3'
+    // 为空间添加点击背景扩散效果
+//    compile 'com.github.traex.rippleeffect:library:1.3'
     // 万能的下拉刷新
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     // RecyclerView的滑动菜单
-    compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
+    compile 'com.yanzhenjie:recyclerview-swipe:1.0.4'
     // 水滴下拉刷新
     //    compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
     //    compile 'com.github.allan1st:JellyRefreshLayout:2.0'
     // 飞机下拉刷新
-    compile 'com.github.yalantis:taurus:1.0.2'
+    //    compile 'com.github.yalantis:taurus:1.0.2'
     // 房子下拉刷新
     compile 'com.yalantis:phoenix:1.2.3'
     // 可折叠的TextView
@@ -89,23 +105,21 @@ dependencies {
     // ViewPager指示器
     compile 'com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4'
     // 底部导航栏
-    compile 'com.roughike:bottom-bar:2.1.1'
+    compile 'com.roughike:bottom-bar:2.2.0'
     // 点赞的图标
     compile 'com.ldoublem.thumbUplib:ThumbUplib:0.5'
-    compile 'com.sackcentury:shinebutton:0.1.6'
-    compile 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.0.6'
+    compile 'com.sackcentury:shinebutton:0.1.7'
+//    compile 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.0.6'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     //    compile 'com.android.support:support-v4:19.1.0'
     // 多条件筛选菜单
     compile 'com.github.dongjunkun:DropDownMenu:1.0.3'
     // 类似美团等APP的城市选择界面
     compile 'com.zaaach:citypicker:1.1'
-    compile 'com.miguelcatalan:materialsearchview:1.4.0'
-    compile 'com.github.arimorty:floatingsearchview:2.0.3'
     // 内存泄漏检查
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    //    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     // 工具类
     compile 'com.blankj:utilcode:1.3.6'
     compile 'cn.yipianfengye.android:zxing-library:2.1'
@@ -119,6 +133,8 @@ dependencies {
     // 打印Log的库
     compile 'com.orhanobut:logger:1.15'
     // 顶部滚动悬浮
-    compile 'com.github.w446108264:ScrollableLayout:1.0.3'
+//    compile 'com.github.w446108264:ScrollableLayout:1.0.3'
     compile 'com.android.support:design:25.1.1'
+//    compile 'com.miguelcatalan:materialsearchview:1.4.0'
+    compile 'com.github.arimorty:floatingsearchview:2.0.3'
 }

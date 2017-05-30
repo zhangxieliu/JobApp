@@ -73,6 +73,13 @@ public class SearchActivity extends BaseActivity {
             }
         }
         mTagGroup.setTags("Android", "Java", "HTML", "Web前端");
+        mTagGroup.setOnTagClickListener(new TagGroup.OnTagClickListener() {
+            @Override
+            public void onTagClick(String tag) {
+                Logger.i("tag:" + tag);
+                returnSearchContent(tag);
+            }
+        });
         historyAdapter = new SearchHistoryAdapter(mContext, linkedList);
         mLvHistorySearch.setAdapter(historyAdapter);
         mEtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {

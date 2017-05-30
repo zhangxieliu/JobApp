@@ -12,7 +12,7 @@
         android:layout_height="60dp"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/custom_padding"
-        android:background="@drawable/souhu" />
+        android:background="@mipmap/company_logo_default" />
 
     <LinearLayout
         android:layout_width="match_parent"

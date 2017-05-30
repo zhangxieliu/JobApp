@@ -1,6 +1,5 @@
 package com.fosu.jobapp.activity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +29,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.newim.BmobIM;
 import cn.bmob.newim.bean.BmobIMUserInfo;
-import cn.bmob.v3.a.a.This;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -55,8 +53,6 @@ public class LoginActivity extends BaseActivity {
     Button btnLogin;
     private SPUtils spUtils;
 
-    private ProgressDialog dialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +68,6 @@ public class LoginActivity extends BaseActivity {
 //            finish();
         }
         initView();
-        dialog = new ProgressDialog(this);
     }
 
     private void initView() {
@@ -97,6 +92,8 @@ public class LoginActivity extends BaseActivity {
             case R.id.cb_remember:
                 break;
             case R.id.btn_login:
+                initProgressDialog();
+                this.dialog.setTitleText("正在登陆中");
                 final String username = etUsername.getText().toString();
                 final String password = etPassword.getText().toString();
                 UserModel.getInstance().login(username, password, new LogInListener() {
@@ -116,7 +113,9 @@ public class LoginActivity extends BaseActivity {
                             }
                             startActivity(new Intent(mContext, MainActivity.class));
                             finish();
+                            LoginActivity.this.dialog.cancel();
                         } else {
+                            LoginActivity.this.dialog.cancel();
                             ToastUtils.showShortToast(e.getMessage() + "(" + e.getErrorCode() + ")");
                         }
                     }

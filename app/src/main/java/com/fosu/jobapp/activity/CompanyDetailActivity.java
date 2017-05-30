@@ -4,19 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.BarUtils;
-import com.blankj.utilcode.utils.SizeUtils;
+import com.blankj.utilcode.utils.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
@@ -29,13 +27,13 @@ import com.fosu.jobapp.bean.Company;
 import com.fosu.jobapp.fragment.CompanyInfoFragment;
 import com.fosu.jobapp.listener.OnFragmentListener;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
-import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.GetListener;
 
 /**
  * 显示公司详细信息的Activity
@@ -46,6 +44,8 @@ public class CompanyDetailActivity extends BaseActivity {
     ViewPager viewPage;
     @BindView(R.id.viewPagerTab)
     NavigationTabStrip viewPagerTab;
+    @BindView(R.id.root_layout)
+    CoordinatorLayout rootLayout;
     private Context mContext;
     //    @BindView(R.id.btn_back)
 //    ImageView btnBack;
@@ -63,7 +63,6 @@ public class CompanyDetailActivity extends BaseActivity {
     TextView tvCompanyWebsite;
     @BindView(R.id.tv_company_info)
     TextView tvCompanyInfo;
-    private Company company;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,19 +70,35 @@ public class CompanyDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_company_details);
         ButterKnife.bind(this);
         mContext = this;
+        initProgressDialog();
         initBanner();
-        initViewPager();
         initData();
+        BarUtils.setTranslucentForImageView(this, rootLayout);
     }
 
     private void initData() {
         Intent intent = getIntent();
-        company = (Company) intent.getSerializableExtra("company");
-        tvCompanyName.setText(company.getCompanyName());
-        tvCompanyWebsite.setText(company.getCompanyWebsite());
-        tvCompanyInfo.setText(company.getCompanyIndustry().get(0) + " | " +
-                company.getCompanyType().getType() + " | " + company.getCompanyScale().getScale());
-        Glide.with(mContext).load(company.getCompanyLogo().getUrl()).into(ivCompanyLogo);
+        String companyId = intent.getStringExtra("companyId");
+        BmobQuery<Company> query = new BmobQuery<>();
+        query.include("companyType,companyScale,companyAudit");
+        query.getObject(mContext, companyId, new GetListener<Company>() {
+            @Override
+            public void onSuccess(Company company) {
+                tvCompanyName.setText(company.getCompanyName());
+                tvCompanyWebsite.setText(company.getCompanyWebsite());
+                tvCompanyInfo.setText(company.getCompanyIndustry().get(0) + " | " +
+                        company.getCompanyType().getType() + " | " + company.getCompanyScale().getScale());
+                Glide.with(mContext).load(company.getCompanyLogo().getUrl()).into(ivCompanyLogo);
+                initViewPager(company);
+                CompanyDetailActivity.this.dialog.cancel();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                ToastUtils.showShortToast("数据获取错误：" + s);
+                CompanyDetailActivity.this.dialog.cancel();
+            }
+        });
     }
 //
 //    /**
@@ -138,7 +153,7 @@ public class CompanyDetailActivity extends BaseActivity {
     /**
      * 初始化ViewPager
      */
-    private void initViewPager() {
+    private void initViewPager(final Company company) {
         viewPage.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -147,7 +162,9 @@ public class CompanyDetailActivity extends BaseActivity {
                     companyInfoFragment.setListener(new OnFragmentListener() {
                         @Override
                         public void doSomething(Object object) {
-                            ExpandableTextView expandableTextView = (ExpandableTextView) object;
+//                            ExpandableTextView expandableTextView = (ExpandableTextView) object;
+//                            expandableTextView.setText(company.getCompanyIntroduce());
+                            TextView expandableTextView = (TextView) object;
                             expandableTextView.setText(company.getCompanyIntroduce());
                         }
                     });
@@ -156,7 +173,7 @@ public class CompanyDetailActivity extends BaseActivity {
 
             @Override
             public int getCount() {
-                return 1;
+                return 3;
             }
         });
         viewPagerTab.setViewPager(viewPage, 0);

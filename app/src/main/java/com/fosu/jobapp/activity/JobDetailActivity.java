@@ -1,11 +1,13 @@
 package com.fosu.jobapp.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,8 +22,13 @@ import com.bumptech.glide.Glide;
 import com.fosu.jobapp.R;
 import com.fosu.jobapp.base.BaseActivity;
 import com.fosu.jobapp.bean.Company;
+import com.fosu.jobapp.bean.DeliveryRecord;
 import com.fosu.jobapp.bean.Job;
+import com.fosu.jobapp.bean.JobOperation;
+import com.fosu.jobapp.bean.PersonalResume;
+import com.fosu.jobapp.bean.User;
 import com.ldoublem.thumbUplib.ThumbUpView;
+import com.orhanobut.logger.Logger;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -32,9 +39,16 @@ import com.umeng.socialize.utils.SocializeUtils;
 import com.zzhoujay.richtext.RichText;
 import com.zzhoujay.richtext.RichType;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobPointer;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
 import me.gujun.android.taggroup.TagGroup;
 
 /**
@@ -81,40 +95,105 @@ public class JobDetailActivity extends BaseActivity {
     LinearLayout companyDetail;
     @BindView(R.id.bottom_btn_layout)
     LinearLayout bottomBtnLayout;
+    @BindView(R.id.btn_send)
+    Button btnSend;
+    @BindView(R.id.companyName)
+    TextView companyName;
+    @BindView(R.id.companyType)
+    TextView companyType;
     private Job job;
 
     private ProgressDialog dialog;
+    private Context mContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_detail);
         ButterKnife.bind(this);
+        mContext = this;
+        loadData();
         initThumbUpView();
         initStatusBar();
-        loadData();
         dialog = new ProgressDialog(this);
     }
+
+    private JobOperation jobOperation;
+    private String id1;
+    private String id2;
 
     /**
      * 初始化感兴趣和收藏小按钮
      */
     private void initThumbUpView() {
         mThumbUpView.setUnLikeType(ThumbUpView.LikeType.broken);
+        BmobQuery<JobOperation> query = new BmobQuery<>();
+        query.addWhereEqualTo("user", BmobUser.getCurrentUser(mContext, User.class));
+        query.addWhereEqualTo("job", job);
+        query.addWhereEqualTo("type", 1);
+        query.findObjects(mContext, new FindListener<JobOperation>() {
+            @Override
+            public void onSuccess(List<JobOperation> list) {
+                if (list == null || list.size() == 0) {
+                    mThumbUpView.setUnlike();
+                } else {
+                    mThumbUpView.setLike();
+                    id1 = list.get(0).getObjectId();
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                Logger.i(s + "8888888");
+                mThumbUpView.setUnlike();
+                btnCollection.setChecked(false);
+            }
+        });
+        BmobQuery<JobOperation> query2 = new BmobQuery<>();
+        query.addWhereEqualTo("user", new BmobPointer(BmobUser.getCurrentUser(mContext, User.class)));
+        query.addWhereEqualTo("job", new BmobPointer(job));
+        query.addWhereEqualTo("type", 2);
+        query2.findObjects(mContext, new FindListener<JobOperation>() {
+            @Override
+            public void onSuccess(List<JobOperation> list) {
+                if (list == null || list.size() == 0) {
+                    btnCollection.setChecked(false);
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+        });
         mThumbUpView.setOnThumbUp(new ThumbUpView.OnThumbUp() {
             @Override
-            public void like(boolean like) {
+            public void like(final boolean like) {
+                jobOperation = new JobOperation();
+                jobOperation.setUser(BmobUser.getCurrentUser(mContext, User.class));
+                jobOperation.setJob(job);
+                jobOperation.setType(1);
+                if (id1 != null) {
+                    jobOperation.setObjectId(id1);
+                    jobOperation.delete(mContext);
+                }
                 if (like) {
-                    //TODO 这里做感兴趣的职位保存操作
-                    Toast.makeText(JobDetailActivity.this, "感兴趣", Toast.LENGTH_SHORT).show();
-                } else {
-                    //TODO 这里做不感兴趣的职位删除保存操作
-                    Toast.makeText(JobDetailActivity.this, "不感兴趣", Toast.LENGTH_SHORT).show();
+                    jobOperation.save(mContext, new SaveListener() {
+                        @Override
+                        public void onSuccess() {
+                            ToastUtils.showShortToast("感兴趣");
+                        }
+
+                        @Override
+                        public void onFailure(int i, String s) {
+                            Logger.i("code:" + i + ", msg:" + s);
+                        }
+                    });
                 }
             }
         });
-//        mThumbUpView.Like();
-//        mThumbUpView.UnLike();
         btnCollection.setOnCheckStateChangeListener(new ShineButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(View view, boolean checked) {
@@ -145,14 +224,19 @@ public class JobDetailActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 加载后台数据
+     */
     private void loadData() {
         Intent intent = getIntent();
         job = (Job) intent.getSerializableExtra("jobInfo");
         Company company = job.getCompany();
         tvCompanyName.setText(company.getCompanyName());
+        companyName.setText(company.getCompanyName());
+        companyType.setText(company.getCompanyType().getType());
         Glide.with(this).load(company.getCompanyLogo().getUrl()).asBitmap().into(companyLogo);
-        tvCompanyInfo.setText(company.getCompanyIndustry().get(0) + "|" +
-                company.getCompanyType().getType() + "|" + company.getCompanyScale().getScale());
+        tvCompanyInfo.setText(company.getCompanyIndustry().get(0) + " | " +
+                company.getCompanyType().getType() + " | " + company.getCompanyScale().getScale());
         tvJobBenefits.setText(job.getJobBenefits());
         tvJobType.setText(job.getJobType().getType());
         tvEducation.setText(job.getJobEducation().getEducation());
@@ -161,14 +245,35 @@ public class JobDetailActivity extends BaseActivity {
         tvJobSalary.setText(job.getJobSalary().get(0) + "K-" + job.getJobSalary().get(1) + "K");
         tvJobName.setText(job.getJobName());
         tagGroup.setTags(job.getJobTag());
-        RichText.from(job.getJobRequirement())
+        RichText.from(job.getJobDescribe())
                 .type(RichType.HTML) // 文本类型
                 .autoFix(true)  //是否自动修复，默认为true
                 .bind(this) // 绑定richText对象到某个object上，方便后面的清理
                 .into(tvRequirement);
+        BmobQuery<DeliveryRecord> query = new BmobQuery<>();
+        query.addWhereEqualTo("job", job);
+        query.addWhereEqualTo("user", BmobUser.getCurrentUser(this, User.class));
+        query.findObjects(mContext, new FindListener<DeliveryRecord>() {
+            @Override
+            public void onSuccess(List<DeliveryRecord> list) {
+                if (list == null || list.size() == 0) {
+                    btnSend.setText("发送简历");
+                    btnSend.setEnabled(true);
+                } else {
+                    btnSend.setText("已投递");
+                    btnSend.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                btnSend.setText("发送简历");
+                btnSend.setEnabled(true);
+            }
+        });
     }
 
-    @OnClick({R.id.btn_back, R.id.btn_collection, R.id.img_share})
+    @OnClick({R.id.btn_back, R.id.btn_collection, R.id.img_share, R.id.btn_send, R.id.company_detail})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_back:
@@ -179,9 +284,35 @@ public class JobDetailActivity extends BaseActivity {
                 break;
             case R.id.img_share:
                 new ShareAction(this).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.SINA)
-                    .withMedia(new UMImage(this, R.drawable.wall01))
-                    .setCallback(umShareListener)
-                    .open();
+                        .withMedia(new UMImage(this, R.drawable.wall01))
+                        .setCallback(umShareListener)
+                        .open();
+                break;
+            case R.id.btn_send:
+                DeliveryRecord deliveryRecord = new DeliveryRecord();
+                deliveryRecord.setJob(job);
+                PersonalResume personalResume = new PersonalResume();
+                personalResume.setObjectId("wXdOWWWb");
+                deliveryRecord.setPersonalResume(personalResume);
+                deliveryRecord.setUser(BmobUser.getCurrentUser(this, User.class));
+                deliveryRecord.setStatus("已投递");
+                deliveryRecord.save(this, new SaveListener() {
+                    @Override
+                    public void onSuccess() {
+                        ToastUtils.showShortToast("职位投递成功");
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        ToastUtils.showShortToast("职位投递失败");
+                    }
+                });
+                break;
+            case R.id.company_detail:
+                Intent intent = new Intent(this, CompanyDetailActivity.class);
+                intent.putExtra("companyId", this.job.getCompany().getObjectId());
+                startActivity(intent);
+                overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
                 break;
         }
     }

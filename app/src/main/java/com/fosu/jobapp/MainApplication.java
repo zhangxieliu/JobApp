@@ -7,7 +7,7 @@ import com.blankj.utilcode.utils.LogUtils;
 import com.blankj.utilcode.utils.Utils;
 import com.fosu.jobapp.controller.ChatMessageHandler;
 import com.orhanobut.logger.Logger;
-import com.squareup.leakcanary.LeakCanary;
+import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
@@ -54,6 +54,8 @@ public class MainApplication extends Application {
         CrashUtils.getInstance().init();
         LogUtils.getBuilder().setTag("MyTag").setLog2FileSwitch(true).create();
 
+        // 开启友盟调试
+        Config.DEBUG = true;
         // 初始化友盟SDK
         UMShareAPI.get(this);
     }
