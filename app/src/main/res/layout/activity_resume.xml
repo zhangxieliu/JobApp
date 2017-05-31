@@ -1,187 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorGray"
-        android:orientation="vertical">
+        android:layout_height="45dp"
+        android:background="@color/colorPrimary">
+
+        <Button
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/custom_padding"
+            android:background="@drawable/btn_back_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="个人简历"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/lg_text_size" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:orientation="vertical"
-            android:padding="@dimen/custom_padding">
+            android:layout_height="match_parent"
+            android:background="@color/colorGray"
+            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/user_default"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_below="@+id/top_bar"
-                android:layout_gravity="center"
-                android:padding="@dimen/custom_padding"
-                android:scaleType="centerCrop"
-                android:src="@drawable/icon_user_default" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="张协流"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/lg_text_size"
-                android:textStyle="bold" />
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                android:padding="@dimen/custom_padding">
 
-            <TextView
-                android:layout_width="wrap_content"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_avatar"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_below="@+id/top_bar"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/custom_padding"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_user_default" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="张协流"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/lg_text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/introduce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/lg_padding"
+                    android:text="良好的团队合作意识，乐于从事挑战性工作，喜欢研究新技术"
+                    android:textColor="@color/colorDarkWhite"
+                    android:textSize="@dimen/sm_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:padding="@dimen/lg_padding"
-                android:text="良好的团队合作意识，乐于从事挑战性工作，喜欢研究新技术"
-                android:textColor="@color/colorDarkWhite"
-                android:textSize="@dimen/sm_text_size" />
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:padding="@dimen/lg_text_size">
+
+                <TextView
+                    style="@style/resume_text_title"
+                    android:text="基本信息" />
+
+                <View style="@style/text_line" />
+
+                <TextView
+                    android:id="@+id/education"
+                    style="@style/resume_text"
+                    android:text="最高学历：本科" />
+
+                <TextView
+                    android:id="@+id/experience"
+                    style="@style/resume_text"
+                    android:text="工作年限：2年" />
+
+                <TextView
+                    android:id="@+id/birthDate"
+                    style="@style/resume_text"
+                    android:text="出生年份：1994.05" />
+
+                <TextView
+                    android:id="@+id/city"
+                    style="@style/resume_text"
+                    android:text="所在城市：广东广州" />
+
+                <TextView
+                    android:id="@+id/phone"
+                    style="@style/resume_text"
+                    android:text="联系电话：15627236834" />
+
+                <TextView
+                    android:id="@+id/email"
+                    style="@style/resume_text"
+                    android:text="联系邮箱：930168863@qq.com" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/custom_padding"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:padding="@dimen/lg_text_size">
+
+                <TextView
+                    style="@style/resume_text_title"
+                    android:text="工作经历" />
+
+                <View style="@style/text_line" />
+
+                <TextView
+                    android:id="@+id/workDate"
+                    style="@style/resume_text"
+                    android:text="2016.02-2017.03" />
+
+                <TextView
+                    android:id="@+id/companyName"
+                    style="@style/resume_text"
+                    android:text="北京千锋互联科技有限公司/JavaEE开发项目老师"
+                    android:textColor="@color/text_normal_color"
+                    android:textSize="@dimen/lg_text_size" />
+
+                <TextView
+                    style="@style/resume_text"
+                    android:text="工作内容：" />
+
+                <TextView
+                    android:id="@+id/workContent"
+                    style="@style/resume_text"
+                    android:text="校区教学管理系统的维护和搭建，公司内部OA系统的常用部署和建设，课下负责学员的课程和项目辅导，项目需求分析，项目的开发设计，课后作业讲解" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/custom_padding"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:padding="@dimen/lg_text_size">
+
+                <TextView
+                    style="@style/resume_text_title"
+                    android:text="项目经验" />
+
+                <View style="@style/text_line" />
+
+                <TextView
+                    android:id="@+id/projectDate"
+                    style="@style/resume_text"
+                    android:text="2016.02-2017.03" />
+
+                <TextView
+                    android:id="@+id/projectName"
+                    style="@style/resume_text"
+                    android:text="项目名称：人才招聘系统"
+                    android:textColor="@color/text_normal_color"
+                    android:textSize="@dimen/lg_text_size" />
+
+                <TextView
+                    android:id="@+id/projectRole"
+                    style="@style/resume_text"
+                    android:text="项目角色：Java后端开发" />
+
+                <TextView
+                    android:id="@+id/projectURL"
+                    style="@style/resume_text"
+                    android:text="项目URL：https://github.com/zhangxieliu/JobApp" />
+
+                <TextView
+                    style="@style/resume_text"
+                    android:text="项目内容：" />
+
+                <TextView
+                    android:id="@+id/projectContent"
+                    style="@style/resume_text"
+                    android:text="校区教学管理系统的维护和搭建，公司内部OA系统的常用部署和建设，课下负责学员的课程和项目辅导，项目需求分析，项目的开发设计，课后作业讲解" />
+
+                <TextView
+                    style="@style/resume_text"
+                    android:text="项目业绩：" />
+
+                <TextView
+                    android:id="@+id/projectPerformance"
+                    style="@style/resume_text"
+                    android:text="校区教学管理系统的维护和搭建，公司内部OA系统的常用部署和建设，课下负责学员的课程和项目辅导，项目需求分析，项目的开发设计，课后作业讲解" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/custom_padding"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:padding="@dimen/lg_text_size">
+
+                <TextView
+                    style="@style/resume_text_title"
+                    android:text="自我评价" />
+
+                <View style="@style/text_line" />
+
+                <TextView
+                    android:id="@+id/advantage"
+                    style="@style/resume_text"
+                    android:text="自我评价" />
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:orientation="vertical"
-            android:padding="@dimen/lg_text_size">
-
-            <TextView
-                style="@style/resume_text_title"
-                android:text="基本信息" />
-
-            <View style="@style/text_line" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="最高学历：本科" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="工作年限：2年" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="出生年份：1994.05" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="所在城市：广东广州" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="联系电话：15627236834" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="联系邮箱：930168863@qq.com" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/custom_padding"
-            android:background="@color/colorWhite"
-            android:orientation="vertical"
-            android:padding="@dimen/lg_text_size">
-
-            <TextView
-                style="@style/resume_text_title"
-                android:text="工作经历" />
-
-            <View style="@style/text_line" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="2016.02-2017.03" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="北京千锋互联科技有限公司/JavaEE开发项目老师"
-                android:textColor="@color/text_normal_color"
-                android:textSize="@dimen/lg_text_size" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="工作内容：" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="校区教学管理系统的维护和搭建，公司内部OA系统的常用部署和建设，课下负责学员的课程和项目辅导，项目需求分析，项目的开发设计，课后作业讲解" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/custom_padding"
-            android:background="@color/colorWhite"
-            android:orientation="vertical"
-            android:padding="@dimen/lg_text_size">
-
-            <TextView
-                style="@style/resume_text_title"
-                android:text="项目经验" />
-
-            <View style="@style/text_line" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="2016.02-2017.03" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="项目名称：人才招聘系统"
-                android:textColor="@color/text_normal_color"
-                android:textSize="@dimen/lg_text_size" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="项目角色：Java后端开发" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="项目URL：https://github.com/zhangxieliu/JobApp" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="项目内容：" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="校区教学管理系统的维护和搭建，公司内部OA系统的常用部署和建设，课下负责学员的课程和项目辅导，项目需求分析，项目的开发设计，课后作业讲解" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="项目业绩：" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="校区教学管理系统的维护和搭建，公司内部OA系统的常用部署和建设，课下负责学员的课程和项目辅导，项目需求分析，项目的开发设计，课后作业讲解" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/custom_padding"
-            android:background="@color/colorWhite"
-            android:orientation="vertical"
-            android:padding="@dimen/lg_text_size">
-
-            <TextView
-                style="@style/resume_text_title"
-                android:text="自我评价" />
-
-            <View style="@style/text_line" />
-
-            <TextView
-                style="@style/resume_text"
-                android:text="自我评价" />
-        </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

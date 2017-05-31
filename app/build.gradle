@@ -49,6 +49,9 @@ repositories {
     maven {
         url "https://jitpack.io"
     }
+    flatDir{
+        dirs 'libs' //就是你放aar的目录地址
+    }
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -137,4 +140,8 @@ dependencies {
     compile 'com.android.support:design:25.1.1'
 //    compile 'com.miguelcatalan:materialsearchview:1.4.0'
     compile 'com.github.arimorty:floatingsearchview:2.0.3'
+
+    // Mob短信验证码
+    compile name:'SMSSDK-2.1.4',ext:'aar'
+    compile name:'SMSSDKGUI-2.1.4',ext:'aar'
 }

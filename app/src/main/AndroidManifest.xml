@@ -26,9 +26,21 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!--录音-->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!--精准定位-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--粗略定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
+    <!--读取信息-->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!--读手机状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--接收短信-->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <!--读短信-->
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
         android:name=".MainApplication"
@@ -130,6 +142,13 @@
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="58d2702b5312ddab6b0003b9" />
+
+        <!--Mob短信验证-->
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
     </application>
 
 </manifest>

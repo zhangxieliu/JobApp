@@ -167,3 +167,10 @@
 -keep class com.blankj.utilcode.** { *; }
 -keepclassmembers class com.blankj.utilcode.** { *; }
 -dontwarn com.blankj.utilcode.**
+
+#Mob短信验证
+-keep class cn.smssdk.**{*;}
+-keep class com.mob.**{*;}
+
+-dontwarn com.mob.**
+-dontwarn cn.smssdk.**

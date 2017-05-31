@@ -6,6 +6,7 @@ import com.blankj.utilcode.utils.CrashUtils;
 import com.blankj.utilcode.utils.LogUtils;
 import com.blankj.utilcode.utils.Utils;
 import com.fosu.jobapp.controller.ChatMessageHandler;
+import com.fosu.jobapp.utils.CustomContact;
 import com.orhanobut.logger.Logger;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.io.FileReader;
 
 import cn.bmob.newim.BmobIM;
+import cn.smssdk.SMSSDK;
 
 /**
  * Created by Administrator on 2017/2/18.
@@ -58,6 +60,8 @@ public class MainApplication extends Application {
         Config.DEBUG = true;
         // 初始化友盟SDK
         UMShareAPI.get(this);
+        // 初始化Mob短信验证
+        SMSSDK.initSDK(this, CustomContact.MOB_APP_KEY, CustomContact.MOB_APP_SECRET);
     }
 
     {
